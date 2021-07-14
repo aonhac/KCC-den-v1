@@ -88,6 +88,7 @@ const TransferButton: React.FunctionComponent<TransferButtonProps> = ({
   }, [selectedPairInfo])
 
   const allStatus = React.useMemo(() => {
+    console.log(checkList)
     const keys = Reflect.ownKeys(checkList)
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i]
@@ -189,7 +190,7 @@ const TransferButton: React.FunctionComponent<TransferButtonProps> = ({
     )
   }
 
-  if (!allStatus) {
+  if (!allStatus || amount === '') {
     let key = ''
     if (amount === '' || !checkList.amount) {
       key = `Invalid number`

@@ -20,6 +20,7 @@ import { find } from 'lodash'
 import moment from 'moment'
 import { theme } from '../../constants/theme'
 import { ColumnCenter } from '../../components/Column/index'
+import { useInterval } from '../../hooks/useInterval'
 
 export interface BridgeListPageProps {}
 
@@ -277,12 +278,12 @@ const BridgeListPage: React.FunctionComponent<BridgeListPageProps> = () => {
 
   const history = useHistory()
 
-  const getUnconfirmedFromLocal = (list: History[], unconfirmOrderList: UnconfirmOrderListType[]) => {
+  const getUnconfirmedFromLocal = (list: History[], localList: UnconfirmOrderListType[]) => {
     // remove confirmed list
     const unconfirmed: UnconfirmOrderListType[] = []
-    for (let i = 0; i < unconfirmOrderList.length; i++) {
-      if (!find(list, { srcTxHash: unconfirmOrderList[i].saveHash })) {
-        unconfirmed.push(unconfirmOrderList[i])
+    for (let i = 0; i < localList.length; i++) {
+      if (!find(list, { srcTxHash: localList[i].saveHash })) {
+        unconfirmed.push(localList[i])
       }
     }
     return unconfirmed
@@ -290,10 +291,10 @@ const BridgeListPage: React.FunctionComponent<BridgeListPageProps> = () => {
 
   const pageSize = 4
 
-  const getHistoryList = async () => {
+  const getHistoryList = async (needLoading?: boolean) => {
     if (!account) return
     try {
-      setLoading(() => true)
+      needLoading && setLoading(() => true)
       const res = await BridgeService.transitionList(account, 1, currentPage, pageSize)
       const data = res.data.data
       if (data) {
@@ -321,11 +322,25 @@ const BridgeListPage: React.FunctionComponent<BridgeListPageProps> = () => {
   }
 
   React.useEffect(() => {
-    getHistoryList()
-  }, [currentPage])
+    getHistoryList(true)
+  }, [])
+
+  const hasUnconfirmOrder = React.useMemo(() => {
+    for (let i = 0; i < history.length; i++) {
+      if (historyList[i]?.status !== 'SUCCESS') {
+        return true
+      }
+    }
+    return false
+  }, [historyList])
+
+  useInterval(() => {
+    hasUnconfirmOrder && getHistoryList(true)
+  }, 1000 * 10)
 
   const pageNumberChange = (pageNumber: number) => {
     setCurrentPage(() => pageNumber)
+    getHistoryList(true)
   }
 
   const nav2transfer = () => {

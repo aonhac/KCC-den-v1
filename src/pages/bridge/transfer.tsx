@@ -29,6 +29,7 @@ import {
 } from '../../state/bridge/hooks'
 import Web3 from 'web3'
 import { BridgeService } from '../../api/bridge'
+import { theme } from '../../constants/theme'
 
 export enum ListType {
   'WHITE',
@@ -86,6 +87,13 @@ const ReceiveText = styled.span`
   font-weight: 400;
   color: #00003a;
 `
+
+export const NoFeeText = styled(ReceiveText)`
+  text-decoration: line-through;
+  padding: 0px 5px;
+  color: #000;
+`
+
 const ReceiveAmountText = styled(ReceiveText)`
   font-weight: bold;
 `
@@ -649,10 +657,13 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
               <Box style={{ textAlign: 'right' }}>
                 <ReceiveText style={{ marginLeft: '10px' }}>{t(`Transfer fee`)}: </ReceiveText>
                 {!swapFeeLoading ? (
-                  <ReceiveAmountText>
-                    {new BN(swapFee).div(Math.pow(10, selectedNetworkInfo?.decimals)).toNumber().toString() ?? '0'}
-                    {selectedNetworkInfo?.symbol.toUpperCase()}
-                  </ReceiveAmountText>
+                  <>
+                    {selectedNetworkInfo?.fee ? <NoFeeText>{selectedNetworkInfo?.fee}</NoFeeText> : null}
+                    <ReceiveAmountText style={{ color: theme.colors.bridgePrimay }}>
+                      {new BN(swapFee).div(Math.pow(10, selectedNetworkInfo?.decimals)).toNumber().toString() ?? '0'}
+                      {selectedNetworkInfo?.symbol.toUpperCase()}
+                    </ReceiveAmountText>
+                  </>
                 ) : (
                   <LoadingOutlined
                     style={{

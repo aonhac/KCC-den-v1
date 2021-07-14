@@ -4,8 +4,7 @@ import { useTranslation } from 'react-i18next'
 import ChainBridge from '../../components/ChainBridge'
 import { BaseButton } from '../../components/TransferButton'
 import ConfirmItem from '../../components/ConfirmItem'
-import { TransferOrder, TransferWrap } from './transfer'
-import { useHistory } from 'react-router'
+import { NoFeeText, TransferOrder, TransferWrap } from './transfer'
 import { Tooltip } from 'antd'
 import BridgeTitlePanel from '../../components/BridgeTitlePanel/index'
 import { getPairInfo, getNetworkInfo } from '../../utils/index'
@@ -17,6 +16,7 @@ import BN from 'bignumber.js'
 import useLocalStorageState from 'react-use-localstorage'
 import { UnconfirmOrderKey } from '../../utils/task'
 import { PairInfo } from '../../state/bridge/reducer'
+import { useHistory } from 'react-router-dom'
 
 export enum ChainBridgeType {
   'DISPLAY',
@@ -75,8 +75,6 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
 
   const { library, account } = useWeb3React()
 
-  const router = useHistory()
-
   const history = useHistory()
 
   const [unconfirmOrderList, setUnconfirmOrderList] = useLocalStorageState(UnconfirmOrderKey)
@@ -101,7 +99,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
 
   React.useEffect(() => {
     if (!account) {
-      router.push('/bridge/transfer')
+      history.push('/bridge/transfer')
     }
   }, [])
 
@@ -223,6 +221,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
           />
           <ConfirmItem title={t('Transfer fee')}>
             <FeeAmmount>
+              {networkInfo?.fee ? <NoFeeText>{networkInfo?.fee}</NoFeeText> : null}
               {`${new BN(order.fee)
                 .div(Math.pow(10, networkInfo.decimals))
                 .toString()} ${networkInfo.symbol.toUpperCase()}`}

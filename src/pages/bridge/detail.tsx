@@ -8,9 +8,10 @@ import { CenterRow } from '../../components/Row/index'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from '../../hooks/useQuery'
 import { Base64 } from '../../utils/base64'
-import { History } from './list'
 import { getNetworkInfo, getPairInfo } from '../../utils/index'
-import { UnconfirmOrderListType } from './confirm'
+import { BridgeService } from '../../api/bridge'
+import { useWeb3React } from '@web3-react/core'
+import { useInterval } from '../../hooks/useInterval'
 
 export interface BridgeDetailPageProps {}
 
@@ -151,6 +152,8 @@ const ProcessingIcon = require('../../assets/images/bridge/in-process.png').defa
 const BridgeDetailPage: React.FunctionComponent<BridgeDetailPageProps> = (props) => {
   const { t } = useTranslation()
 
+  const { account } = useWeb3React()
+
   const icon = (current: number, nth: number) => {
     return <StepIcon src={nth < current ? SuccessIcon : ProcessingIcon} />
   }
@@ -159,18 +162,11 @@ const BridgeDetailPage: React.FunctionComponent<BridgeDetailPageProps> = (props)
   const [statusText1, setStatusText1] = React.useState<string>('')
   const [percent2, setPercent2] = React.useState<number>(0)
   const [statusText2, setStatusText2] = React.useState<string>('')
+  const [order, setOrder] = React.useState<any>(null)
 
   const history = useHistory()
 
   const query = useQuery()
-
-  let order: any
-  try {
-    order = JSON.parse(Base64.decode(query.get('o')))
-  } catch {
-    console.log('parse url error')
-    history.push('/bridge/list')
-  }
 
   const network = React.useMemo(() => {
     const selectedPairInfo = getPairInfo(order?.pairId as any)
@@ -227,6 +223,38 @@ const BridgeDetailPage: React.FunctionComponent<BridgeDetailPageProps> = (props)
   const nav2Scan = (url: string) => {
     window.open(url, '_blank')
   }
+
+  const getTransactionDetail = async (account: string, hash: string) => {
+    let localOrder: any = null
+    try {
+      localOrder = JSON.parse(Base64.decode(query.get('o')))
+    } catch {
+      console.log('parse url error')
+      history.push('/bridge/list')
+    }
+    try {
+      const res = await BridgeService.transitionList(account, 1, 1, 1, hash)
+      console.log(res.data?.data?.list)
+      if (res.data?.data?.list?.length) {
+        setOrder(() => res.data.data.list[0])
+      } else {
+        setOrder(() => localOrder)
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  useInterval(() => {
+    if (!account) return
+    const hash = order?.srcTxHash ?? order?.saveHash
+    order?.status !== 'SUCCESS' && getTransactionDetail(account, hash)
+  }, 1000 * 15)
+
+  React.useEffect(() => {
+    const hash = JSON.parse(Base64.decode(query.get('o')))?.saveHash
+    getTransactionDetail(account as any, hash)
+  }, [])
 
   return (
     <BridgeDetaiPageWrap>

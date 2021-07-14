@@ -22,6 +22,7 @@ export const networks = {
     logo: 'https://cdn.jsdelivr.net/gh/kucoin-community-chain/tokens-info@main/icons/chain-1.png',
     bridgeCoreAddress: '0x6b9862e7e0203f7D2640E246A15EA961737489b0',
     standard: 'ERC20',
+    fee: 0.01,
   },
   4: {
     name: 'Rinkeby',
@@ -34,6 +35,7 @@ export const networks = {
     logo: 'https://cdn.jsdelivr.net/gh/kucoin-community-chain/tokens-info@main/icons/chain-1.png',
     bridgeCoreAddress: '0xA976440272c709C69970A40cb9249BfAa4759A7A',
     standard: 'ERC20',
+    fee: 0.01,
   },
   321: {
     name: 'KCC-MAINNET',
@@ -74,6 +76,7 @@ export interface NetworkType {
   logo: string
   bridgeCoreAddress: string
   standard: string
+  fee?: number
 }
 
 export interface AddEthereumChainParameter {

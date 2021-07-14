@@ -51,6 +51,9 @@ export const ErrorText = styled.span`
   font-family: URWDIN-Regular;
   color: #f00;
   font-size: 12px;
+  flex: 1;
+  width: 400px;
+  text-align: right;
 `
 export enum TransferType {
   'NATIVE',
@@ -102,6 +105,8 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
         return t(`Insufficient transfer fee`)
       case 'minAmountText':
         return t(`The minimum exchange quantity is`) + ' ' + new BN(pairInfo?.min ?? 0).toNumber().toString()
+      case 'maxAmountText':
+        return t(`The maximum exchange quantity is`) + ' ' + new BN(pairInfo?.max ?? 0).toNumber().toString()
       case 'insufficienBridgeText':
         return t(`Input amount is bigger than bridge available balance`)
       case 'lessThanFeeText':
@@ -120,8 +125,8 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
 
   const hasSufficientSwapFee = () => {
     if (!account || !pairInfo) return false
-    console.log('swapfee', swapFee)
-    console.log('available', available)
+    /*  console.log('swapfee', swapFee)
+    console.log('available', available) */
     // native check
     if (pairInfo.srcChainInfo.tag === 0) {
       if (new BN(swapFee).gte(available)) {
@@ -201,21 +206,16 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
   }
 
   const changeAmount = (e: any) => {
+    console.log(e?.target?.value, typeof e?.target?.value)
+
     if (!pairInfo?.srcChainInfo) return
 
     const input = typeof e === 'string' ? e : e.target.value.trim()
-    const numberAmount = new BN(input).multipliedBy(Math.pow(10, pairInfo?.srcChainInfo.decimals)).toNumber()
     const inputAmount = new BN(input).multipliedBy(Math.pow(10, pairInfo?.srcChainInfo.decimals)).toString()
 
     const decimal = getDecimals(input)
 
-    // init true
-    updateAddressStatus(true)
-
-    if (!account) {
-      // no check
-      updateAddressStatus(true)
-    } else if (input[0] === '.' || numberAmount <= 0) {
+    if (input[0] === '.') {
       // invalid number format
       updateAddressStatus(false, setErrorInfoPrehandle('errorFormatText'))
     } else if (decimalsLimit && decimal > decimalsLimit) {
@@ -244,10 +244,16 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
     supplyLoading,
   ])
 
+  const keyPress = (e: any) => {
+    if (e.key === '-') {
+      e.preventDefault()
+    }
+  }
+
   return (
     <AmountInputWrap>
       <TextWrap>
-        <BridgeTitle>{t(`Amount`)}</BridgeTitle>
+        <BridgeTitle style={{ width: '100px' }}>{t(`Amount`)}</BridgeTitle>
         {!checkList.amount && account && !swapFeeLoading && !supplyLoading && !availabelLoading ? (
           <ErrorText> * {errorInfo}</ErrorText>
         ) : null}
@@ -256,7 +262,9 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
         value={amount}
         maxLength={8}
         type="number"
-        onChange={changeAmount}
+        min={0}
+        onInput={changeAmount}
+        onKeyPress={keyPress}
         style={{ background: '#F5F5F6' }}
         suffix={<SuffixText>{currency.symbol.toUpperCase()}</SuffixText>}
       />

@@ -34,7 +34,13 @@ export class BridgeService {
     })
   }
 
-  static transitionList(address: string, start: number, page: number, limit = 50): Promise<HttpResponse<any>> {
+  static transitionList(
+    address: string,
+    start: number,
+    page: number,
+    limit = 50,
+    hash = ''
+  ): Promise<HttpResponse<any>> {
     return Axios({
       method: 'get',
       url: '/trans/list',
@@ -43,6 +49,7 @@ export class BridgeService {
         start,
         page,
         limit,
+        srcTxHash: hash,
       },
     })
   }
