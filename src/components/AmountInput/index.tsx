@@ -215,13 +215,7 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
 
     const decimal = getDecimals(input)
 
-    // init true
-    updateAddressStatus(true)
-
-    if (!account) {
-      // no check
-      updateAddressStatus(true)
-    } else if (input[0] === '.') {
+    if (input[0] === '.') {
       // invalid number format
       updateAddressStatus(false, setErrorInfoPrehandle('errorFormatText'))
     } else if (decimalsLimit && decimal > decimalsLimit) {

@@ -278,12 +278,12 @@ const BridgeListPage: React.FunctionComponent<BridgeListPageProps> = () => {
 
   const history = useHistory()
 
-  const getUnconfirmedFromLocal = (list: History[], unconfirmOrderList: UnconfirmOrderListType[]) => {
+  const getUnconfirmedFromLocal = (list: History[], localList: UnconfirmOrderListType[]) => {
     // remove confirmed list
     const unconfirmed: UnconfirmOrderListType[] = []
-    for (let i = 0; i < unconfirmOrderList.length; i++) {
-      if (!find(list, { srcTxHash: unconfirmOrderList[i].saveHash })) {
-        unconfirmed.push(unconfirmOrderList[i])
+    for (let i = 0; i < localList.length; i++) {
+      if (!find(list, { srcTxHash: localList[i].saveHash })) {
+        unconfirmed.push(localList[i])
       }
     }
     return unconfirmed
@@ -325,7 +325,18 @@ const BridgeListPage: React.FunctionComponent<BridgeListPageProps> = () => {
     getHistoryList(true)
   }, [])
 
-  const autoFresh = useInterval(getHistoryList, 1000 * 10)
+  const hasUnconfirmOrder = React.useMemo(() => {
+    for (let i = 0; i < history.length; i++) {
+      if (historyList[i]?.status !== 'SUCCESS') {
+        return true
+      }
+    }
+    return false
+  }, [historyList])
+
+  useInterval(() => {
+    hasUnconfirmOrder && getHistoryList(true)
+  }, 1000 * 10)
 
   const pageNumberChange = (pageNumber: number) => {
     setCurrentPage(() => pageNumber)
