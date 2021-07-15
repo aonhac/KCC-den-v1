@@ -5,7 +5,7 @@ import ChainBridge from '../../components/ChainBridge'
 import { BaseButton } from '../../components/TransferButton'
 import ConfirmItem from '../../components/ConfirmItem'
 import { NoFeeText, TransferOrder, TransferWrap } from './transfer'
-import { Tooltip } from 'antd'
+import { notification, Tooltip } from 'antd'
 import BridgeTitlePanel from '../../components/BridgeTitlePanel/index'
 import { getPairInfo, getNetworkInfo } from '../../utils/index'
 import { getBridgeContract } from '../../utils/contract'
@@ -17,6 +17,8 @@ import useLocalStorageState from 'react-use-localstorage'
 import { UnconfirmOrderKey } from '../../utils/task'
 import { PairInfo } from '../../state/bridge/reducer'
 import { useHistory } from 'react-router-dom'
+import { useBridgeLoading } from '../../state/application/hooks'
+import i18next from 'i18next'
 
 export enum ChainBridgeType {
   'DISPLAY',
@@ -78,6 +80,8 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
   const history = useHistory()
 
   const [unconfirmOrderList, setUnconfirmOrderList] = useLocalStorageState(UnconfirmOrderKey)
+
+  const bridgeLoading = useBridgeLoading()
 
   let orderRaw: TransferOrder
 
@@ -147,11 +151,16 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
         saveUnconfirmOrder(order, hash)
       })
       .once('confirmation', (confirmations: number) => {
-        dispatch(updateBridgeLoading({ visible: true, status: 1 }))
-        setTimeout(() => {
+        if (bridgeLoading.visible) {
+          dispatch(updateBridgeLoading({ visible: true, status: 1 }))
+          setTimeout(() => {
+            dispatch(updateBridgeLoading({ visible: false, status: 0 }))
+            history.push('/bridge/list')
+          }, 2000)
+        } else {
           dispatch(updateBridgeLoading({ visible: false, status: 0 }))
-          history.push('/bridge/list')
-        }, 2000)
+          notification.success({ message: i18next.t(`App Tips`), description: i18next.t(`Transaction Confirmed`) })
+        }
       })
       .on('error', () => {
         dispatch(updateBridgeLoading({ visible: false, status: 0 }))
@@ -176,11 +185,16 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
       })
       .once('confirmation', (confirmations: number) => {
         console.log(confirmations)
-        dispatch(updateBridgeLoading({ visible: true, status: 1 }))
-        setTimeout(() => {
+        if (bridgeLoading.visible) {
+          dispatch(updateBridgeLoading({ visible: true, status: 1 }))
+          setTimeout(() => {
+            dispatch(updateBridgeLoading({ visible: false, status: 0 }))
+            history.push('/bridge/list')
+          }, 2000)
+        } else {
           dispatch(updateBridgeLoading({ visible: false, status: 0 }))
-          history.push('/bridge/list')
-        }, 2000)
+          notification.success({ message: i18next.t(`App Tips`), description: i18next.t(`Transaction Confirmed`) })
+        }
       })
       .on('error', () => {
         dispatch(updateBridgeLoading({ visible: false, status: 0 }))

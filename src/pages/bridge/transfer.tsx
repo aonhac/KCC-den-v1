@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
-import { Input } from 'antd'
+import { Input, notification } from 'antd'
 import SelectToken from '../../components/SelectToken/SelectToken'
 import ChainBridge, { Box } from '../../components/ChainBridge'
 import AmountInput, { ErrorText, TextWrap } from '../../components/AmountInput'
@@ -30,6 +30,8 @@ import {
 import Web3 from 'web3'
 import { BridgeService } from '../../api/bridge'
 import { theme } from '../../constants/theme'
+import { useBridgeLoading } from '../../state/application/hooks'
+import i18next from 'i18next'
 
 export enum ListType {
   'WHITE',
@@ -175,6 +177,8 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
   const history = useHistory()
 
   const { srcChainIds, distChainIds } = useTokenSupporChain()
+
+  const bridgeLoaing = useBridgeLoading()
 
   // the status list of transfer asset rules
   const [checkList, setCheckList] = React.useState<typeof statusList>(statusList)
@@ -532,15 +536,19 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
           dispatch(updateBridgeLoading({ visible: true, status: 0 }))
         })
         .once('confirmation', (confirmations: number) => {
-          console.log(confirmations)
-          dispatch(updateBridgeLoading({ visible: true, status: 1 }))
-          setTimeout(() => {
-            setCheckList((list) => {
-              return { ...list, approve: true }
-            })
+          setCheckList((list) => {
+            return { ...list, approve: true }
+          })
+          generateOrderAndConfirm()
+          if (bridgeLoaing.visible) {
+            dispatch(updateBridgeLoading({ visible: true, status: 1 }))
+            setTimeout(() => {
+              dispatch(updateBridgeLoading({ visible: false, status: 0 }))
+            }, 2000)
+          } else {
             dispatch(updateBridgeLoading({ visible: false, status: 0 }))
-            generateOrderAndConfirm()
-          }, 2000)
+            notification.success({ message: i18next.t(`App Tips`), description: i18next.t(`Approved Success`) })
+          }
         })
         .on('error', () => {
           dispatch(updateBridgeLoading({ visible: false, status: 0 }))
