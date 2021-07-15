@@ -295,7 +295,7 @@ const BridgeListPage: React.FunctionComponent<BridgeListPageProps> = () => {
     if (!account) return
     try {
       needLoading && setLoading(() => true)
-      const res = await BridgeService.transitionList(account, 1, currentPage, pageSize)
+      const res = await BridgeService.transitionList(account, currentPage, pageSize)
       const data = res.data.data
       if (data) {
         //  need merge local unconfirm list
