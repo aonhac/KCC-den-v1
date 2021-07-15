@@ -2,7 +2,11 @@ import React, { lazy } from 'react'
 import { Route, Switch, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
-import { BridgeHistoryList, BridgeOrderDetail, BridgeTransfer, BridgeOrderConfirm } from '../../App'
+
+import BridgeTransfer from './transfer'
+import BridgeHistoryList from './list'
+import BridgeOrderDetail from './detail'
+import BridgeOrderConfirm from './confirm'
 
 import { useConnectWalletModalShow } from '../../state/wallet/hooks'
 import WalletListModal from '../../components/WalletListModal'

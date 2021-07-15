@@ -20,7 +20,7 @@ export const MAIN_NETWORKS = {
     symbol: 'ETH',
     browser: 'https://etherscan.io',
     logo: 'https://cdn.jsdelivr.net/gh/kucoin-community-chain/tokens-info@main/icons/chain-1.png',
-    bridgeCoreAddress: '0x6b9862e7e0203f7D2640E246A15EA961737489b0',
+    bridgeCoreAddress: '0xe61dd9cA7364225aFBFB79e15AD33864424e6aE4',
     standard: 'ERC20',
     fee: 0.01,
   },
@@ -33,7 +33,7 @@ export const MAIN_NETWORKS = {
     symbol: 'KCS',
     browser: 'https://explorer.kcc.io',
     logo: 'https://cdn.jsdelivr.net/gh/kucoin-community-chain/tokens-info@main/icons/chain-321.png',
-    bridgeCoreAddress: '0x6b9862e7e0203f7D2640E246A15EA961737489b0',
+    bridgeCoreAddress: '0xe61dd9cA7364225aFBFB79e15AD33864424e6aE4',
     standard: 'KRC20',
   },
 }
