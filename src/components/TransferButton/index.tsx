@@ -198,7 +198,7 @@ const TransferButton: React.FunctionComponent<TransferButtonProps> = ({
       key = `Get account available balance failed`
     } else {
       // not approve
-      if (!checkList.approve) {
+      if (!checkList.approve && amount !== '') {
         return (
           <TransferButtonWrap>
             <BaseButton onClick={applyApprove}>{t(`Approved`)}</BaseButton>
