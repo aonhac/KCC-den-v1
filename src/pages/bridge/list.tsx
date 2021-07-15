@@ -313,7 +313,6 @@ const BridgeListPage: React.FunctionComponent<BridgeListPageProps> = () => {
         } else {
           setHistoryList(() => [...data.list])
         }
-
         setTotalPage(() => data.total)
       }
     } finally {
@@ -327,7 +326,10 @@ const BridgeListPage: React.FunctionComponent<BridgeListPageProps> = () => {
 
   const hasUnconfirmOrder = React.useMemo(() => {
     for (let i = 0; i < history.length; i++) {
-      if (historyList[i]?.status !== 'SUCCESS') {
+      if (historyList[i]?.status === undefined) {
+        continue
+      }
+      if (historyList[i]?.status !== 'SUCCESS' && historyList[i]?.status !== 'CANCELLED') {
         return true
       }
     }
@@ -335,7 +337,9 @@ const BridgeListPage: React.FunctionComponent<BridgeListPageProps> = () => {
   }, [historyList])
 
   useInterval(() => {
-    hasUnconfirmOrder && getHistoryList(true)
+    if (hasUnconfirmOrder) {
+      getHistoryList(true)
+    }
   }, 1000 * 10)
 
   const pageNumberChange = (pageNumber: number) => {

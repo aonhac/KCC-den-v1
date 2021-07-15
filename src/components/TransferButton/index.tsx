@@ -131,9 +131,9 @@ const TransferButton: React.FunctionComponent<TransferButtonProps> = ({
               },
             ],
           })
-          if (selectedNetworkInfo.chain_id === 321) {
+          /*  if (selectedNetworkInfo.chain_id === 321) {
             window.location.reload()
-          }
+          } */
         } catch (addError) {
           message.error(addError)
         }

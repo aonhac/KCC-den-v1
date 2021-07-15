@@ -5,15 +5,13 @@ import { LanguageButton } from '../ChangeLanguage/index'
 import { useWeb3React } from '@web3-react/core'
 import { shortAddress } from '../../utils/format'
 import { useTranslation } from 'react-i18next'
-import { useWalletErrorInfo, useConnectWalletModalShow } from '../../state/wallet/hooks'
+import { useWalletErrorInfo } from '../../state/wallet/hooks'
 import LogoutModal from '../LogoutModal'
-import WalletListModal from '../WalletListModal'
 import { useDispatch } from 'react-redux'
-import { toggleConnectWalletModalShow, updateErrorInfo } from '../../state/wallet/actions'
-import { ChainIds } from '../../connectors/index'
+import { toggleConnectWalletModalShow } from '../../state/wallet/actions'
 import { getNetworkInfo } from '../../utils/index'
 import { CenterRow } from '../Row/index'
-import { Badge, notification, Dropdown } from 'antd'
+import { Badge, Dropdown } from 'antd'
 import { AlertOutlined } from '@ant-design/icons'
 import NetworkList from '../NetworkList'
 
@@ -76,7 +74,6 @@ const UnlockButton: React.FunctionComponent = () => {
   }
 
   const selectedNetworkInfo = React.useMemo(() => {
-    console.log('chainId', chainId)
     return getNetworkInfo(chainId as any)
   }, [chainId])
 

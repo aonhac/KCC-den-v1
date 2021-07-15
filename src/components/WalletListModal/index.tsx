@@ -10,9 +10,12 @@ import { theme } from '../../constants/theme'
 import { ConnectorNames, WalletList } from '../../constants/wallet'
 import useAuth from '../../hooks/useAuth'
 import { useDispatch } from 'react-redux'
-import { useConnectWalletModalShow } from '../../state/wallet/hooks'
+import { useConnectWalletModalShow, useWalletErrorInfo } from '../../state/wallet/hooks'
 import { toggleConnectWalletModalShow } from '../../state/wallet/actions'
 import { updateBridgeLoading } from '../../state/application/actions'
+import { useCurrentPairId } from '../../state/bridge/hooks'
+import { switchNetwork } from '../../utils/wallet'
+import { getNetworkInfo, getPairInfo } from '../../utils/index'
 
 export interface WalletListModalProps {
   visible: boolean
@@ -116,6 +119,16 @@ const WalletListModal: React.FunctionComponent<WalletListModalProps> = ({ visibl
 
   const dispatch = useDispatch()
 
+  const error = useWalletErrorInfo()
+
+  const currentPairId = useCurrentPairId()
+
+  const pairInfo = React.useMemo(() => {
+    if (currentPairId > 0) {
+      return getPairInfo(currentPairId)
+    }
+  }, [currentPairId])
+
   const initViewer = () => {
     const container = document.getElementById('metamask') as HTMLElement
     if (visible && container) {
@@ -144,15 +157,13 @@ const WalletListModal: React.FunctionComponent<WalletListModalProps> = ({ visibl
       switch (selectedId) {
         case 0:
           dispatch(updateBridgeLoading({ visible: true, status: 0 }))
+          // switch supported chain first
+          if (error.hasError) {
+            await switchNetwork(pairInfo?.srcChainInfo.chainId ?? 321)
+          }
           await login(ConnectorNames.Injected)
           dispatch(toggleConnectWalletModalShow({ show: false }))
           dispatch(updateBridgeLoading({ visible: false, status: 0 }))
-          /* dispatch(updateBridgeLoading({ visible: false, status: 1 }))
-          dispatch(updateBridgeLoading({ visible: true, status: 1 }))
-          timer = setTimeout(() => {
-            dispatch(updateBridgeLoading({ visible: false, status: 0 }))
-            dispatch(toggleConnectWalletModalShow({ show: false }))
-          }, 1000) */
           break
         default:
           console.log('No wallet is valid')
