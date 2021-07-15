@@ -14,6 +14,7 @@ import { CenterRow } from '../Row/index'
 import { Badge, Dropdown } from 'antd'
 import { AlertOutlined } from '@ant-design/icons'
 import NetworkList from '../NetworkList'
+import i18next from 'i18next'
 
 const ConnectButton = styled(LanguageButton)`
   width: auto;
@@ -87,7 +88,7 @@ const UnlockButton: React.FunctionComponent = () => {
         <Dropdown overlay={<NetworkList />}>
           <ErrorButton>
             <AlertOutlined style={{ fontSize: '16px', color: '#fff', margin: '-2px 5px 0px 5px' }} />
-            <Text>{t(`${errorInfo}`)}</Text>
+            <Text>{i18next.t(`${errorInfo}`)}</Text>
           </ErrorButton>
         </Dropdown>
       )

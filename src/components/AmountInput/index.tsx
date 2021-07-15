@@ -161,8 +161,8 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
 
     // check native
     if (pair.srcChainInfo.tag === 0) {
-      // available > input + fee
-      if (new BN(inputAmount).plus(swapFee).gt(available)) {
+      // available > input
+      if (new BN(inputAmount).gte(available)) {
         updateAddressStatus(false, setErrorInfoPrehandle('insufficientText'))
         return
       }

@@ -14,6 +14,7 @@ import { connectorsByName } from '../connectors'
 import { updateErrorInfo } from '../state/wallet/actions'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
+import i18next from 'i18next'
 
 /* 连接和断开钱包连接 */
 const useAuth = () => {
@@ -32,8 +33,8 @@ const useAuth = () => {
           dispatch(updateErrorInfo({ hasError: true, errorInfo: 'Unsupported Network' }))
         } else if (error instanceof NoEthereumProviderError) {
           notification.error({
-            message: t('Provider Error'),
-            description: t('No provider was found'),
+            message: i18next.t('Provider Error'),
+            description: i18next.t('No provider was found'),
           })
           dispatch(updateErrorInfo({ hasError: true, errorInfo: 'Provider Error' }))
         } else if (
@@ -45,22 +46,22 @@ const useAuth = () => {
             walletConnector.walletConnectProvider = null
           }
           notification.error({
-            message: t('Authorization Error'),
-            description: t('Please authorize to access your account'),
+            message: i18next.t('Authorization Error'),
+            description: i18next.t('Please authorize to access your account'),
           })
           dispatch(updateErrorInfo({ hasError: true, errorInfo: 'Authorization Error' }))
         } else {
           notification.error({
-            message: t(`Unkown Error`),
-            description: t(`${error.message}`),
+            message: i18next.t(`Unkown Error`),
+            description: i18next.t(`${error.message}`),
           })
           dispatch(updateErrorInfo({ hasError: true, errorInfo: t(`Unkown Error`) }))
         }
       })
     } else {
       notification.error({
-        message: t("Can't find connector"),
-        description: t('The connector config is wrong'),
+        message: i18next.t("Can't find connector"),
+        description: i18next.t('The connector config is wrong'),
       })
       dispatch(updateErrorInfo({ hasError: true, errorInfo: "Can't find connector" }))
     }
