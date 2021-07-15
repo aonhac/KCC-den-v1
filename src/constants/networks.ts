@@ -1,4 +1,4 @@
-export const networks = {
+export const MAIN_NETWORKS = {
   0: {
     name: 'No Available Network',
     fullName: 'No Available Network',
@@ -24,6 +24,21 @@ export const networks = {
     standard: 'ERC20',
     fee: 0.01,
   },
+  321: {
+    name: 'KCC-MAINNET',
+    fullName: 'KCC Mainnet Network',
+    rpc: 'https://rpc-mainnet.kcc.network',
+    chain_id: 321,
+    decimals: 18,
+    symbol: 'KCS',
+    browser: 'https://explorer.kcc.io',
+    logo: 'https://cdn.jsdelivr.net/gh/kucoin-community-chain/tokens-info@main/icons/chain-321.png',
+    bridgeCoreAddress: '0x6b9862e7e0203f7D2640E246A15EA961737489b0',
+    standard: 'KRC20',
+  },
+}
+
+const TEST_NETWORKS = {
   4: {
     name: 'Rinkeby',
     fullName: 'Rinkeby Network',
@@ -36,18 +51,6 @@ export const networks = {
     bridgeCoreAddress: '0xA976440272c709C69970A40cb9249BfAa4759A7A',
     standard: 'ERC20',
     fee: 0.01,
-  },
-  321: {
-    name: 'KCC-MAINNET',
-    fullName: 'KCC Mainnet Network',
-    rpc: 'https://rpc-mainnet.kcc.network',
-    chain_id: 321,
-    decimals: 18,
-    symbol: 'KCS',
-    browser: 'https://explorer.kcc.io',
-    logo: 'https://cdn.jsdelivr.net/gh/kucoin-community-chain/tokens-info@main/icons/chain-321.png',
-    bridgeCoreAddress: '0x6b9862e7e0203f7D2640E246A15EA961737489b0',
-    standard: 'KRC20',
   },
   322: {
     name: 'KCC-TEST',
@@ -62,6 +65,8 @@ export const networks = {
     standard: 'KRC20',
   },
 }
+
+export const networks = process.env.NODE_ENV === 'production' ? MAIN_NETWORKS : { ...MAIN_NETWORKS, ...TEST_NETWORKS }
 
 export const KCC_NETWORK_IDS = [322, 321]
 

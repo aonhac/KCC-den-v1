@@ -409,7 +409,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
       }
     }
     callback()
-  }, [chainId, account, selectedPairInfo])
+  }, [account, selectedPairInfo])
 
   /**
    * @description get approve status of pairInfo
