@@ -133,8 +133,8 @@ const BridgePage: React.FunctionComponent<BridgePageProps> = ({ children }) => {
       ethereum.on('chainChanged', handleChainChanged)
     }
     return () => {
-      if (!window.ethereum) return
-      window.ethereum.removeListener('chainChanged', handleChainChanged)
+      if (!window?.ethereum) return
+      window?.ethereum.removeListener('chainChanged', handleChainChanged)
     }
   }, [])
 

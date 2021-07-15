@@ -208,11 +208,11 @@ const BridgeDetailPage: React.FunctionComponent<BridgeDetailPageProps> = (props)
     if (order?.status === 'SUCCESS' || order?.status === 'CONFRIMED') {
       return 3
     } else if (statusText1 === 'Process') {
-      return 1
+      return 0
     } else if (statusText1 === 'Completed' || order?.status === 'CANCELLED') {
       return 2
     } else {
-      return 0
+      return 1
     }
   }, [statusText1, statusText2, order])
 

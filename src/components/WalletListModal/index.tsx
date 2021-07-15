@@ -217,7 +217,7 @@ const WalletListModal: React.FunctionComponent<WalletListModalProps> = ({ visibl
         </WalletItem>
         {walletList}
         <MoreWalletItem>
-          <Name>Come Soon...</Name>
+          <Name>{t(`Coming Soon...`)}</Name>
           <EllipsisOutlined />
         </MoreWalletItem>
       </WalletListWrap>
