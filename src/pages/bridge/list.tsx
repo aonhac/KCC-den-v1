@@ -344,8 +344,11 @@ const BridgeListPage: React.FunctionComponent<BridgeListPageProps> = () => {
 
   const pageNumberChange = (pageNumber: number) => {
     setCurrentPage(() => pageNumber)
-    getHistoryList(true)
   }
+
+  React.useEffect(() => {
+    getHistoryList(true)
+  }, [currentPage])
 
   const nav2transfer = () => {
     history.push('/bridge/transfer')
