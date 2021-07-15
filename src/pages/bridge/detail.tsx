@@ -336,7 +336,7 @@ const BridgeDetailPage: React.FunctionComponent<BridgeDetailPageProps> = (props)
                 <StatusText style={{ color: '#31D7A0' }}>{t(`SUCCESS`)}!</StatusText>
               </>
             ) : (
-              <StatusText>{t(`${order?.status}`)}</StatusText>
+              <StatusText>{t(`${order?.id ? order?.status : 'Process'}`)}</StatusText>
             )}
           </CenterRow>
         </StepsWrap>
