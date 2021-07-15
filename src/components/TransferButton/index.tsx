@@ -169,22 +169,12 @@ const TransferButton: React.FunctionComponent<TransferButtonProps> = ({
   }
 
   // switch network
-  if (!checkList.network && selectedNetworkInfo) {
+  if (!checkList.network) {
     return (
       <TransferButtonWrap>
         <BaseButton onClick={switchNetwork}>
           {t(`Switch Network`)} {selectedNetworkInfo?.fullName}
         </BaseButton>
-        <HistoryText onClick={() => history.push('/bridge/list')}>{t(`Transaction History`)}</HistoryText>
-      </TransferButtonWrap>
-    )
-  }
-
-  // not approve
-  if (!checkList.approve) {
-    return (
-      <TransferButtonWrap>
-        <BaseButton onClick={applyApprove}>{t(`Approved`)}</BaseButton>
         <HistoryText onClick={() => history.push('/bridge/list')}>{t(`Transaction History`)}</HistoryText>
       </TransferButtonWrap>
     )
@@ -211,7 +201,15 @@ const TransferButton: React.FunctionComponent<TransferButtonProps> = ({
     } else if (!checkList.available) {
       key = `Get account available balance failed`
     } else {
-      key = `Follow the tips`
+      // not approve
+      if (!checkList.approve) {
+        return (
+          <TransferButtonWrap>
+            <BaseButton onClick={applyApprove}>{t(`Approved`)}</BaseButton>
+            <HistoryText onClick={() => history.push('/bridge/list')}>{t(`Transaction History`)}</HistoryText>
+          </TransferButtonWrap>
+        )
+      }
     }
 
     return (
@@ -231,4 +229,4 @@ const TransferButton: React.FunctionComponent<TransferButtonProps> = ({
   )
 }
 
-export default withRouter<any, any>(TransferButton)
+export default withRouter<any, any>(React.memo(TransferButton))
