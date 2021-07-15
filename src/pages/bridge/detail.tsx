@@ -233,7 +233,7 @@ const BridgeDetailPage: React.FunctionComponent<BridgeDetailPageProps> = (props)
       history.push('/bridge/list')
     }
     try {
-      const res = await BridgeService.transitionList(account, 1, 1, 1, hash)
+      const res = await BridgeService.transitionList(account, 1, 1, hash)
       console.log(res.data?.data?.list)
       if (res.data?.data?.list?.length) {
         setOrder(() => res.data.data.list[0])
