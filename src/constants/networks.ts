@@ -66,7 +66,8 @@ const TEST_NETWORKS = {
   },
 }
 
-export const networks = process.env.NODE_ENV === 'production' ? MAIN_NETWORKS : { ...MAIN_NETWORKS, ...TEST_NETWORKS }
+// export const networks = process.env.NODE_ENV === 'production' ? MAIN_NETWORKS : { ...MAIN_NETWORKS, ...TEST_NETWORKS }
+export const networks = { ...MAIN_NETWORKS, ...TEST_NETWORKS }
 
 export const KCC_NETWORK_IDS = [322, 321]
 
