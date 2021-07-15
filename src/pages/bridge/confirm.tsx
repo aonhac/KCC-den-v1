@@ -18,6 +18,7 @@ import { UnconfirmOrderKey } from '../../utils/task'
 import { PairInfo } from '../../state/bridge/reducer'
 import { useHistory } from 'react-router-dom'
 import { useBridgeLoading } from '../../state/application/hooks'
+import i18next from 'i18next'
 
 export enum ChainBridgeType {
   'DISPLAY',
@@ -158,7 +159,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
           }, 2000)
         } else {
           dispatch(updateBridgeLoading({ visible: false, status: 0 }))
-          notification.success({ message: t(`App Tips`), description: t(`Transaction Confirmed`) })
+          notification.success({ message: i18next.t(`App Tips`), description: i18next.t(`Transaction Confirmed`) })
         }
       })
       .on('error', () => {
@@ -192,7 +193,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
           }, 2000)
         } else {
           dispatch(updateBridgeLoading({ visible: false, status: 0 }))
-          notification.success({ message: t(`App Tips`), description: t(`Transaction Confirmed`) })
+          notification.success({ message: i18next.t(`App Tips`), description: i18next.t(`Transaction Confirmed`) })
         }
       })
       .on('error', () => {

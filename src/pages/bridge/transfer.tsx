@@ -31,6 +31,7 @@ import Web3 from 'web3'
 import { BridgeService } from '../../api/bridge'
 import { theme } from '../../constants/theme'
 import { useBridgeLoading } from '../../state/application/hooks'
+import i18next from 'i18next'
 
 export enum ListType {
   'WHITE',
@@ -546,7 +547,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
             }, 2000)
           } else {
             dispatch(updateBridgeLoading({ visible: false, status: 0 }))
-            notification.success({ message: t(`App Tips`), description: t(`Approved Success`) })
+            notification.success({ message: i18next.t(`App Tips`), description: i18next.t(`Approved Success`) })
           }
         })
         .on('error', () => {

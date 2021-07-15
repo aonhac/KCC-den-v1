@@ -149,11 +149,11 @@
   "Switch Network": "Please Switch ",
   "Approved": "Approved",
   "Can not swap": "This currency does not currently support the exchange of the current two networks",
-  "Input amount should bigger than transfer fee": "insufficient available amount",
+  "Input amount should bigger than transfer fee": "Input amount should be exceed than the transfer fee",
   "Input amount is bigger than bridge available balance": "Input amount is bigger than the bridge's available balance.",
   "CREATED": "Created",
   "CANCELLED": "Failed",
-  "VERIFIED": "Verified",
+  "VERIFIED": "Processing",
   "PROCESSING": "Processing",
   "CONFIRMED": "Success",
   "No record": "No record",
@@ -184,5 +184,10 @@
   "Get bridge balance failed": "Failed to get the bridge balance.",
   "Get transfer fee failed": "Failed to get the handling fee.",
   "Get account available balance failed": "Failed to get the available balance of the account",
-  "Available Bridge Balance": "KCC's Bridge Available Balance"
+  "Available Bridge Balance": "KCC's Bridge Available Balance",
+  "App Tips": "Tips",
+  "KCC BRIDGE TITLE": "KCC Bridge",
+  "KCC BRIDGE DESC": "KCC provides the most convenient cross-chain asset conversion service.",
+  "Apporve Success": "Successful approval",
+  "Transaction Confirmed": "A transaction has been completed. Please check the transaction history"
 }

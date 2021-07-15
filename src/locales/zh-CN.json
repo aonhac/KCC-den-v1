@@ -183,5 +183,10 @@
   "Get bridge balance failed": "获取可承兑余额失败",
   "Get transfer fee failed": "获取手续费失败",
   "Get account available balance failed": "获取账户可用余额失败",
-  "Available Bridge Balance": "跨链桥当日可承兑余额"
+  "Available Bridge Balance": "跨链桥当日可承兑余额",
+  "App Tips": "提示",
+  "KCC BRIDGE TITLE": "KCC跨链桥",
+  "KCC BRIDGE DESC": "KCC提供最可靠、最快速的跨链资产转换服务。",
+  "Apporve Success": "授权成功",
+  "Transaction Confirmed": "有一笔交易已经完成，请在交易历史查看"
 }
