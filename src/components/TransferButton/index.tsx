@@ -182,11 +182,7 @@ const TransferButton: React.FunctionComponent<TransferButtonProps> = ({
 
   if (!allStatus || amount === '') {
     let key = ''
-    if (amount === '' || !checkList.amount) {
-      key = `Invalid number`
-    } else if (!checkList.address) {
-      key = `Invalid address`
-    } else if (!checkList.senderWhite) {
+    if (!checkList.senderWhite) {
       key = `Sender is not in whiteList`
     } else if (!checkList.receiverWhite) {
       key = `Receiver is not in whiteList`
@@ -210,6 +206,7 @@ const TransferButton: React.FunctionComponent<TransferButtonProps> = ({
           </TransferButtonWrap>
         )
       }
+      key = `Next`
     }
 
     return (
