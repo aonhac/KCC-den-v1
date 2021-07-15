@@ -174,8 +174,8 @@ const ChainCard: React.FunctionComponent<ChainCardProps> = ({
     if (id !== 0) {
       return (
         <ChainItem key={id} disabled={getDisabledStatus(id)} onClick={clickNetwork.bind(null, id)}>
-          <ChainIcon src={net.logo} />
-          <ChainName>{net.fullName}</ChainName>
+          <ChainIcon src={net?.logo} />
+          <ChainName>{net?.fullName}</ChainName>
         </ChainItem>
       )
     }
@@ -190,10 +190,10 @@ const ChainCard: React.FunctionComponent<ChainCardProps> = ({
           style={{ width: '40px', height: '40px', fontSize: '40px', color: '#000', borderRadius: '50%' }}
         />
       ) : (
-        <ChainLogo src={network.logo} />
+        <ChainLogo src={network?.logo} />
       )}
 
-      <Name>{network.fullName}</Name>
+      <Name>{network?.fullName}</Name>
       {type === ChainBridgeType.OPERATE ? (
         <SelectWrap>
           <Dropdown overlay={menu} placement={'bottomLeft'} visible={show} trigger={['click']}>

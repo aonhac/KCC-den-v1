@@ -680,7 +680,9 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
           ) : (
             <>
               <ReceiveText>{t(`You will receive`)}</ReceiveText>
-              <ReceiveAmountText>{t(` ≈ ${amount} ${selectedNetworkInfo?.symbol.toUpperCase()}`)}</ReceiveAmountText>
+              <ReceiveAmountText>
+                {t(` ≈ ${amount ?? 0} ${selectedNetworkInfo?.symbol.toUpperCase()}`)}
+              </ReceiveAmountText>
             </>
           )}
         </Row>
