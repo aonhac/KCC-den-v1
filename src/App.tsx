@@ -7,15 +7,14 @@ import AppLayout from './layouts/AppLayout'
 import Home from './pages/home/'
 import NotFound from './pages/error'
 
+import BridgeTransfer from './pages/bridge/transfer'
+import BridgeHistoryList from './pages/bridge/list'
+import BridgeOrderDetail from './pages/bridge/detail'
+import BridgeOrderConfirm from './pages/bridge/detail'
+
 const Grants = lazy(() => import(/* webpackChunkName:'Grant' */ './pages/grants/index'))
 const Activity = lazy(() => import(/* webpackChunkName:'Activity' */ './pages/activities/index'))
 const Bridge = lazy(() => import(/* webpackChunkName:'Bridge' */ './pages/bridge/index'))
-export const BridgeTransfer = lazy(() => import(/* webpackChunkName:'BridgeTransfer' */ './pages/bridge/transfer'))
-export const BridgeHistoryList = lazy(() => import(/* webpackChunkName:'BridgeHistoryList' */ './pages/bridge/list'))
-export const BridgeOrderDetail = lazy(() => import(/* webpackChunkName:'BridgeOrderDetail' */ './pages/bridge/detail'))
-export const BridgeOrderConfirm = lazy(
-  () => import(/* webpackChunkName:'BridgeOrderConfirm' */ './pages/bridge/confirm')
-)
 
 import './App.less'
 import { clearConfirmAndOutdateOrder } from './utils/task'

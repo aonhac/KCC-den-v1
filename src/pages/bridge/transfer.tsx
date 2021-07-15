@@ -416,25 +416,25 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
    */
 
   React.useEffect(() => {
-    if (selectedPairInfo && account) {
-      if (selectedPairInfo?.srcChainInfo.tag === 0) {
-        setCheckList((list) => {
-          return { ...list, approve: true }
-        })
-      } else {
-        const chain = getNetworkInfo(chainId as any)
-        getApproveStatus(account, selectedPairInfo.srcChainInfo.contract, chain.bridgeCoreAddress, library).then(
-          (allowance) => {
-            setCheckList((list) => {
-              return { ...list, approve: Boolean(allowance) }
-            })
-          }
-        )
-      }
-    } else {
+    if (!selectedPairInfo || !account) return
+    if (selectedPairInfo?.srcChainInfo.tag === 0) {
       setCheckList((list) => {
-        return { ...list, approve: false }
+        return { ...list, approve: true }
       })
+    } else {
+      const network = getNetworkInfo(selectedPairInfo.srcChainInfo.chainId as any)
+      const lib = getNetWorkConnect(network.chain_id as any)
+      getApproveStatus(account, selectedPairInfo.srcChainInfo.contract, network.bridgeCoreAddress, lib)
+        .then((allowance) => {
+          setCheckList((list) => {
+            return { ...list, approve: Boolean(allowance) }
+          })
+        })
+        .catch(() => {
+          setCheckList((list) => {
+            return { ...list, approve: false }
+          })
+        })
     }
   }, [selectedPairInfo, account])
 
@@ -451,15 +451,18 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
    * when pair whiteListStatus is false, no check for whiteList
    */
   React.useEffect(() => {
-    if (account && receiveAddress && checkList.address) {
+    if (account && receiveAddress && checkList.address && selectedPairInfo) {
       const cb = async () => {
         // check whiteList first
+        console.log('selectedPairInfo', selectedPairInfo)
         if (selectedPairInfo?.whiteListStatus === false) {
+          // if not check whitelist,all account is pass
           setCheckList((list) => {
             return { ...list, senderWhite: true, receiverWhite: true }
           })
         } else {
           const senderStatus = await checkAddress(account, ListType.WHITE)
+          console.log('senderStatus', senderStatus)
           // when isTransferToSelf
           if (isTransferToSelf) {
             setCheckList((list) => {
@@ -489,7 +492,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
       }
       cb()
     }
-  }, [account, receiveAddress, selectedPairInfo?.whiteListStatus])
+  }, [account, receiveAddress, selectedPairInfo?.whiteListStatus, checkList.address])
 
   const generateOrder = () => {
     if (!selectedPairInfo) return
@@ -512,10 +515,13 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
     history.push('/bridge/confirm')
   }
 
+  // make sure that approve in current data
   const applyApprove = async () => {
     if (selectedPairInfo) {
-      const contract = getErc20Contract(selectedPairInfo?.srcChainInfo.contract, library)
       const network = getNetworkInfo(selectedPairInfo?.srcChainInfo.chainId)
+      // const lib = getNetWorkConnect(selectedPairInfo.srcChainInfo.chainId)
+      const contract = getErc20Contract(selectedPairInfo?.srcChainInfo.contract, library)
+
       await contract.methods
         .approve(
           network.bridgeCoreAddress,
@@ -533,7 +539,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
               return { ...list, approve: true }
             })
             dispatch(updateBridgeLoading({ visible: false, status: 0 }))
-            generateOrderAndConfirm
+            generateOrderAndConfirm()
           }, 2000)
         })
         .on('error', () => {

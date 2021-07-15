@@ -50,7 +50,7 @@ export const checkAddress = async (address: string, type: ListType): Promise<boo
     const res = await checkApi(address)
     console.log(res.data.data)
     if (res.data.data.status) {
-      return Boolean(res.data?.data.status)
+      return Boolean(res.data?.data?.status)
     }
     return false
   } catch {
