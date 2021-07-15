@@ -179,7 +179,7 @@ const BridgeDetailPage: React.FunctionComponent<BridgeDetailPageProps> = (props)
   // src chain
   React.useEffect(() => {
     if (!order?.id) {
-      setStatusText1(() => 'Process')
+      setStatusText1(() => 'Pending')
       setPercent1(() => 0)
     } else {
       setStatusText1(() => 'Completed')
@@ -189,7 +189,7 @@ const BridgeDetailPage: React.FunctionComponent<BridgeDetailPageProps> = (props)
 
   // dist chain
   React.useEffect(() => {
-    if (statusText1 === 'Process') {
+    if (statusText1 === 'Pending') {
       setStatusText2(() => 'Pending')
       setPercent2(() => 0)
     } else if (order?.status === 'SUCCESS' || order?.status === 'CONFRIMED') {
@@ -336,7 +336,7 @@ const BridgeDetailPage: React.FunctionComponent<BridgeDetailPageProps> = (props)
                 <StatusText style={{ color: '#31D7A0' }}>{t(`SUCCESS`)}!</StatusText>
               </>
             ) : (
-              <StatusText>{t(`${order?.id ? order?.status : 'Process'}`)}</StatusText>
+              <StatusText>{t(`${order?.status}`)}</StatusText>
             )}
           </CenterRow>
         </StepsWrap>

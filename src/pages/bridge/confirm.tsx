@@ -157,6 +157,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
             history.push('/bridge/list')
           }, 2000)
         } else {
+          dispatch(updateBridgeLoading({ visible: false, status: 0 }))
           notification.success({ message: t(`App Tips`), description: t(`Transaction Confirmed`) })
         }
       })
@@ -190,6 +191,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
             history.push('/bridge/list')
           }, 2000)
         } else {
+          dispatch(updateBridgeLoading({ visible: false, status: 0 }))
           notification.success({ message: t(`App Tips`), description: t(`Transaction Confirmed`) })
         }
       })

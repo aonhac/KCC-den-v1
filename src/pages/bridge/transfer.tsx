@@ -545,6 +545,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
               dispatch(updateBridgeLoading({ visible: false, status: 0 }))
             }, 2000)
           } else {
+            dispatch(updateBridgeLoading({ visible: false, status: 0 }))
             notification.success({ message: t(`App Tips`), description: t(`Approved Success`) })
           }
         })
