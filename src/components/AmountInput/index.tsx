@@ -163,10 +163,11 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
     text && setErrorInfo(() => text)
   }
 
-  const hasSufficientSwapFee = () => {
+  const hasSufficientSwapFee = async () => {
     if (!account || !pairInfo) return false
     /*  console.log('swapfee', swapFee)
     console.log('available', available) */
+
     // native check
     if (pairInfo.srcChainInfo.tag === 0) {
       if (new BN(swapFee).gte(available)) {
@@ -174,7 +175,11 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
       }
     }
     // token check
-    if (new BN(swapFee).gt(available)) {
+    // check chian
+    const connector = getNetWorkConnect(pairInfo.srcChainInfo.chainId)
+    const web3 = new Web3(connector.provider as any)
+    const nativeBalance = await web3.eth.getBalance(account)
+    if (new BN(swapFee).gt(nativeBalance)) {
       return false
     }
     return true
