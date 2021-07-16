@@ -1,6 +1,7 @@
 import { message } from 'antd'
 import i18next from 'i18next'
 import { getNetworkInfo, web3Utils } from './index'
+import { PairChainInfo } from '../state/bridge/reducer'
 
 export const switchNetwork = async (id: number) => {
   const selectedNetworkInfo = getNetworkInfo(id as any)
@@ -35,13 +36,28 @@ export const switchNetwork = async (id: number) => {
             },
           ],
         })
-        /* if (selectedNetworkInfo.chain_id === 321) {
-          window.location.reload()
-        } */
       } catch (addError) {
         message.error(i18next.t(`Switch Network failed`))
       }
     }
     // handle other "switch" errors
   }
+}
+
+export const addTokenToWallet = (pairChain: PairChainInfo) => {
+  if (!window.ethereum) return
+  window.ethereum
+    .request({
+      method: 'wallet_watchAsset',
+      params: {
+        type: 'ERC20',
+        options: {
+          address: pairChain.contract,
+          symbol: pairChain.currency.toUpperCase(),
+          decimals: pairChain.decimals,
+          image: pairChain.logoUrl,
+        },
+      },
+    })
+    .catch(console.error)
 }

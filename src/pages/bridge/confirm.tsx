@@ -5,7 +5,7 @@ import ChainBridge from '../../components/ChainBridge'
 import { BaseButton } from '../../components/TransferButton'
 import ConfirmItem from '../../components/ConfirmItem'
 import { NoFeeText, TransferOrder, TransferWrap } from './transfer'
-import { notification, Tooltip } from 'antd'
+import { Button, notification, Tooltip } from 'antd'
 import BridgeTitlePanel from '../../components/BridgeTitlePanel/index'
 import { getPairInfo, getNetworkInfo } from '../../utils/index'
 import { getBridgeContract } from '../../utils/contract'
@@ -19,6 +19,8 @@ import { PairInfo } from '../../state/bridge/reducer'
 import { useHistory } from 'react-router-dom'
 import { useBridgeLoading } from '../../state/application/hooks'
 import i18next from 'i18next'
+import { CenterRow } from '../../components/Row'
+import { switchNetwork, addTokenToWallet } from '../../utils/wallet'
 
 export enum ChainBridgeType {
   'DISPLAY',
@@ -51,6 +53,11 @@ export const MoreInfo = styled.img`
   cursor: pointer;
   position: relative;
   top: -1px;
+`
+
+export const AddAssets = styled.div`
+  position: relative;
+  left: -20px;
 `
 
 const Box = styled.div`
@@ -133,6 +140,13 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
     )
   }
 
+  const addTokenToMetaMask = async () => {
+    if (!selectedChainInfo) return
+    await switchNetwork(selectedChainInfo?.dstChainInfo.chainId as any).then((res) => {
+      addTokenToWallet(selectedChainInfo?.dstChainInfo as any)
+    })
+  }
+
   /**
    * @description  transfer native token
    */
@@ -187,6 +201,8 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
       })
       .once('confirmation', (confirmations: number) => {
         console.log(confirmations)
+
+        // add  token to  dist chain metamask
         if (bridgeLoading.visible) {
           dispatch(updateBridgeLoading({ visible: true, status: 1 }))
           setTimeout(() => {
@@ -197,6 +213,19 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
           dispatch(updateBridgeLoading({ visible: false, status: 0 }))
           notification.success({ message: i18next.t(`App Tips`), description: i18next.t(`Transaction Confirmed`) })
         }
+
+        const addAsset = (
+          <CenterRow>
+            <Button type="link" onClick={addTokenToMetaMask}>
+              <AddAssets>{t(`Add assets to the wallet list`)}</AddAssets>
+            </Button>
+          </CenterRow>
+        )
+        notification.success({
+          message: i18next.t(`App Tips`),
+          description: addAsset,
+          duration: 0,
+        })
       })
       .on('error', () => {
         dispatch(updateBridgeLoading({ visible: false, status: 0 }))

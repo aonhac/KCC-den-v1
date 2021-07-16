@@ -307,10 +307,6 @@ const BridgeListPage: React.FunctionComponent<BridgeListPageProps> = () => {
     }
   }
 
-  React.useEffect(() => {
-    getHistoryList(true)
-  }, [])
-
   const hasUnconfirmOrder = React.useMemo(() => {
     for (let i = 0; i < history.length; i++) {
       if (historyList[i]?.status === undefined) {
@@ -343,6 +339,7 @@ const BridgeListPage: React.FunctionComponent<BridgeListPageProps> = () => {
 
   const nav2detail = (transaction: History) => {
     const orderRaw = JSON.stringify(transaction)
+    console.log('transaction', transaction)
     const order = Base64.encode(orderRaw) as any
     history.push(`/bridge/detail?o=${order}`)
   }

@@ -246,7 +246,7 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
 
     const decimal = getDecimals(input)
 
-    if (input[0] === '.') {
+    if (input[0] === '.' || new BN(input).lte(0)) {
       // invalid number format
       updateAddressStatus(false, setErrorInfoPrehandle('errorFormatText'))
     } else if (decimalsLimit && decimal > decimalsLimit) {
