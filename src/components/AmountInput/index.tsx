@@ -50,6 +50,7 @@ const SuffixText = styled.span`
   font-size: 16px;
 `
 const Max = styled(SuffixText)`
+  font-size: 14px;
   color: ${theme.colors.bridgePrimay};
   position: relative;
   top: 1px;
@@ -103,20 +104,24 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
     return pairInfo?.srcChainInfo.decimals > pairInfo?.dstChainInfo.decimals
       ? pairInfo?.dstChainInfo.decimals
       : pairInfo?.srcChainInfo.decimals
-  }, [pairInfo])
+  }, [pairInfo?.srcChainInfo.decimals, pairInfo?.dstChainInfo.decimals])
 
   const maxAvailable = React.useMemo(() => {
     async function getAvailable() {
-      if (!pairInfo) return setMaxAvailableBalance(() => new BN(available).div(Math.pow(10, decimalsLimit)).toString())
+      if (!pairInfo) return
       if (pairInfo.srcChainInfo.tag !== 0) {
-        setMaxAvailableBalance(() => new BN(available).div(Math.pow(10, decimalsLimit)).toString())
+        setMaxAvailableBalance(() =>
+          new BN(available).div(Math.pow(10, pairInfo.srcChainInfo.decimals)).toFixed(decimalsLimit)
+        )
       } else {
         const connector = getNetWorkConnect(pairInfo.srcChainInfo.chainId) as any
         const web3 = new Web3(connector.provider)
         const gasLimit = await web3.eth.estimateGas({ to: receiveAddress, from: account as string, value: available })
         const gasPrice = await web3.eth.getGasPrice()
         const operateFee = new BN(gasPrice).multipliedBy(gasLimit).toString()
-        setMaxAvailableBalance(() => new BN(available).minus(operateFee).div(Math.pow(10, decimalsLimit)).toString())
+        setMaxAvailableBalance(() =>
+          new BN(available).minus(operateFee).div(Math.pow(10, pairInfo.srcChainInfo.decimals)).toFixed(decimalsLimit)
+        )
       }
     }
     getAvailable()
@@ -126,7 +131,7 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
     if (!amount) return false
     console.log('maxAvailable', maxAvailable)
     return maxAvailableBalance === amount
-  }, [amount, maxAvailable])
+  }, [amount, maxAvailableBalance, pairInfo])
 
   const setErrorInfoPrehandle = (key: string): string => {
     switch (key) {
