@@ -2,13 +2,15 @@ import React from 'react'
 import styled from 'styled-components'
 import { BridgeTitle, CheckListType } from '../../pages/bridge/transfer'
 import { useTranslation } from 'react-i18next'
-import { Input } from 'antd'
+import { Input, Button } from 'antd'
 import { CenterRow } from '../Row/index'
 import { Currency, PairInfo } from '../../state/bridge/reducer'
 import BN from 'bignumber.js'
 import { getPairInfo, getDecimals } from '../../utils/index'
 import { useWeb3React } from '@web3-react/core'
-import { debounce } from 'lodash'
+import { getNetWorkConnect } from '../../connectors/index'
+import Web3 from 'web3'
+import { theme } from '../../constants/theme'
 
 export interface AmountInputProps {
   amount: string
@@ -23,6 +25,7 @@ export interface AmountInputProps {
   supplyLoading: boolean
   availabelLoading: boolean
   swapFeeLoading: boolean
+  receiveAddress: string
 }
 
 const AmountInputWrap = styled.div`
@@ -45,6 +48,13 @@ const SuffixText = styled.span`
   font-weight: 400;
   color: rgba(1, 8, 30, 0.38);
   font-size: 16px;
+`
+const Max = styled(SuffixText)`
+  color: ${theme.colors.bridgePrimay};
+  position: relative;
+  top: 1px;
+  right: 15px;
+  padding-left: 5px;
 `
 
 export const ErrorText = styled.span`
@@ -73,10 +83,12 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
   supplyLoading,
   availabelLoading,
   swapFeeLoading,
+  receiveAddress,
 }) => {
   const { t, i18n } = useTranslation()
-  const { account, chainId, library } = useWeb3React()
+  const { account } = useWeb3React()
   const [errorInfo, setErrorInfo] = React.useState<string>('Invalid number')
+  const [maxAvailableBalance, setMaxAvailableBalance] = React.useState<string>('')
 
   const pairInfo = React.useMemo(() => {
     return getPairInfo(pairId)
@@ -87,11 +99,34 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
 
   // the the min decimals between two chains
   const decimalsLimit = React.useMemo(() => {
-    if (!pairInfo) return
+    if (!pairInfo) return 0
     return pairInfo?.srcChainInfo.decimals > pairInfo?.dstChainInfo.decimals
       ? pairInfo?.dstChainInfo.decimals
       : pairInfo?.srcChainInfo.decimals
-  }, [pairId, pairInfo])
+  }, [pairInfo])
+
+  const maxAvailable = React.useMemo(() => {
+    async function getAvailable() {
+      if (!pairInfo) return setMaxAvailableBalance(() => new BN(available).div(Math.pow(10, decimalsLimit)).toString())
+      if (pairInfo.srcChainInfo.tag !== 0) {
+        setMaxAvailableBalance(() => new BN(available).div(Math.pow(10, decimalsLimit)).toString())
+      } else {
+        const connector = getNetWorkConnect(pairInfo.srcChainInfo.chainId) as any
+        const web3 = new Web3(connector.provider)
+        const gasLimit = await web3.eth.estimateGas({ to: receiveAddress, from: account as string, value: available })
+        const gasPrice = await web3.eth.getGasPrice()
+        const operateFee = new BN(gasPrice).multipliedBy(gasLimit).toString()
+        setMaxAvailableBalance(() => new BN(available).minus(operateFee).div(Math.pow(10, decimalsLimit)).toString())
+      }
+    }
+    getAvailable()
+  }, [pairInfo, available, decimalsLimit])
+
+  const isMax = React.useMemo(() => {
+    if (!amount) return false
+    console.log('maxAvailable', maxAvailable)
+    return maxAvailableBalance === amount
+  }, [amount, maxAvailable])
 
   const setErrorInfoPrehandle = (key: string): string => {
     switch (key) {
@@ -138,18 +173,6 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
       return false
     }
     return true
-  }
-
-  const transferFeeToDistFee = (pair: PairInfo) => {
-    if (pair.srcChainInfo.decimals === pair.dstChainInfo.decimals) {
-      return swapFee
-    } else {
-      // pair token decimal is not equal
-      return new BN(swapFee)
-        .div(Math.pow(10, pair.srcChainInfo.decimals))
-        .multipliedBy(Math.pow(10, pair.dstChainInfo.decimals))
-        .toString()
-    }
   }
 
   const checkAmountOverflow = (inputAmount: string, input: string, pair: PairInfo) => {
@@ -206,8 +229,6 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
   }
 
   const changeAmount = (e: any) => {
-    console.log(e?.target?.value, typeof e?.target?.value)
-
     if (!pairInfo?.srcChainInfo) return
 
     const input = typeof e === 'string' ? e : e.target.value.trim()
@@ -266,7 +287,24 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
         onInput={changeAmount}
         onKeyPress={keyPress}
         style={{ background: '#F5F5F6' }}
-        suffix={<SuffixText>{currency.symbol.toUpperCase()}</SuffixText>}
+        suffix={
+          <CenterRow>
+            {!isMax ? (
+              <Button
+                size="small"
+                type="link"
+                style={{ width: '40px' }}
+                onClick={() => {
+                  setAmount(() => maxAvailableBalance)
+                }}
+              >
+                <Max>{t(`Max`)} | </Max>
+              </Button>
+            ) : null}
+
+            <SuffixText>{currency.symbol.toUpperCase()}</SuffixText>
+          </CenterRow>
+        }
       />
     </AmountInputWrap>
   )

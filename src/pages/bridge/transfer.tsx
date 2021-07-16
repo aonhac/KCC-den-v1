@@ -643,6 +643,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
           supplyLoading={supplyLoading}
           availabelLoading={availableLoading}
           swapFeeLoading={swapFeeLoading}
+          receiveAddress={receiveAddress}
         />
         <Row style={{ marginTop: '9px', justifyContent: 'space-between' }}>
           {account ? (
