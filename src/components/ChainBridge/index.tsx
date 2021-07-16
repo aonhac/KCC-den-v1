@@ -25,6 +25,9 @@ const ChainBridgeWrap = styled.div`
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 `
 const SwapIcon = styled.img<{ disabled: boolean }>`
   width: 20px;
@@ -54,6 +57,11 @@ const ToIcon = styled.img`
 `
 export const Box = styled.div`
   flex: 1;
+  @media (max-width: 768px) {
+    height: auto;
+    width: 40%;
+    flex: 0;
+  }
 `
 
 export enum ChainDirection {

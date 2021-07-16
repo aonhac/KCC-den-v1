@@ -34,6 +34,8 @@ import { useBridgeLoading } from '../../state/application/hooks'
 import i18next from 'i18next'
 import { Text } from './confirm'
 import { addTokenToWallet } from '../../utils/wallet'
+import { useResponsive } from '../../utils/responsive'
+import { CenterRow } from '../../components/Row/index'
 
 export enum ListType {
   'WHITE',
@@ -73,6 +75,11 @@ export const TransferWrap = styled.div`
   border-radius: 8px;
   position: relative;
   background: #f2fffd;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-top: -5px;
+    border-radius: 0px;
+  }
 `
 export const BridgeTitle = styled.div`
   font-size: 14px;
@@ -83,6 +90,9 @@ export const BridgeTitle = styled.div`
   overflow: hidden;
   white-space: nowrap;
   width: 200px;
+  @media (max-width: 768px) {
+    width: auto;
+  }
 `
 const ReceiveText = styled.span`
   height: 14px;
@@ -90,16 +100,25 @@ const ReceiveText = styled.span`
   font-family: URWDIN-Regular, URWDIN;
   font-weight: 400;
   color: #00003a;
+  width: 100px;
+  @media (max-width: 768px) {
+    display: inline-block;
+  }
 `
 
 export const NoFeeText = styled(ReceiveText)`
   text-decoration: line-through;
   padding: 0px 5px;
   color: #000;
+  width: auto;
+  display: inline-block;
 `
 
 const ReceiveAmountText = styled(ReceiveText)`
   font-weight: bold;
+  @media (max-width: 768px) {
+    width: auto;
+  }
 `
 
 export const ChainTag = styled.div`
@@ -181,6 +200,8 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
   const { srcChainIds, distChainIds } = useTokenSupporChain()
 
   const bridgeLoaing = useBridgeLoading()
+
+  const { isMobile } = useResponsive()
 
   // the status list of transfer asset rules
   const [checkList, setCheckList] = React.useState<typeof statusList>(statusList)
@@ -675,8 +696,8 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
                 <ReceiveText style={{ marginLeft: '10px' }}>{t(`Transfer fee`)}: </ReceiveText>
                 {!swapFeeLoading ? (
                   <>
-                    {selectedNetworkInfo?.fee ? <NoFeeText>{selectedNetworkInfo?.fee}</NoFeeText> : null}
                     <ReceiveAmountText style={{ color: theme.colors.bridgePrimay }}>
+                      {selectedNetworkInfo?.fee ? <NoFeeText>{selectedNetworkInfo?.fee}</NoFeeText> : null}
                       {new BN(swapFee).div(Math.pow(10, selectedNetworkInfo?.decimals)).toNumber().toString() ?? '0'}
                       {selectedNetworkInfo?.symbol.toUpperCase()}
                     </ReceiveAmountText>
