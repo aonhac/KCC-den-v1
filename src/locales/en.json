@@ -189,5 +189,7 @@
   "KCC BRIDGE TITLE": "KCC Bridge",
   "KCC BRIDGE DESC": "KCC provides the most convenient cross-chain asset conversion service.",
   "Apporve Success": "Successful approval",
-  "Transaction Confirmed": "Your transaction has begun to processing, Please check its details in the transaction history"
+  "Transaction Confirmed": "Your transaction has begun to processing, Please check its details in the transaction history",
+  "Transfer confirmation": "Transfer confirmation",
+  "KCC Bridge Launched": "KCC Bridge Launched"
 }

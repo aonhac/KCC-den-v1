@@ -76,12 +76,12 @@ export const MENU_LIST = [
       {
         groupName: 'Dapp',
         groupMember: [
-          /*  {
+          {
             title: 'KCC BRIDGE TITLE',
-            subTitle: 'KCC BRIDGE TITLE',
+            subTitle: 'KCC BRIDGE DESC',
             route: '/bridge/transfer',
             icon: require('../assets/images/Icons/menu/bridge.svg').default,
-          }, */
+          },
           {
             title: 'Submit a Dapp',
             subTitle: 'Submit your dapp to the community',
