@@ -32,6 +32,9 @@ const BridgeListWrap = styled.div`
   align-items: center;
   height: auto;
   min-height: calc(100vh - 400px);
+  @media (max-width: 768px) {
+    min-height: 100%;
+  }
 `
 
 const HistoryWrap = styled(TransferWrap)`
@@ -111,6 +114,9 @@ const NetworkName = styled.span`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  @media (max-width: 768px) {
+    width: 100px;
+  }
 `
 const NetworkIcon = styled.img`
   width: 24px;

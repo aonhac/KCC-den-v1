@@ -77,10 +77,8 @@ const AppHeader: React.FunctionComponent = (props: any) => {
         </HeaderLeftWrap>
 
         <Box>
-          <ButtonGroup>
-            <ChangeLanguage />
-            {walletButtonShow ? <UnlockButton /> : null}
-          </ButtonGroup>
+          {!walletButtonShow || !isMobile ? <ChangeLanguage /> : null}
+          <ButtonGroup>{walletButtonShow ? <UnlockButton /> : null}</ButtonGroup>
           <MobileView style={{ width: '24px' }}>
             {!show ? (
               <MenuOutlined

@@ -38,6 +38,12 @@ const BridgeWrap = styled.div`
   color: #fff;
   min-height: calc(100vh - 200px);
   background: url(${TopBg}) center 80px no-repeat, #000;
+  @media (max-width: 768px) {
+    width: 100%;
+    background: url(${TopBg}) center -300px no-repeat, #000;
+    background-size: 100% 100%;
+    min-height: 100%;
+  }
 `
 
 const NavBg = styled.div`
@@ -50,6 +56,9 @@ const Content = styled.div`
   position: relative;
   z-index: 2;
   padding-bottom: 80px;
+  @media (max-width: 768px) {
+    padding-bottom: 0px;
+  }
 `
 
 const CenterBgImg = styled.img`
@@ -59,6 +68,9 @@ const CenterBgImg = styled.img`
   left: 50%;
   z-index: 1;
   transform: translateX(-50%);
+  @media (max-width: 768px) {
+    top: 0px;
+  }
 `
 
 const ButtonBgImg = styled.img`
@@ -80,6 +92,14 @@ const LoadingBg = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 8px;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin: 0 auto;
+    height: 100vh;
+    border-radius: 0px;
+    padding: 240px 0 0 0;
+    justify-content: flex-start;
+  }
 `
 
 const Success = styled.div`
@@ -91,6 +111,9 @@ const Success = styled.div`
   color: #000426;
   line-height: 36px;
   text-align: center;
+  @media (max-width: 768px) {
+    margin-top: 0px;
+  }
 `
 
 const CloseIcon = styled.img`
