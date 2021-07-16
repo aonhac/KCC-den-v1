@@ -333,6 +333,10 @@ const BridgeListPage: React.FunctionComponent<BridgeListPageProps> = () => {
     getHistoryList(true)
   }, [currentPage])
 
+  React.useEffect(() => {
+    getHistoryList(true)
+  }, [])
+
   const nav2transfer = () => {
     history.push('/bridge/transfer')
   }

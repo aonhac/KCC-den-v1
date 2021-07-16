@@ -225,6 +225,7 @@ const BridgeDetailPage: React.FunctionComponent<BridgeDetailPageProps> = (props)
   }
 
   const getTransactionDetail = async (account: string, hash: string) => {
+    console.log('hash', hash)
     let localOrder: any = null
     try {
       localOrder = JSON.parse(Base64.decode(query.get('o')))
@@ -232,6 +233,7 @@ const BridgeDetailPage: React.FunctionComponent<BridgeDetailPageProps> = (props)
       console.log('parse url error')
       history.push('/bridge/list')
     }
+
     try {
       const res = await BridgeService.transitionList(account, 1, 1, hash)
       console.log(res.data?.data?.list)
@@ -246,16 +248,20 @@ const BridgeDetailPage: React.FunctionComponent<BridgeDetailPageProps> = (props)
   }
 
   useInterval(() => {
-    console.log('intervel')
     if (!account) return
     const hash = order?.srcTxHash ?? order?.saveHash
     order?.status !== 'SUCCESS' && getTransactionDetail(account, hash)
   }, 1000 * 15)
 
+  const queryHash = JSON.parse(Base64.decode(query.get('o')))
+
   React.useEffect(() => {
-    if (!account) return
-    const hash = JSON.parse(Base64.decode(query.get('o')))?.saveHash
-    getTransactionDetail(account as any, hash)
+    if (!account) {
+      history.push('/bridge/list')
+      return
+    }
+    console.log('--------', queryHash)
+    queryHash && getTransactionDetail(account as any, queryHash.srcTxHash ?? queryHash.saveHash)
   }, [])
 
   return (

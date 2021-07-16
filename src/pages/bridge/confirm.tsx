@@ -143,7 +143,9 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
   const addTokenToMetaMask = async () => {
     if (!selectedChainInfo) return
     await switchNetwork(selectedChainInfo?.dstChainInfo.chainId as any).then((res) => {
-      addTokenToWallet(selectedChainInfo?.dstChainInfo as any)
+      addTokenToWallet(selectedChainInfo?.dstChainInfo as any).then(() => {
+        notification.destroy()
+      })
     })
   }
 
