@@ -27,6 +27,10 @@ const ChainCardWrap = styled.div`
   padding: 12px;
   position: relative;
   flex: 1;
+  @media (max-width: 768px) {
+    height: auto;
+    width: 130px;
+  }
 `
 const ChainLogo = styled.img`
   width: 40px;

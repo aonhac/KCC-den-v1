@@ -138,7 +138,7 @@ const NoticeBar: React.FunctionComponent<NoticeBarProps> = () => {
       if (i18n.language === 'zh-CN') {
         announcment.push(cnRiskAnnouncement)
         for (let i = 0; i < list.length; i++) {
-          if (list[i].categories.includes('zh')) {
+          if (list[i].categories.includes('zh') || list[i].categories.includes('Zh')) {
             const validDate = list[i]?.pubDate.replace(/-/g, '/') // competible ios
             const t = new Date(validDate).getTime() + 1000 * 60 * 60 * 8
             const temp: any = { ...list[i] }
@@ -149,7 +149,7 @@ const NoticeBar: React.FunctionComponent<NoticeBarProps> = () => {
       } else {
         announcment.push(enRiskAnnouncement)
         for (let i = 0; i < list.length; i++) {
-          if (!list[i].categories.includes('zh')) {
+          if (!list[i].categories.includes('zh') || list[i].categories.includes('Zh')) {
             announcment.push(list[i])
           }
         }

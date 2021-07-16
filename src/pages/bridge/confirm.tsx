@@ -36,6 +36,9 @@ const BridgeConfirmWrap = styled.div`
   align-items: center;
   height: auto;
   min-height: calc(100vh - 400px);
+  @media (max-width: 768px) {
+    min-height: 100%;
+  }
 `
 
 const FeeAmmount = styled.span`
