@@ -54,9 +54,9 @@ const NetworkList: React.FunctionComponent<NetworkListProps> = () => {
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: web3Utils.toHex(selectedNetworkInfo.chain_id).toString() }],
       })
-      if (selectedNetworkInfo.chain_id === 321) {
+      /*   if (selectedNetworkInfo.chain_id === 321) {
         window.location.reload()
-      }
+      } */
     } catch (error) {
       console.log(error)
       // This error code indicates that the chain has not been added to MetaMask.
@@ -79,9 +79,9 @@ const NetworkList: React.FunctionComponent<NetworkListProps> = () => {
               },
             ],
           })
-          if (selectedNetworkInfo.chain_id === 321) {
+          /*  if (selectedNetworkInfo.chain_id === 321) {
             window.location.reload()
-          }
+          } */
         } catch (addError) {
           message.error(t(`Switch Network failed`))
         }
