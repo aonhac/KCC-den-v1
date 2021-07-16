@@ -60,6 +60,11 @@ export const KCC = {
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
+      date: '2021-07-16',
+      title: 'KCC Bridge Launched',
+      icon: require('../assets/images/home/milestone-icon@2x.png').default,
+    },
+    {
       date: '',
       title: 'Milestone Last',
     },

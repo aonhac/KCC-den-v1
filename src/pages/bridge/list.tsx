@@ -84,19 +84,6 @@ const Order = styled.div`
   }
 `
 
-const OrderMask = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.2);
-  z-index: 4;
-`
-
 const Number = styled.span`
   font-size: 20px;
   font-family: URWDIN-Bold, URWDIN;

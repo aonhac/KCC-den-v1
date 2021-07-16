@@ -675,7 +675,7 @@ const HomePage: React.FunctionComponent<HomePageProps> = () => {
                     transform: 'rotate(90deg)',
                     transformOrigin: 'top left',
                     zIndex: 3,
-                    width: '400px',
+                    width: '480px',
                     left: '40px',
                     top: '0px',
                   }}

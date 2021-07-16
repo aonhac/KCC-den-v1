@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux'
 import { changeMobileMenuShow } from '../../state/application/actions'
 import { useResponsive } from '../../utils/responsive'
 import UnlockButton from '../ConnectWalletButton'
-import { useRouteMatch, useHistory, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 const AppHeaderWrap = styled.div`
   display: flex;
@@ -38,6 +38,9 @@ const HeaderLeftWrap = styled.div`
   flex-flow: row no-wrap;
   justify-content: space-between;
   align-items: center;
+  @media (min-width: 1200px) {
+    padding-left: 60px;
+  }
 `
 
 const AppHeaderContent = styled(HeaderLeftWrap)<{ isMobile: boolean }>`
@@ -67,7 +70,7 @@ const AppHeader: React.FunctionComponent = (props: any) => {
     <AppHeaderWrap>
       <AppHeaderContent isMobile={isMobile}>
         <HeaderLeftWrap>
-          <KccLogo abbr={true} sourceType={PictureType.svg} styles={{ width: '120px', textAlign: 'left' }} />
+          <KccLogo abbr={true} sourceType={PictureType.svg} styles={{ width: '90px', textAlign: 'left' }} />
           <BrowserView>
             <AppMenu style={{ width: '600px', position: 'relative', top: '3px' }} />
           </BrowserView>

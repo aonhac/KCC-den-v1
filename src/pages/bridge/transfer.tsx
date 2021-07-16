@@ -1,14 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
-import { Input, notification } from 'antd'
+import { Input, notification, Tooltip } from 'antd'
 import SelectToken from '../../components/SelectToken/SelectToken'
 import ChainBridge, { Box } from '../../components/ChainBridge'
 import AmountInput, { ErrorText, TextWrap } from '../../components/AmountInput'
 import Row from '../../components/Row'
 import { useWeb3React } from '@web3-react/core'
 import TransferButton from '../../components/TransferButton'
-import { ChainBridgeType } from './confirm'
+import { ChainBridgeType, MoreInfo } from './confirm'
 import TransferLimit from '../../components/TransferLimit'
 import { useDispatch } from 'react-redux'
 import BN from 'bignumber.js'
@@ -32,6 +32,7 @@ import { BridgeService } from '../../api/bridge'
 import { theme } from '../../constants/theme'
 import { useBridgeLoading } from '../../state/application/hooks'
 import i18next from 'i18next'
+import { Text } from './confirm'
 
 export enum ListType {
   'WHITE',
@@ -642,6 +643,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
           supplyLoading={supplyLoading}
           availabelLoading={availableLoading}
           swapFeeLoading={swapFeeLoading}
+          receiveAddress={receiveAddress}
         />
         <Row style={{ marginTop: '9px', justifyContent: 'space-between' }}>
           {account ? (
@@ -677,6 +679,17 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
                       {new BN(swapFee).div(Math.pow(10, selectedNetworkInfo?.decimals)).toNumber().toString() ?? '0'}
                       {selectedNetworkInfo?.symbol.toUpperCase()}
                     </ReceiveAmountText>
+                    {selectedNetworkInfo?.fee ? (
+                      <Tooltip
+                        title={
+                          <Text>
+                            {t(`During the trial operation period, the handling fee is free for a limited time.`)}
+                          </Text>
+                        }
+                      >
+                        <MoreInfo src={require('../../assets/images/bridge/question.png').default} />
+                      </Tooltip>
+                    ) : null}
                   </>
                 ) : (
                   <LoadingOutlined

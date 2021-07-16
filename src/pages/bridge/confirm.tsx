@@ -44,11 +44,13 @@ const FeeAmmount = styled.span`
   color: #31d7a0;
 `
 
-const MoreInfo = styled.img`
-  width: 10px;
-  height: 10px;
+export const MoreInfo = styled.img`
+  width: 14px;
+  height: 14px;
   margin-left: 3px;
   cursor: pointer;
+  position: relative;
+  top: -1px;
 `
 
 const Box = styled.div`
@@ -66,7 +68,7 @@ const ButtonText = styled.span`
   letter-spacing: 1px;
 `
 
-const Text = styled.div`
+export const Text = styled.div`
   color: #fff;
 `
 
@@ -221,32 +223,34 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
     <BridgeConfirmWrap>
       <TransferWrap>
         <BridgeTitlePanel title={t('Transfer confirmation')} iconEvent={back2transfer} />
-        <ChainBridge srcId={order.srcId} distId={order.distId} type={ChainBridgeType.DISPLAY} />
+        <ChainBridge srcId={order?.srcId} distId={order?.distId} type={ChainBridgeType.DISPLAY} />
         <Box>
           <ConfirmItem
             title={t('Amount')}
-            content={`${new BN(order.amount)
+            content={`${new BN(order?.amount)
               .div(Math.pow(10, selectedChainInfo?.srcChainInfo.decimals as any))
-              .toString()} ${order.currency.symbol.toUpperCase()}`}
+              .toString()} ${order?.currency.symbol.toUpperCase()}`}
           />
           <ConfirmItem
             title={t('Amount received')}
-            content={`${receiveAmount} ${order.currency.symbol.toUpperCase()}`}
+            content={`${receiveAmount} ${order?.currency.symbol.toUpperCase()}`}
           />
           <ConfirmItem title={t('Transfer fee')}>
             <FeeAmmount>
               {networkInfo?.fee ? <NoFeeText>{networkInfo?.fee}</NoFeeText> : null}
               {`${new BN(order.fee)
-                .div(Math.pow(10, networkInfo.decimals))
-                .toString()} ${networkInfo.symbol.toUpperCase()}`}
+                .div(Math.pow(10, networkInfo?.decimals))
+                .toString()} ${networkInfo?.symbol.toUpperCase()}`}
             </FeeAmmount>
-            <Tooltip
-              title={
-                <Text>{t(`During the trial operation period, the handling fee is free for a limited time.`)}</Text>
-              }
-            >
-              <MoreInfo src={require('../../assets/images/bridge/question.png').default} />
-            </Tooltip>
+            {networkInfo?.fee ? (
+              <Tooltip
+                title={
+                  <Text>{t(`During the trial operation period, the handling fee is free for a limited time.`)}</Text>
+                }
+              >
+                <MoreInfo src={require('../../assets/images/bridge/question.png').default} />
+              </Tooltip>
+            ) : null}
           </ConfirmItem>
         </Box>
         <ConfirmItem title={t('Receiving address')} content={order.receiver} />
