@@ -53,7 +53,7 @@ const Max = styled(SuffixText)`
   color: ${theme.colors.bridgePrimay};
   position: relative;
   top: 1px;
-  right: 15px;
+  right: 18px;
   padding-left: 5px;
 `
 

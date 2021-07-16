@@ -186,9 +186,10 @@
   "Available Bridge Balance": "跨链桥当日可承兑余额",
   "App Tips": "提示",
   "KCC BRIDGE TITLE": "KCC跨链桥",
-  "KCC BRIDGE DESC": "KCC提供最可靠、最快速的跨链资产转换服务。",
+  "KCC BRIDGE DESC": "KCC提供最可靠、最快捷的跨链资产转换服务",
   "Apporve Success": "授权成功",
   "Transaction Confirmed": "您的交易已开始处理，请在交易历史查看其详情",
   "Transfer confirmation": "交易确认",
-  "KCC Bridge Launched": "KCC跨链桥上线"
+  "KCC Bridge Launched": "KCC跨链桥上线",
+  "Max": "最大"
 }
