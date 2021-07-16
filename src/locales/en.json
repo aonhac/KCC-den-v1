@@ -192,5 +192,7 @@
   "Transaction Confirmed": " Your transaction is processing. Please check its details in the transaction history. ",
   "Transfer confirmation": "Transfer confirmation",
   "KCC Bridge Launched": "KCC Bridge Launched",
-  "Max": "MAX"
+  "Max": "Max",
+  "Approved Success": "Approved Success",
+  "Add assets to the wallet list": "Add assets to the wallet list"
 }

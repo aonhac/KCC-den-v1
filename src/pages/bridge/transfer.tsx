@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
-import { Input, notification, Tooltip } from 'antd'
+import { Button, Input, notification, Tooltip } from 'antd'
 import SelectToken from '../../components/SelectToken/SelectToken'
 import ChainBridge, { Box } from '../../components/ChainBridge'
 import AmountInput, { ErrorText, TextWrap } from '../../components/AmountInput'
@@ -33,6 +33,7 @@ import { theme } from '../../constants/theme'
 import { useBridgeLoading } from '../../state/application/hooks'
 import i18next from 'i18next'
 import { Text } from './confirm'
+import { addTokenToWallet } from '../../utils/wallet'
 
 export enum ListType {
   'WHITE',

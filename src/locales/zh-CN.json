@@ -191,5 +191,7 @@
   "Transaction Confirmed": "您的交易已开始处理，请在交易历史查看其详情",
   "Transfer confirmation": "交易确认",
   "KCC Bridge Launched": "KCC跨链桥上线",
-  "Max": "最大"
+  "Max": "最大",
+  "Approved Success": "授权成功",
+  "Add assets to the wallet list": "添加资产到钱包列表"
 }

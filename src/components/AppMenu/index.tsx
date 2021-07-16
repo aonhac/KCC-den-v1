@@ -60,7 +60,7 @@ const NavSubTitle = styled.div`
   padding: 0;
   margin: 0;
   width: auto;
-  max-width: 230px;
+  max-width: 245px;
   word-wrap: wrap;
   white-space: wrap !important;
   text-align: left;
