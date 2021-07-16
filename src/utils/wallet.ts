@@ -44,9 +44,9 @@ export const switchNetwork = async (id: number) => {
   }
 }
 
-export const addTokenToWallet = (pairChain: PairChainInfo) => {
+export const addTokenToWallet = async (pairChain: PairChainInfo) => {
   if (!window.ethereum) return
-  window.ethereum
+  await window.ethereum
     .request({
       method: 'wallet_watchAsset',
       params: {
