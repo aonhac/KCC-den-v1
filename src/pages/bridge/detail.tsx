@@ -246,12 +246,14 @@ const BridgeDetailPage: React.FunctionComponent<BridgeDetailPageProps> = (props)
   }
 
   useInterval(() => {
+    console.log('intervel')
     if (!account) return
     const hash = order?.srcTxHash ?? order?.saveHash
     order?.status !== 'SUCCESS' && getTransactionDetail(account, hash)
   }, 1000 * 15)
 
   React.useEffect(() => {
+    if (!account) return
     const hash = JSON.parse(Base64.decode(query.get('o')))?.saveHash
     getTransactionDetail(account as any, hash)
   }, [])
