@@ -530,7 +530,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
       from: account as string,
       receiver: receiveAddress,
       fee: swapFee,
-      amount: new BN(amount).multipliedBy(Math.pow(10, selectedPairInfo?.srcChainInfo.decimals)).toString(),
+      amount: new BN(amount).multipliedBy(Math.pow(10, selectedPairInfo?.srcChainInfo.decimals)).toString(10),
       timestamp: '',
       currency: currency,
     }
