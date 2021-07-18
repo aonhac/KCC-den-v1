@@ -129,11 +129,11 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
     if (!selectedChainInfo?.srcChainInfo) return
     let receiveAmount = ''
     if (selectedChainInfo?.srcChainInfo.tag === 0) {
-      receiveAmount = new BN(order.amount).minus(order.fee).toString()
-      return new BN(receiveAmount).div(Math.pow(10, networkInfo.decimals)).toString()
+      receiveAmount = new BN(order.amount).minus(order.fee).toString(10)
+      return new BN(receiveAmount).div(Math.pow(10, networkInfo.decimals)).toString(10)
     } else {
-      receiveAmount = new BN(order.amount).toString()
-      return new BN(receiveAmount).div(Math.pow(10, selectedChainInfo?.srcChainInfo.decimals)).toString()
+      receiveAmount = new BN(order.amount).toString(10)
+      return new BN(receiveAmount).div(Math.pow(10, selectedChainInfo?.srcChainInfo.decimals)).toString(10)
     }
   }, [order.fee, order])
 
@@ -156,7 +156,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
    * @description  transfer native token
    */
   const nativeTransfer = (contract: any, selectedChainInfo: PairInfo) => {
-    const amount = new BN(order.amount).toString()
+    const amount = new BN(order.amount).toString(10)
     contract.methods
       .depositNative(order.receiver, selectedChainInfo.dstChainInfo.chain.toLowerCase())
       .send({
@@ -263,7 +263,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
             title={t('Amount')}
             content={`${new BN(order?.amount)
               .div(Math.pow(10, selectedChainInfo?.srcChainInfo.decimals as any))
-              .toString()} ${order?.currency.symbol.toUpperCase()}`}
+              .toString(10)} ${order?.currency.symbol.toUpperCase()}`}
           />
           <ConfirmItem
             title={t('Amount received')}
