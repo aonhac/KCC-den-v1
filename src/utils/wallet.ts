@@ -4,14 +4,14 @@ import { getNetworkInfo, web3Utils } from './index'
 import { PairChainInfo } from '../state/bridge/reducer'
 import { isIOS, isMobile, isAndroid, isIOS13 } from 'react-device-detect'
 
-export const addNetwork = async (selectedNetworkInfo: any) => {
+export const switchNetworkInPc = async (selectedNetworkInfo: any) => {
   await window.ethereum?.request({
     method: 'wallet_switchEthereumChain',
     params: [{ chainId: web3Utils.toHex(selectedNetworkInfo.chain_id).toString() }],
   })
 }
 
-export const switchNetworkInPc = async (selectedNetworkInfo: any) => {
+export const addNetwork = async (selectedNetworkInfo: any) => {
   const net = {
     method: 'wallet_addEthereumChain',
     params: [
@@ -33,9 +33,14 @@ export const switchNetworkInPc = async (selectedNetworkInfo: any) => {
 }
 
 export const switchNetwork = async (id: number) => {
+  const width = document.body.clientWidth ?? document.documentElement.clientWidth
   const selectedNetworkInfo = getNetworkInfo(id as any)
 
-  if (isIOS13 || isMobile || isAndroid || isIOS) {
+  console.log('width', typeof width)
+  console.log(selectedNetworkInfo)
+  if (width <= 768) {
+    console.log('is mobile')
+
     await addNetwork(selectedNetworkInfo)
   } else {
     try {
