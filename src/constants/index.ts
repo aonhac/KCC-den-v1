@@ -8,7 +8,7 @@ export const KCC = {
   GITHUB_URL: 'https://github.com/kcc-community',
   DAPP_URL: 'https://github.com/kcc-community/awesome-dApps',
   DISCORD_URL: 'https://discord.com/invite/H5ucJydSyd',
-  MEDIA_URL: 'https://kucoincommunitychain.medium.com',
+  MEDIA_URL: 'https://kccofficial.medium.com',
   MEDIA_API: 'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@kccofficial',
   MAIL_SUBSCRIBE_PROXY: 'https://mailsubscribe.kcc.io/mailchimp-subscribe',
   TWITTER: 'https://twitter.com/KCCOfficialTW',
