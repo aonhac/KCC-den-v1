@@ -10,6 +10,7 @@ import { useHistory } from 'react-router'
 import { CheckListType } from '../../pages/bridge/transfer'
 import { getPairInfo, getNetworkInfo, web3Utils } from '../../utils/index'
 import { message } from 'antd'
+import { switchNetwork } from '../../utils/wallet'
 
 export interface TransferButtonProps {
   applyApprove: any
@@ -99,47 +100,8 @@ const TransferButton: React.FunctionComponent<TransferButtonProps> = ({
     return true
   }, [checkList])
 
-  const switchNetwork = async () => {
-    console.log(selectedNetworkInfo)
-    try {
-      await window.ethereum?.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: web3Utils.toHex(selectedNetworkInfo.chain_id).toString() }],
-      })
-      /* if (selectedNetworkInfo.chain_id === 321) {
-        window.location.reload()
-      } */
-    } catch (error) {
-      console.log(error)
-      // This error code indicates that the chain has not been added to MetaMask.
-      if (error.code === 4902) {
-        try {
-          await window.ethereum?.request({
-            method: 'wallet_addEthereumChain',
-            params: [
-              {
-                chainId: web3Utils.toHex(selectedNetworkInfo.chain_id).toString(), // A 0x-prefixed hexadecimal string
-                chainName: selectedNetworkInfo.fullName,
-                nativeCurrency: {
-                  name: selectedNetworkInfo.symbol,
-                  symbol: selectedNetworkInfo.symbol.toUpperCase(), // 2-6 characters long
-                  decimals: selectedNetworkInfo.decimals,
-                },
-                rpcUrls: [selectedNetworkInfo.rpc],
-                blockExplorerUrls: [selectedNetworkInfo.browser],
-                iconUrls: [selectedNetworkInfo.logo],
-              },
-            ],
-          })
-          /*  if (selectedNetworkInfo.chain_id === 321) {
-            window.location.reload()
-          } */
-        } catch (addError) {
-          message.error(addError)
-        }
-      }
-      // handle other "switch" errors
-    }
+  const switchSrcChain = async () => {
+    await switchNetwork(selectedNetworkInfo.chain_id)
   }
 
   // not connect
@@ -172,7 +134,7 @@ const TransferButton: React.FunctionComponent<TransferButtonProps> = ({
   if (!checkList.network) {
     return (
       <TransferButtonWrap>
-        <BaseButton onClick={switchNetwork}>
+        <BaseButton onClick={switchSrcChain}>
           {t(`Switch Network`)} {selectedNetworkInfo?.fullName}
         </BaseButton>
         <HistoryText onClick={() => history.push('/bridge/list')}>{t(`Transaction History`)}</HistoryText>
