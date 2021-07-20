@@ -162,11 +162,14 @@ const BridgeDetailPage: React.FunctionComponent<BridgeDetailPageProps> = (props)
   const [statusText1, setStatusText1] = React.useState<string>('')
   const [percent2, setPercent2] = React.useState<number>(0)
   const [statusText2, setStatusText2] = React.useState<string>('')
-  const [order, setOrder] = React.useState<any>(null)
-
-  const history = useHistory()
 
   const query = useQuery()
+
+  const page = query.get('page')
+  const queryOrder = JSON.parse(Base64.decode(query.get('o')))
+  const [order, setOrder] = React.useState<any>(queryOrder)
+
+  const history = useHistory()
 
   const network = React.useMemo(() => {
     const selectedPairInfo = getPairInfo(order?.pairId as any)
@@ -217,7 +220,7 @@ const BridgeDetailPage: React.FunctionComponent<BridgeDetailPageProps> = (props)
   }, [statusText1, statusText2, order])
 
   const nav2list = () => {
-    history.push('/bridge/list')
+    history.push(`/bridge/list?page=${page ?? 1}`)
   }
 
   const nav2Scan = (url: string) => {
@@ -231,7 +234,7 @@ const BridgeDetailPage: React.FunctionComponent<BridgeDetailPageProps> = (props)
       localOrder = JSON.parse(Base64.decode(query.get('o')))
     } catch {
       console.log('parse url error')
-      history.push('/bridge/list')
+      history.push(`/bridge/list?page=${page ?? 1}`)
     }
 
     try {
@@ -248,21 +251,10 @@ const BridgeDetailPage: React.FunctionComponent<BridgeDetailPageProps> = (props)
   }
 
   useInterval(() => {
-    if (!account) return
+    if (!account || !order) return
     const hash = order?.srcTxHash ?? order?.saveHash
     order?.status !== 'SUCCESS' && getTransactionDetail(account, hash)
   }, 1000 * 15)
-
-  const queryHash = JSON.parse(Base64.decode(query.get('o')))
-
-  React.useEffect(() => {
-    if (!account) {
-      history.push('/bridge/list')
-      return
-    }
-    console.log('--------', queryHash)
-    queryHash && getTransactionDetail(account as any, queryHash.srcTxHash ?? queryHash.saveHash)
-  }, [])
 
   return (
     <BridgeDetaiPageWrap>
@@ -297,7 +289,7 @@ const BridgeDetailPage: React.FunctionComponent<BridgeDetailPageProps> = (props)
             <CenterRow>
               {order?.srcTxHash ? (
                 <>
-                  <LinkText onClick={nav2Scan.bind(null, `${network?.src.browser}/tx/${order.srcTxHash}`)}>
+                  <LinkText onClick={nav2Scan.bind(null, `${network?.src?.browser}/tx/${order?.srcTxHash}`)}>
                     {t(`View hash`)}
                   </LinkText>
                   <LinkIcon src={require('../../assets/images/bridge/link.svg').default} />
@@ -329,7 +321,7 @@ const BridgeDetailPage: React.FunctionComponent<BridgeDetailPageProps> = (props)
             <CenterRow>
               {order?.dstTxHash ? (
                 <>
-                  <LinkText onClick={nav2Scan.bind(null, `${network.dist.browser}/tx/${order.dstTxHash}`)}>
+                  <LinkText onClick={nav2Scan.bind(null, `${network?.dist?.browser}/tx/${order?.dstTxHash}`)}>
                     {t(`View hash`)}
                   </LinkText>
                   <LinkIcon src={require('../../assets/images/bridge/link.svg').default} />

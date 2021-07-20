@@ -235,8 +235,9 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
   }
 
   React.useEffect(() => {
+    if (!account) return
     initBridgeStatus()
-  }, [])
+  }, [account])
 
   // get selectedPairInfo
   const selectedPairInfo = React.useMemo(() => {

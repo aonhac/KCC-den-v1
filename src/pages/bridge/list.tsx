@@ -21,6 +21,7 @@ import moment from 'moment'
 import { theme } from '../../constants/theme'
 import { ColumnCenter } from '../../components/Column/index'
 import { useInterval } from '../../hooks/useInterval'
+import { useQuery } from '../../hooks/useQuery'
 
 export interface BridgeListPageProps {}
 
@@ -262,9 +263,13 @@ const BridgeListPage: React.FunctionComponent<BridgeListPageProps> = () => {
   const { t } = useTranslation()
   const { account } = useWeb3React()
 
+  const query = useQuery()
+  const page = query.get('page') as string
+  const current: number = page ? parseInt(page as any) : (1 as number)
+
   const [loading, setLoading] = React.useState<boolean>(false)
   const [totalPage, setTotalPage] = React.useState<number>(0)
-  const [currentPage, setCurrentPage] = React.useState<number>(1)
+  const [currentPage, setCurrentPage] = React.useState<number>(current)
   const [historyList, setHistoryList] = React.useState<any[]>([])
 
   const [unconfirmOrderList, setUnconfirmOrderList] = useLocalStorageState(UnconfirmOrderKey)
@@ -292,7 +297,7 @@ const BridgeListPage: React.FunctionComponent<BridgeListPageProps> = () => {
       const data = res.data.data
       if (data) {
         //  need merge local unconfirm list
-        data.list.map((item: any) => {
+        data.list?.map((item: any) => {
           item.createTime = moment(item.createTime).format('YYYY-MM-DD HH:MM:SS')
         })
         const unconfirm = getUnconfirmedFromLocal(data.list, JSON.parse(unconfirmOrderList))
@@ -339,10 +344,6 @@ const BridgeListPage: React.FunctionComponent<BridgeListPageProps> = () => {
     getHistoryList(true)
   }, [currentPage])
 
-  React.useEffect(() => {
-    getHistoryList(true)
-  }, [])
-
   const nav2transfer = () => {
     history.push('/bridge/transfer')
   }
@@ -351,7 +352,7 @@ const BridgeListPage: React.FunctionComponent<BridgeListPageProps> = () => {
     const orderRaw = JSON.stringify(transaction)
     console.log('transaction', transaction)
     const order = Base64.encode(orderRaw) as any
-    history.push(`/bridge/detail?o=${order}`)
+    history.push(`/bridge/detail?o=${order}&page=${currentPage}`)
   }
 
   const list = historyList.map((transaction, index) => {
