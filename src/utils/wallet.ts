@@ -2,7 +2,6 @@ import { message } from 'antd'
 import i18next from 'i18next'
 import { getNetworkInfo, web3Utils } from './index'
 import { PairChainInfo } from '../state/bridge/reducer'
-import { isIOS, isMobile, isAndroid, isIOS13 } from 'react-device-detect'
 
 export const switchNetworkInPc = async (selectedNetworkInfo: any) => {
   await window.ethereum?.request({
