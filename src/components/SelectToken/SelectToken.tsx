@@ -134,13 +134,13 @@ const SelectToken: React.SFC<SelectTokenProps> = ({ list, currency, setCurrency 
       >
         <SelectItem>
           <TokenWrap>
-            <TokenIcon src={token.logoUrl} />
+            <TokenIcon src={token?.logoUrl} />
             <TokenDescriptionWrap>
-              <TokenName>{token.symbol.toUpperCase()}</TokenName>
+              <TokenName>{token?.symbol.toUpperCase()}</TokenName>
               <FullName>{token.name ?? token.symbol}</FullName>
             </TokenDescriptionWrap>
           </TokenWrap>
-          {token.symbol === currency.symbol ? (
+          {token?.symbol === currency?.symbol ? (
             <Icon src={require('../../assets/images/bridge/selected@2x.png').default} />
           ) : null}
         </SelectItem>
@@ -155,8 +155,8 @@ const SelectToken: React.SFC<SelectTokenProps> = ({ list, currency, setCurrency 
           setShow(() => true)
         }}
       >
-        <TokenIcon src={currency.logoUrl} />
-        <TokenText>{currency.symbol.toUpperCase()}</TokenText>
+        <TokenIcon src={currency?.logoUrl} />
+        <TokenText>{currency?.symbol.toUpperCase()}</TokenText>
       </TokenWrap>
       <RightOutlined style={{ fontSize: '10px', color: '#01081e' }} />
       {show ? (

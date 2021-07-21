@@ -173,6 +173,7 @@
   "The minimum exchange quantity is": "The current minimum transaction amount is",
   "The maximum exchange quantity is": "The maximum limit of the current transaction amount is",
   "Pending": "Pending",
+  "PENDING": "Pending",
   "Details": "Details",
   "View hash": "check the details",
   "Completed": "Completed",

@@ -36,6 +36,7 @@ import { Text } from './confirm'
 import { addTokenToWallet } from '../../utils/wallet'
 import { useResponsive } from '../../utils/responsive'
 import { CenterRow } from '../../components/Row/index'
+import { useInterval } from '../../hooks/useInterval'
 
 export enum ListType {
   'WHITE',
@@ -478,49 +479,56 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
    * when receiver = sender,only check one,otherwise,check both address
    * when pair whiteListStatus is false, no check for whiteList
    */
-  React.useEffect(() => {
-    if (account && receiveAddress && checkList.address && selectedPairInfo) {
-      const cb = async () => {
-        // check whiteList first
-        console.log('selectedPairInfo', selectedPairInfo)
-        if (selectedPairInfo?.whiteListStatus === false) {
-          // if not check whitelist,all account is pass
-          setCheckList((list) => {
-            return { ...list, senderWhite: true, receiverWhite: true }
-          })
-        } else {
-          const senderStatus = await checkAddress(account, ListType.WHITE)
-          console.log('senderStatus', senderStatus)
-          // when isTransferToSelf
-          if (isTransferToSelf) {
-            setCheckList((list) => {
-              return { ...list, senderWhite: senderStatus, receiverWhite: senderStatus }
-            })
-          } else {
-            const receiverStatus = await checkAddress(receiveAddress, ListType.WHITE)
-            setCheckList((list) => {
-              return { ...list, senderWhite: senderStatus, receiverWhite: receiverStatus }
-            })
-          }
-        }
 
-        // start to check blackList
-        const senderStatus = await checkAddress(account, ListType.BLACK)
+  const checkWhiteBlackList = async () => {
+    // check whiteList first
+    if (account && receiveAddress && checkList.address && selectedPairInfo) {
+      console.log('selectedPairInfo', selectedPairInfo)
+      if (selectedPairInfo?.whiteListStatus === false) {
+        // if not check whitelist,all account is pass
+        setCheckList((list) => {
+          return { ...list, senderWhite: true, receiverWhite: true }
+        })
+      } else {
+        const senderStatus = await checkAddress(account, ListType.WHITE)
+        console.log('senderStatus', senderStatus)
         // when isTransferToSelf
         if (isTransferToSelf) {
           setCheckList((list) => {
-            return { ...list, senderBlack: !senderStatus, receiverBlack: !senderStatus }
+            return { ...list, senderWhite: senderStatus, receiverWhite: senderStatus }
           })
         } else {
-          const receiverStatus = await checkAddress(receiveAddress, ListType.BLACK)
+          const receiverStatus = await checkAddress(receiveAddress, ListType.WHITE)
           setCheckList((list) => {
-            return { ...list, senderBlack: !senderStatus, receiverBlack: !receiverStatus }
+            return { ...list, senderWhite: senderStatus, receiverWhite: receiverStatus }
           })
         }
       }
-      cb()
+
+      // start to check blackList
+      const senderStatus = await checkAddress(account, ListType.BLACK)
+      // when isTransferToSelf
+      if (isTransferToSelf) {
+        setCheckList((list) => {
+          return { ...list, senderBlack: !senderStatus, receiverBlack: !senderStatus }
+        })
+      } else {
+        const receiverStatus = await checkAddress(receiveAddress, ListType.BLACK)
+        setCheckList((list) => {
+          return { ...list, senderBlack: !senderStatus, receiverBlack: !receiverStatus }
+        })
+      }
     }
+  }
+
+  React.useEffect(() => {
+    checkWhiteBlackList()
   }, [account, receiveAddress, selectedPairInfo?.whiteListStatus, checkList.address])
+
+  // auto fresh
+  useInterval(() => {
+    checkWhiteBlackList()
+  }, 1000 * 60 * 10)
 
   const generateOrder = () => {
     if (!selectedPairInfo) return

@@ -312,7 +312,7 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
               </Button>
             ) : null}
 
-            <SuffixText>{currency.symbol.toUpperCase()}</SuffixText>
+            <SuffixText>{pairInfo?.srcChainInfo.currency.toUpperCase()}</SuffixText>
           </CenterRow>
         }
       />

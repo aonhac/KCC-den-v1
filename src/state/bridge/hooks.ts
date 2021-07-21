@@ -64,19 +64,22 @@ export function useTokenSupporChain() {
   const srcChainIds: number[] = []
   const distChainIds: number[] = []
   return useSelector((state: AppState) => {
+    if (!state.bridge?.currentCurrency) {
+      return { srcChainIds: [], distChainIds: [] }
+    }
     const chainList = state.bridge.pairList ?? []
     for (let i = 0; i < chainList.length; i++) {
       const chain = chainList[i]
       const srcChainInfo = chain.srcChainInfo
       const distChainInfo = chain.dstChainInfo
       if (
-        srcChainInfo.currency === state.bridge.currentCurrency.symbol &&
+        srcChainInfo.currency === state.bridge.currentCurrency?.symbol &&
         !srcChainIds.includes(srcChainInfo.chainId)
       ) {
         srcChainIds.push(srcChainInfo.chainId)
       }
       if (
-        distChainInfo.currency === state.bridge.currentCurrency.symbol &&
+        distChainInfo.currency === state.bridge.currentCurrency?.symbol &&
         !distChainIds.includes(distChainInfo.chainId)
       ) {
         distChainIds.push(distChainInfo.chainId)
