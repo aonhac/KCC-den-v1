@@ -1,29 +1,28 @@
-import React, { lazy } from 'react'
+import React from 'react'
 import { Route, Switch, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
-
-import BridgeTransfer from './transfer'
-import BridgeHistoryList from './list'
-import BridgeOrderDetail from './detail'
-import BridgeOrderConfirm from './confirm'
+import { useWeb3React } from '@web3-react/core'
+import { useTranslation } from 'react-i18next'
+import { useDispatch } from 'react-redux'
 
 import { useConnectWalletModalShow } from '../../state/wallet/hooks'
 import WalletListModal from '../../components/WalletListModal'
-
 import BridgeLoading from '../../components/BridgeLoading'
 import { useBridgeLoading } from '../../state/application/hooks'
-import { useTranslation } from 'react-i18next'
-import { useDispatch } from 'react-redux'
 import { updateBridgeLoading } from '../../state/application/actions'
 import { BridgeService } from '../../api/bridge'
-import { useWeb3React } from '@web3-react/core'
 import { updatePairList } from '../../state/bridge/actions'
 import { PairInfo } from '../../state/bridge/reducer'
 import { ConnectorNames } from '../../constants/wallet'
 import useAuth from '../../hooks/useAuth'
 import { ChainIds } from '../../connectors'
 import { updateErrorInfo } from '../../state/wallet/actions'
+
+import BridgeTransfer from './transfer'
+import BridgeHistoryList from './list'
+import BridgeOrderDetail from './detail'
+import BridgeOrderConfirm from './confirm'
 
 import '../../styles/transition.css'
 
@@ -166,15 +165,10 @@ const BridgePage: React.FunctionComponent<BridgePageProps> = ({ children }) => {
   const getPairList = async () => {
     try {
       const res = await BridgeService.pairList()
-
-      console.log(res.data.data)
-
       const list: PairInfo[] = []
-
       for (let i = 0; i < res.data.data.length; i++) {
         const chain: PairInfo = res.data.data[i]
-        const status = chain.status
-        if ((chain.status & 1) !== 1) {
+        if ((chain?.status & 1) !== 1) {
           continue
         } else {
           chain.openStatus = true
