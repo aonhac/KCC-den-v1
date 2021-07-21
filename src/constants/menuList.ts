@@ -80,7 +80,7 @@ export const MENU_LIST = [
             title: 'KCC BRIDGE TITLE',
             subTitle: 'KCC BRIDGE DESC',
             route: '/bridge/transfer',
-            icon: require('../assets/images/Icons/menu/bridge.svg').default,
+            icon: require('../assets/images/Icons/menu/bridge.png').default,
           },
           {
             title: 'Submit a Dapp',

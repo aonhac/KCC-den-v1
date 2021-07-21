@@ -172,6 +172,7 @@
   "The minimum exchange quantity is": "当前交易金额最小限制是",
   "The maximum exchange quantity is": "当前交易金额最大限制是",
   "Pending": "待处理",
+  "PENDING": "待处理",
   "Details": "交易详情",
   "View hash": "查看详情",
   "Completed": "已完成",
