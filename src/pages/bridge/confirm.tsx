@@ -181,7 +181,6 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
         } else {
           dispatch(updateBridgeLoading({ visible: false, status: 0 }))
           notification.success({ message: i18next.t(`App Tips`), description: i18next.t(`Transaction Confirmed`) })
-          history.push('/bridge/list')
         }
       })
       .on('error', () => {
@@ -218,7 +217,6 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
         } else {
           dispatch(updateBridgeLoading({ visible: false, status: 0 }))
           notification.success({ message: i18next.t(`App Tips`), description: i18next.t(`Transaction Confirmed`) })
-          history.push('/bridge/list')
         }
 
         const addAsset = (
