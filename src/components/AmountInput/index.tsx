@@ -217,7 +217,16 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
 
     // check supply
     if (pair.limitStatus) {
-      if (new BN(input).multipliedBy(Math.pow(10, pair.dstChainInfo.decimals)).gt(totalSupply)) {
+      // if is native token,should minus swapFee first
+      let amountWithoutFee = new BN(0)
+      if (pair.srcChainInfo.tag === 0) {
+        const swapFeeEther = new BN(swapFee).div(Math.pow(10, pair.srcChainInfo.decimals))
+        amountWithoutFee = new BN(input).minus(swapFeeEther)
+      } else {
+        amountWithoutFee = new BN(input)
+      }
+
+      if (amountWithoutFee.multipliedBy(Math.pow(10, pair.dstChainInfo.decimals)).gt(totalSupply)) {
         updateAddressStatus(false, setErrorInfoPrehandle('insufficienBridgeText'))
         return
       }
