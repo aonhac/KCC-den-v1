@@ -82,7 +82,7 @@ const ButtonBgImg = styled.img`
 
 const LoadingBg = styled.div`
   margin: 200px auto;
-  background: #fff;
+
   position: relative;
   width: 464px;
   height: 306px;
@@ -91,7 +91,9 @@ const LoadingBg = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
   @media (max-width: 768px) {
+    background: #fff;
     width: 100%;
     margin: 0 auto;
     height: 100vh;
@@ -102,7 +104,7 @@ const LoadingBg = styled.div`
 `
 
 const Success = styled.div`
-  margin-top: 120px;
+  margin-top: 20px;
   height: 36px;
   font-size: 24px;
   font-family: URWDIN-Medium, URWDIN;

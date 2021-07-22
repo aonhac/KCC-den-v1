@@ -1,34 +1,28 @@
 import React from 'react'
-import styled from 'styled-components'
+import { LoadingOutlined, CheckCircleTwoTone } from '@ant-design/icons'
 export interface BridgeLoadingProps {
   status: number
 }
 
 import './index.less'
 import { useTranslation } from 'react-i18next'
+import { theme } from '../../constants/theme'
 
 const BridgeLoading: React.FunctionComponent<BridgeLoadingProps> = ({ status }) => {
-  const { t } = useTranslation()
-
-  const loadingType = React.useMemo(() => {
-    switch (status) {
-      case 0:
-        return 'sprite-loading'
-      case 1:
-        return 'sprite-success'
-      case 2:
-        return 'sprite-done'
-      default:
-        return 'sprite-loading'
-    }
-  }, [status])
-
   return (
-    <div className="bridge-loading-wrap">
-      <div className="box animation1" id="layer1">
-        <div className={loadingType}></div>
-      </div>
-    </div>
+    <>
+      {status === 0 ? (
+        <LoadingOutlined
+          style={{
+            color: theme.colors.bridgePrimay,
+            fontSize: '50px',
+            animation: 'loadingCircle 1.5s infinite linear',
+          }}
+        />
+      ) : (
+        <CheckCircleTwoTone style={{ fontSize: '50px' }} twoToneColor={theme.colors.bridgePrimay} />
+      )}
+    </>
   )
 }
 

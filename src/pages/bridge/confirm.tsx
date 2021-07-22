@@ -17,10 +17,10 @@ import useLocalStorageState from 'react-use-localstorage'
 import { UnconfirmOrderKey } from '../../utils/task'
 import { PairInfo } from '../../state/bridge/reducer'
 import { useHistory } from 'react-router-dom'
-import { useBridgeLoading } from '../../state/application/hooks'
 import i18next from 'i18next'
 import { CenterRow } from '../../components/Row'
 import { switchNetwork, addTokenToWallet } from '../../utils/wallet'
+import store from '../../state'
 
 export enum ChainBridgeType {
   'DISPLAY',
@@ -93,8 +93,6 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
 
   const [unconfirmOrderList, setUnconfirmOrderList] = useLocalStorageState(UnconfirmOrderKey)
 
-  const bridgeLoading = useBridgeLoading()
-
   let orderRaw: TransferOrder
 
   try {
@@ -122,7 +120,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
   const dispatch = useDispatch()
 
   const back2transfer = () => {
-    history.push('/bridge/transfer', { a: 1 })
+    history.push('/bridge/transfer')
   }
 
   const receiveAmount = React.useMemo(() => {
@@ -172,7 +170,8 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
         saveUnconfirmOrder(order, hash)
       })
       .once('confirmation', (confirmations: number) => {
-        if (bridgeLoading.visible) {
+        const bridgeLoading = store.getState().application.bridgeLoadingVisible
+        if (bridgeLoading) {
           dispatch(updateBridgeLoading({ visible: true, status: 1 }))
           setTimeout(() => {
             dispatch(updateBridgeLoading({ visible: false, status: 0 }))
@@ -182,6 +181,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
           dispatch(updateBridgeLoading({ visible: false, status: 0 }))
           notification.success({ message: i18next.t(`App Tips`), description: i18next.t(`Transaction Confirmed`) })
         }
+        debugger
       })
       .on('error', () => {
         dispatch(updateBridgeLoading({ visible: false, status: 0 }))
@@ -207,8 +207,11 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
       .once('confirmation', (confirmations: number) => {
         console.log(confirmations)
 
+        debugger
+
         // add  token to  dist chain metamask
-        if (bridgeLoading.visible) {
+        const bridgeLoading = store.getState().application.bridgeLoadingVisible
+        if (bridgeLoading) {
           dispatch(updateBridgeLoading({ visible: true, status: 1 }))
           setTimeout(() => {
             dispatch(updateBridgeLoading({ visible: false, status: 0 }))
