@@ -611,8 +611,8 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
         console.log(selectedPairInfo.dstChainInfo.chainId)
         supply = await contract.methods.balanceOf(chain.bridgeCoreAddress).call()
       }
-      // setTotalSupply(() => String(supply))
-      setTotalSupply(() => new BN(2).multipliedBy(Math.pow(10, selectedPairInfo.dstChainInfo.decimals)).toString())
+      setTotalSupply(() => String(supply))
+      // setTotalSupply(() => new BN(2).multipliedBy(Math.pow(10, selectedPairInfo.dstChainInfo.decimals)).toString())
       setTimeout(() => {
         setSupplyLoading(() => false)
       }, 1000)
