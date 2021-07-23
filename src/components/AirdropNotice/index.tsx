@@ -9,11 +9,7 @@ const AirdropNotice: React.FunctionComponent<AirdropNoticeProps> = ({ show }) =>
   const { t } = useTranslation()
   const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false)
 
-  const text = '系统监测到你的目标地址没有kcs，稍后将赠送你 0.001 kcs作为手续费体验金。'
-
-  const showModal = () => {
-    setIsModalVisible(true)
-  }
+  const NoticeKey = 'Airdrop Notice'
 
   const handleOk = () => {
     setIsModalVisible(false)
@@ -41,7 +37,7 @@ const AirdropNotice: React.FunctionComponent<AirdropNoticeProps> = ({ show }) =>
       onOk={handleOk}
       onCancel={handleCancel}
     >
-      <p>{text}</p>
+      <p>{t(`${NoticeKey}`)}</p>
     </Modal>
   )
 }
