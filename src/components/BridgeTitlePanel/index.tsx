@@ -21,6 +21,13 @@ const Title = styled.div`
   font-weight: 500;
   color: #01081e;
   line-height: 36px;
+  @media (max-width: 768px) {
+    font-size: 16px;
+    padding-top: 2px;
+    font-weight: 400;
+    height: 24px;
+    line-height: 24px;
+  }
 `
 
 const Back = styled.img`
@@ -30,6 +37,14 @@ const Back = styled.img`
   width: 24px;
   height: 24px;
   cursor: pointer;
+  @media (max-width: 768px) {
+    width: 16px;
+    height: 16px;
+    top: 0px;
+    font-size: 14px;
+    padding-top: 2px;
+    line-height: 16px;
+  }
 `
 
 const BridgeTitlePanel: React.SFC<BridgeTitlePanelProps> = (props) => {
