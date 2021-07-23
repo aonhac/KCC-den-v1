@@ -35,6 +35,7 @@ import i18next from 'i18next'
 import { Text } from './confirm'
 import { useResponsive } from '../../utils/responsive'
 import { useInterval } from '../../hooks/useInterval'
+import { findPair, findPairBySrcChain } from '../../utils/index'
 
 export enum ListType {
   'WHITE',
@@ -200,8 +201,6 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
 
   const bridgeLoaing = useBridgeLoading()
 
-  const { isMobile } = useResponsive()
-
   // the status list of transfer asset rules
   const [checkList, setCheckList] = React.useState<typeof statusList>(statusList)
 
@@ -286,16 +285,6 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
   }, [selectedPairInfo, currentPairId])
 
   /**
-   * @description init select network
-   */
-
-  React.useEffect(() => {
-    if (srcChainIds.length && srcId === 0 && currentPairId === -1) {
-      changeSrcId(srcChainIds[0])
-    }
-  }, [srcChainIds, distChainIds, currentPairId])
-
-  /**
    * @description update receiver address
    */
   React.useEffect(() => {
@@ -326,60 +315,59 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
     setReceiveAddress(() => address)
   }
 
-  /**
-   * @description init the asset selected
-   */
-  React.useEffect(() => {
-    if (currency.symbol === '' && tokenList.length) {
-      dispatch(updateCurrentCurrency({ currency: tokenList[0] }))
-    }
-  }, [tokenList])
-
-  /**
-   * @descriptionSelect choose the user selected token last time
-   */
-  React.useEffect(() => {
-    if (currency.symbol !== '') {
-      setSelectedCurrency(currency)
-    }
-  }, [])
-
   const selectedNetworkInfo = React.useMemo(() => {
     return getNetworkInfo(selectedPairInfo?.srcChainInfo.chainId as any)
   }, [selectedPairInfo])
 
-  // update selected pairId
+  // update transfer pair by pairId
   React.useEffect(() => {
-    console.log('currency', currency)
-    if (srcId && distId && currency.name) {
-      for (let i = 0; i < pairList?.length; i++) {
-        const chain = pairList[i]
-        const srcChainInfo = chain.srcChainInfo
-        const distChainInfo = chain.dstChainInfo
-        if (
-          srcChainInfo.currency === currency.symbol &&
-          srcChainInfo.chainId === srcId &&
-          distChainInfo.chainId === distId
-        ) {
-          dispatch(updateCurrentPairId(chain.id))
-          return
-        }
+    const latestPairInfo = getPairInfo(currentPairId)
+    // has valid pair info
+    if (latestPairInfo) {
+      // change currency
+      const src = latestPairInfo.srcChainInfo
+      const dist = latestPairInfo.dstChainInfo
+      const c: Currency = {
+        symbol: src.currency,
+        name: src?.name,
+        logoUrl: src.logoUrl,
+        decimals: src.decimals,
       }
-
-      if (srcChainIds.length) {
-        changeSrcId(srcChainIds[0])
-      } else {
-        changeSrcId(() => 0)
-      }
+      setSelectedCurrency(c)
+      // change src chain id
+      changeSrcId(src.chainId)
+      //change dist chain id
+      changeDistId(dist.chainId)
     } else {
-      dispatch(updateCurrentPairId(-1))
-      if (srcChainIds.length) {
-        changeSrcId(srcChainIds[0])
+      // if has default currency
+      // set default list
+      if (tokenList.length > 0) {
+        const preCurrency = currency?.symbol ? currency : tokenList[0]
+        setSelectedCurrency(preCurrency)
+        if (srcChainIds.length > 0 && distChainIds.length > 0) {
+          const id = findPairBySrcChain(srcChainIds[0], preCurrency)
+          if (id > 0) {
+            dispatch(updateCurrentPairId(id))
+          } else if (srcChainIds.length > 0) {
+            changeSrcId(() => srcChainIds[0])
+            changeDistId(() => 0)
+          } else {
+            // in fact,code never can access here,only in tokenList,user can select
+            // change src chain id
+            changeSrcId(() => 0)
+            //change dist chain id
+            changeDistId(() => 0)
+          }
+        }
       } else {
+        // change src chain id
         changeSrcId(() => 0)
+        //change dist chain id
+        changeDistId(() => 0)
       }
     }
-  }, [srcId, distId, currency.name])
+    // debugger
+  }, [currentPairId])
 
   /**
    * @description get available status
@@ -650,7 +638,13 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
       <TransferWrap>
         <TransferLimit pairId={currentPairId} available={totalSupply} loading={supplyLoading} />
         <BridgeTitle>{t(`Asset`)}</BridgeTitle>
-        <SelectToken list={tokenList} setCurrency={setSelectedCurrency} currency={currency} />
+        <SelectToken
+          setCurrency={setSelectedCurrency}
+          list={tokenList}
+          currency={currency}
+          srcId={srcId}
+          distId={distId}
+        />
         <ChainBridge
           pairId={currentPairId}
           srcId={srcId}

@@ -3,10 +3,15 @@ import styled from 'styled-components'
 import { RightOutlined } from '@ant-design/icons'
 import { Input } from 'antd'
 import { Currency } from '../../state/bridge/reducer'
+import { findPair } from '../../utils/index'
+import { updateCurrentPairId } from '../../state/bridge/actions'
+import { useDispatch } from 'react-redux'
 export interface SelectTokenProps {
   list: any[]
-  setCurrency: any
   currency: Currency
+  srcId: number
+  distId: number
+  setCurrency: any
 }
 
 const SelectTokenWrap = styled.div`
@@ -96,9 +101,10 @@ const SelectItem = styled(TokenWrap)`
   }
 `
 
-const SelectToken: React.SFC<SelectTokenProps> = ({ list, currency, setCurrency }) => {
+const SelectToken: React.SFC<SelectTokenProps> = ({ list, currency, srcId, distId, setCurrency }) => {
   const [show, setShow] = React.useState<boolean>(false)
   const [keyword, setKeyword] = React.useState<string>(' ')
+  const dispatch = useDispatch()
 
   React.useEffect(() => {
     setKeyword(() => '')
@@ -118,6 +124,8 @@ const SelectToken: React.SFC<SelectTokenProps> = ({ list, currency, setCurrency 
 
   const selectToken = (currency: Currency) => {
     setCurrency(currency)
+    const pairId = findPair(srcId, distId, currency)
+    dispatch(updateCurrentPairId(pairId))
     setShow(() => false)
   }
 
