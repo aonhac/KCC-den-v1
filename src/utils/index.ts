@@ -85,13 +85,11 @@ export function formatNumber(number: any, precision = 6) {
   return new BN(new BN(number).toFixed(precision)).toNumber().toString()
 }
 
-export function findPair(srcChainId: number, distChainId: number, currency: Currency) {
+export function findPair(srcChainId: any, distChainId: any, currency: Currency) {
   if (!(srcChainId && distChainId && currency.symbol)) {
     return -1
   }
-
-  const pairList = usePariList()
-
+  const pairList = store.getState().bridge.pairList
   for (let i = 0; i < pairList?.length; i++) {
     const chain = pairList[i]
     const srcChainInfo = chain.srcChainInfo
@@ -104,6 +102,20 @@ export function findPair(srcChainId: number, distChainId: number, currency: Curr
       return chain.id
     }
   }
+  return -1
+}
 
+export function findPairBySrcChain(srcChainId: any, currency: Currency) {
+  if (!(srcChainId && currency.symbol)) {
+    return -1
+  }
+  const pairList = store.getState().bridge.pairList
+  for (let i = 0; i < pairList?.length; i++) {
+    const chain = pairList[i]
+    const srcChainInfo = chain.srcChainInfo
+    if (srcChainInfo.currency === currency.symbol && srcChainInfo.chainId === srcChainId) {
+      return chain.id
+    }
+  }
   return -1
 }

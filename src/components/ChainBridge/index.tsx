@@ -6,6 +6,9 @@ import { useTranslation } from 'react-i18next'
 import { ChainBridgeType } from '../../pages/bridge/confirm'
 import { useTokenSupporChain, usePariList } from '../../state/bridge/hooks'
 import { Tooltip } from 'antd'
+import { findPair } from '../../utils/index'
+import { useDispatch } from 'react-redux'
+import { updateCurrentPairId } from '../../state/bridge/actions'
 
 export interface ChainBridgeProps {
   srcId: any
@@ -77,6 +80,8 @@ const ChainBridge: React.FunctionComponent<ChainBridgeProps> = (props) => {
 
   const { srcChainIds, distChainIds } = useTokenSupporChain()
 
+  const dispatch = useDispatch()
+
   const pairList = usePariList()
 
   const swapStatus = React.useMemo(() => {
@@ -87,8 +92,8 @@ const ChainBridge: React.FunctionComponent<ChainBridgeProps> = (props) => {
     if (swapStatus) {
       let d = props.distId
       let s = props.srcId
-      props.changeDistId(s)
-      props.changeSrcId(d)
+      const id = findPair(d, s, props.currency)
+      dispatch(updateCurrentPairId(id))
     }
   }
 
@@ -117,6 +122,7 @@ const ChainBridge: React.FunctionComponent<ChainBridgeProps> = (props) => {
           type={props.type}
           pairId={props.pairId}
           changeNetwork={props.changeSrcId}
+          currency={props.currency}
         />
       </Box>
       {props.type === ChainBridgeType.OPERATE ? (
@@ -143,6 +149,7 @@ const ChainBridge: React.FunctionComponent<ChainBridgeProps> = (props) => {
           pairId={props.pairId}
           type={props.type}
           changeNetwork={props.changeDistId}
+          currency={props.currency}
         />
       </Box>
     </ChainBridgeWrap>

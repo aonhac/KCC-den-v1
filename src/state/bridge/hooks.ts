@@ -70,6 +70,9 @@ export function useTokenSupporChain() {
     const chainList = state.bridge.pairList ?? []
     for (let i = 0; i < chainList.length; i++) {
       const chain = chainList[i]
+      if (chain.openStatus === false) {
+        continue
+      }
       const srcChainInfo = chain.srcChainInfo
       const distChainInfo = chain.dstChainInfo
       if (

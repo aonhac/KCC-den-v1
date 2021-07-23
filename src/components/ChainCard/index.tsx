@@ -5,9 +5,11 @@ import { networks } from '../../constants/networks'
 import { ChainIds, ChainId } from '../../connectors/index'
 import { ChainDirection } from '../ChainBridge'
 import { ChainBridgeType } from '../../pages/bridge/confirm'
-import { useChainIdList } from '../../state/bridge/hooks'
-import { getNetworkInfo } from '../../utils/index'
+import { getNetworkInfo, findPair } from '../../utils/index'
 import { FrownOutlined } from '@ant-design/icons'
+import { Currency } from '../../state/bridge/reducer'
+import { useDispatch } from 'react-redux'
+import { updateCurrentPairId } from '../../state/bridge/actions'
 
 interface ChainCardProps {
   networkId: ChainId
@@ -17,6 +19,7 @@ interface ChainCardProps {
   oppsiteId?: ChainId
   pairId?: number
   availableChainIds?: number[]
+  currency?: Currency
 }
 
 const ChainCardWrap = styled.div`
@@ -132,26 +135,13 @@ const ChainCard: React.FunctionComponent<ChainCardProps> = ({
   changeNetwork,
   oppsiteId,
   direction,
-  pairId,
+  currency,
 }) => {
   const network = React.useMemo(() => {
     return getNetworkInfo(networkId)
   }, [networkId])
 
-  React.useEffect(() => {
-    if (type === ChainBridgeType.DISPLAY) {
-      return
-    }
-    if (availableChainIds?.length === 0) {
-      changeNetwork(() => 0)
-    } else if (direction === ChainDirection.To && availableChainIds?.length) {
-      if (oppsiteId === 0) {
-        changeNetwork(() => 0)
-      } else {
-        changeNetwork(() => availableChainIds[0])
-      }
-    }
-  }, [availableChainIds])
+  const dispatch = useDispatch()
 
   const getDisabledStatus = (id: number) => {
     if (id === networkId) {
@@ -169,7 +159,11 @@ const ChainCard: React.FunctionComponent<ChainCardProps> = ({
   const [show, setShow] = React.useState<boolean>(false)
 
   const clickNetwork = (id: number) => {
-    changeNetwork(id)
+    // changeNetwork(id)
+    if (!currency) return
+    const findId =
+      direction === ChainDirection.From ? findPair(id, oppsiteId, currency) : findPair(oppsiteId, id, currency)
+    dispatch(updateCurrentPairId(findId))
     setShow(() => false)
   }
 

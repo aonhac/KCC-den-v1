@@ -50,7 +50,7 @@ export const MENU_LIST = [
         icon: require('../assets/images/Icons/menu/chrome@2x.png').default,
       },
       {
-        title: 'Testnet Faucet',
+        title: 'Testnet faucet',
         subTitle: 'Get KCC testnet tokens',
         route: KCC.FAUCET,
         icon: require('../assets/images/Icons/menu/faucet@2x.png').default,
