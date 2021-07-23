@@ -1,12 +1,13 @@
 import { networks, NetworkType } from '../constants/networks'
 import { ChainId, getNetWorkConnect } from '../connectors/index'
-import { PairInfo } from '../state/bridge/reducer'
+import { Currency, PairInfo } from '../state/bridge/reducer'
 import store from '../state'
 import BN from 'bignumber.js'
 import web3 from 'web3'
 import { getBridgeContract, getErc20Contract } from './contract'
 import { ListType } from '../pages/bridge/transfer'
 import { BridgeService } from '../api/bridge'
+import { usePariList } from '../state/bridge/hooks'
 
 const { utils } = new web3()
 
@@ -82,4 +83,27 @@ export function getDecimals(amount: string) {
 
 export function formatNumber(number: any, precision = 6) {
   return new BN(new BN(number).toFixed(precision)).toNumber().toString()
+}
+
+export function findPair(srcChainId: number, distChainId: number, currency: Currency) {
+  if (!(srcChainId && distChainId && currency.symbol)) {
+    return -1
+  }
+
+  const pairList = usePariList()
+
+  for (let i = 0; i < pairList?.length; i++) {
+    const chain = pairList[i]
+    const srcChainInfo = chain.srcChainInfo
+    const distChainInfo = chain.dstChainInfo
+    if (
+      srcChainInfo.currency === currency.symbol &&
+      srcChainInfo.chainId === srcChainId &&
+      distChainInfo.chainId === distChainId
+    ) {
+      return chain.id
+    }
+  }
+
+  return -1
 }

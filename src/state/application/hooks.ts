@@ -24,6 +24,13 @@ export function useBridgeLoading(): { visible: boolean; status: number } {
     return { visible: state.application.bridgeLoadingVisible, status: state.application.bridgeLoadingStatus }
   })
 }
+
+export function useBridgeLoadingVisible(): boolean {
+  return useSelector((state: AppState) => {
+    return state.application.bridgeLoadingVisible
+  })
+}
+
 // get the list of active popups
 /* export function useActivePopups(): AppState['application']['popupList'] {
   const list = useSelector((state: AppState) => state.application.popupList)
