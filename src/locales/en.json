@@ -195,5 +195,7 @@
   "KCC Bridge Launched": "KCC Bridge launched",
   "Max": "Max",
   "Approved Success": "Approved Success",
-  "Add assets to the wallet list": "Add assets to the wallet list"
+  "Add assets to the wallet list": "Add assets to the wallet list",
+  "Confirm": "Confirm",
+  "Airdrop Notice": "The system detects that your target address doesn‘t have any kcs, and will give you a 0.001 kcs fee for the next transfer."
 }
