@@ -58,12 +58,12 @@ export const LanguageButton = styled.div`
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
-  // border: 1px solid ${() => theme.colors.primary};
   background: #212124;
   &:hover {
     bacground: transparent !important;
   }
   @media (max-width: 768px) {
+    background: none;
     border: none;
     width: 70px;
     margin-right: 10px;

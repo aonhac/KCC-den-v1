@@ -145,7 +145,7 @@ const UnlockButton: React.FunctionComponent = () => {
       return (
         <ConnectButton onClick={connect}>
           <WalletIcon src={require('../../assets/images/bridge/wanllet@2x.png').default} />
-          <Text style={{ paddingRight: '10px' }}>{t(`Connect Wallet`)}</Text>
+          <Text style={{ paddingRight: '15px' }}>{t(`Connect Wallet`)}</Text>
         </ConnectButton>
       )
     }
