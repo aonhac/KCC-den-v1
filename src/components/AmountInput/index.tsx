@@ -72,7 +72,6 @@ export enum TransferType {
 }
 
 const AmountInput: React.FunctionComponent<AmountInputProps> = ({
-  currency,
   amount,
   setAmount,
   checkList,

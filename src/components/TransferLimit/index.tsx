@@ -29,6 +29,10 @@ const Title = styled.div`
   font-weight: 400;
   color: rgba(0, 1, 50, 0.6);
   line-height: 22px;
+  @media (max-width: 768px) {
+    height: auto;
+    text-align: center;
+  }
 `
 
 const TransferLimit: React.FunctionComponent<TransferLimitProps> = ({ loading, available, pairId }) => {
@@ -54,7 +58,8 @@ const TransferLimit: React.FunctionComponent<TransferLimitProps> = ({ loading, a
           />
         ) : (
           <span>
-            {new BN(available).div(Math.pow(10, selectedPairInfo?.dstChainInfo.decimals as number)).toString()}
+            {/* {new BN(available).div(Math.pow(10, selectedPairInfo?.dstChainInfo.decimals as number)).toString()} */}
+            {new BN(available).toString()}
           </span>
         )}
       </Title>
