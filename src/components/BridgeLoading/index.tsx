@@ -1,12 +1,11 @@
 import React from 'react'
 import { LoadingOutlined, CheckCircleTwoTone } from '@ant-design/icons'
+import { theme } from '../../constants/theme'
+import './index.less'
+
 export interface BridgeLoadingProps {
   status: number
 }
-
-import './index.less'
-import { useTranslation } from 'react-i18next'
-import { theme } from '../../constants/theme'
 
 const BridgeLoading: React.FunctionComponent<BridgeLoadingProps> = ({ status }) => {
   return (

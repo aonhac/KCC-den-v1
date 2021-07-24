@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { theme } from '../../constants/theme'
 import { LanguageButton } from '../ChangeLanguage/index'
 import { useWeb3React } from '@web3-react/core'
@@ -20,17 +20,31 @@ const ConnectButton = styled(LanguageButton)`
   width: auto;
   color: ${theme.colors.primary};
   margin-left: 10px;
-  padding: 0 10px;
+  padding-left: 10px;
   cursor: pointer;
+  height: 30px;
+  border: none;
+  background: #252528;
 `
 const Text = styled.span`
   user-select: none;
+`
+const HighlightText = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  padding: 0 15px;
+  border: 1px solid ${theme.colors.primary};
+  user-select: none;
+  height: 30px;
 `
 
 const ErrorButton = styled(ConnectButton)`
   color: #f00;
   border: 1px solid #fff;
   display: flex;
+  padding-right: 15px;
   justify-content: center;
   align-items: center;
   ${Text} {
@@ -49,14 +63,31 @@ const NetworkWrap = styled(CenterRow)`
   justify-content: center;
   align-items: center;
   width: auto;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
-  border-right: 1px solid ${theme.colors.primary};
-  padding-right: 15px;
-  margin-right: 10px;
+  padding-right: 5px;
+  padding-left: 5px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  background: #252528;
+`
+
+const Shining = keyframes`
+    0% {
+      transform:scale(0.9);
+      opacity:0.8;
+    }
+    50% {
+      transform:scale(1);
+       opacity:1;
+    }
+    100% {
+      transform:scale(0.9);
+      opacity:0.8;
+    }
+  `
+
+const AnimationBadge = styled(Badge)`
+  animation: ${Shining} 1s infinite ease-in-out;
 `
 
 const UnlockButton: React.FunctionComponent = () => {
@@ -97,24 +128,24 @@ const UnlockButton: React.FunctionComponent = () => {
         <ConnectButton>
           <Dropdown overlay={<NetworkList />} placement="bottomLeft">
             <NetworkWrap>
-              <Badge status="success" />
+              <AnimationBadge status="success" />
               <Text>{selectedNetworkInfo?.name}</Text>
             </NetworkWrap>
           </Dropdown>
-          <Text
+          <HighlightText
             onClick={() => {
               setLogoutModalShow(() => true)
             }}
           >
             {shortAddress(account)}
-          </Text>
+          </HighlightText>
         </ConnectButton>
       )
     } else {
       return (
         <ConnectButton onClick={connect}>
           <WalletIcon src={require('../../assets/images/bridge/wanllet@2x.png').default} />
-          <Text>{t(`Connect Wallet`)}</Text>
+          <Text style={{ paddingRight: '15px' }}>{t(`Connect Wallet`)}</Text>
         </ConnectButton>
       )
     }

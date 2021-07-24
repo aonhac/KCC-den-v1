@@ -47,23 +47,23 @@ const Text = styled.div`
 
 export const LanguageButton = styled.div`
   cursor: pointer;
-  width: 94px;
-  height: 26px;
+  width: 100px;
+  height: 30px;
   line-height: none;
   padding: 0;
-  border-radius: 4px;
+  border-radius: 20px;
   font-size: 12px;
   outline: none;
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
-  border: 1px solid ${() => theme.colors.primary};
-  background: transparent;
+  background: #212124;
   &:hover {
     bacground: transparent !important;
   }
   @media (max-width: 768px) {
+    background: none;
     border: none;
     width: 70px;
     margin-right: 10px;

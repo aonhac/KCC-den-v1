@@ -672,7 +672,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
           {account ? (
             <>
               <Box>
-                <ReceiveText style={{ marginLeft: '10px' }}>{t(`Available`)}: </ReceiveText>
+                <ReceiveText>{t(`Available`)}: </ReceiveText>
                 {!availableLoading ? (
                   <ReceiveAmountText>
                     {formatCurrency(
@@ -696,7 +696,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
                 )}
               </Box>
               <Box style={{ textAlign: 'right' }}>
-                <ReceiveText style={{ marginLeft: '10px' }}>{t(`Transfer fee`)}: </ReceiveText>
+                <ReceiveText>{t(`Transfer fee`)}: </ReceiveText>
                 {!swapFeeLoading ? (
                   <>
                     <ReceiveAmountText style={{ color: theme.colors.bridgePrimay }}>
