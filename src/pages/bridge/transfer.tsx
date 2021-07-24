@@ -655,7 +655,6 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
           type={ChainBridgeType.OPERATE}
         />
         <AmountInput
-          currency={currency}
           amount={amount}
           setAmount={setAmount}
           totalSupply={totalSupply}

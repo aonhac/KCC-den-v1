@@ -15,7 +15,6 @@ import { theme } from '../../constants/theme'
 export interface AmountInputProps {
   amount: string
   setAmount: any
-  currency: Currency
   totalSupply: string
   checkList: CheckListType
   setCheckList: any
