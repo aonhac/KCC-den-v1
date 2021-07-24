@@ -1,8 +1,8 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+import { Badge } from 'antd'
 import { ChainId, ChainIds } from '../../connectors/index'
 import { getNetworkInfo } from '../../utils/index'
-import { Badge } from 'antd'
 import { theme } from '../../constants/theme'
 import { useTranslation } from 'react-i18next'
 import useAuth from '../../hooks/useAuth'
@@ -16,13 +16,26 @@ const NetworkListWrap = styled.div`
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
-  background: rgba(0, 0, 0, 1);
   padding: 5px 10px;
-  border: 1px solid ${theme.colors.primary};
-  border-radius: 4px;
+  // border: 1px solid ${theme.colors.primary};
+  background: #1e1e21;
+  border-radius: 8px;
+  position: relative;
+  top: 10px;
+  left: -30px;
   @media (max-width: 768px) {
     background: rgba(255, 255, 255, 1);
   }
+`
+
+export const Triangle = styled.div`
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  border: 8px solid transparent;
+  border-bottom: 8px solid #1e1e21;
+  top: -15px;
+  left: 60px;
 `
 const Name = styled.div`
   font-size: 12px;
@@ -44,6 +57,8 @@ const NetworkListItem = styled.div`
     color: #fff;
   }
 `
+
+const AnimationBadge = styled(Badge)``
 
 const NetworkList: React.FunctionComponent<NetworkListProps> = () => {
   const { t } = useTranslation()
@@ -68,7 +83,12 @@ const NetworkList: React.FunctionComponent<NetworkListProps> = () => {
     }
   })
 
-  return <NetworkListWrap>{networkList}</NetworkListWrap>
+  return (
+    <NetworkListWrap>
+      <Triangle />
+      {networkList}
+    </NetworkListWrap>
+  )
 }
 
 export default NetworkList

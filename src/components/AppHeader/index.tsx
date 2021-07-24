@@ -39,7 +39,7 @@ const HeaderLeftWrap = styled.div`
   justify-content: space-between;
   align-items: center;
   @media (min-width: 1200px) {
-    padding-left: 60px;
+    padding-left: 0px;
   }
 `
 
