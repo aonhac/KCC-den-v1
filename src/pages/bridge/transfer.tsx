@@ -33,9 +33,9 @@ import { theme } from '../../constants/theme'
 import { useBridgeLoading } from '../../state/application/hooks'
 import i18next from 'i18next'
 import { Text } from './confirm'
-import { useResponsive } from '../../utils/responsive'
 import { useInterval } from '../../hooks/useInterval'
-import { findPair, findPairBySrcChain } from '../../utils/index'
+import { findPairBySrcChain } from '../../utils/index'
+import { formatCurrency } from '../../utils/format'
 
 export enum ListType {
   'WHITE',
@@ -655,7 +655,6 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
           type={ChainBridgeType.OPERATE}
         />
         <AmountInput
-          currency={currency}
           amount={amount}
           setAmount={setAmount}
           totalSupply={totalSupply}
@@ -676,10 +675,12 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
                 <ReceiveText style={{ marginLeft: '10px' }}>{t(`Available`)}: </ReceiveText>
                 {!availableLoading ? (
                   <ReceiveAmountText>
-                    {new BN(available)
-                      .div(Math.pow(10, selectedPairInfo?.srcChainInfo.decimals as any))
-                      .toFixed(6)
-                      .toString() ?? 0}
+                    {formatCurrency(
+                      new BN(available)
+                        .div(Math.pow(10, selectedPairInfo?.srcChainInfo.decimals as any))
+                        .toFixed(6)
+                        .toString()
+                    ) ?? 0}
                     {currency.symbol.toUpperCase()}
                   </ReceiveAmountText>
                 ) : (

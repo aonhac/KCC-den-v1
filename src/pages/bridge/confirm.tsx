@@ -273,7 +273,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
           />
           <ConfirmItem title={t('Transfer fee')}>
             <FeeAmmount>
-              {networkInfo?.fee ? <NoFeeText>{networkInfo?.fee}</NoFeeText> : null}
+              {order?.fee == '0' ? <NoFeeText>{networkInfo?.fee}</NoFeeText> : null}
               {`${new BN(order.fee)
                 .div(Math.pow(10, networkInfo?.decimals))
                 .toString()} ${networkInfo?.symbol.toUpperCase()}`}
