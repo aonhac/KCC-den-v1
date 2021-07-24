@@ -2,9 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { ColumnCenter } from '../Column/index'
 import { useTranslation } from 'react-i18next'
-import Row, { RowBetween } from '../Row'
-import copy from 'copy-to-clipboard'
-import { message } from 'antd'
 import { theme } from '../../constants/theme'
 export interface ContactCardProps {
   icon: string
@@ -63,11 +60,6 @@ const CopyIcon = styled.img`
 const ContactCard: React.FunctionComponent<ContactCardProps> = (props) => {
   const { t } = useTranslation()
 
-  const copyAccount = (account: string) => {
-    copy(account, { debug: true, message: 'copy success' })
-    message.success(`${account} 已经复制到剪贴板`)
-  }
-
   const nav2Target = () => {
     if (props.route) {
       window.open(props.route, '_blank')
@@ -80,13 +72,6 @@ const ContactCard: React.FunctionComponent<ContactCardProps> = (props) => {
         <AppIcon src={props.icon} onClick={nav2Target} />
         <AppText>{t(props.app)}</AppText>
       </ColumnCenter>
-      {/* <Row style={{ justifyContent: 'center', alignItems: 'center', marginTop: '11px' }}>
-        <AccountText>{props.account}</AccountText>
-        <CopyIcon
-          src={require('../../assets/images/home/copy.png').default}
-          onClick={copyAccount.bind(null, props.account)}
-        />
-      </Row> */}
     </ContactCardWrap>
   )
 }

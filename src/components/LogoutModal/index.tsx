@@ -10,10 +10,17 @@ import { CopyOutlined, ChromeOutlined } from '@ant-design/icons'
 import copy from 'copy-to-clipboard'
 import { networks } from '../../constants/networks'
 import { ChainId } from '../../connectors'
+import { useResponsive } from '../../utils/responsive'
 export interface LogoutModalProps {
   visible: boolean
   toggleVisible: any
 }
+
+const MyModal = styled(Modal)`
+  .ant-modal-header {
+    border-radius: 8px !important;
+  }
+`
 
 export const ModalWrap = styled.div`
   display: flex;
@@ -25,6 +32,9 @@ export const ModalWrap = styled.div`
 const Text = styled.div`
   color: #000;
   font-size: 18px;
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `
 const LinkGroup = styled.div`
   margin-top: 5px;
@@ -54,6 +64,10 @@ const Link = styled.div`
   & + & {
     margin-left: 20px;
   }
+  @media (max-width: 768px) {
+    font-size: 12px;
+    font-weight: 400;
+  }
 `
 const ButtonText = styled.span`
   color: ${theme.colors.bridgePrimay};
@@ -66,10 +80,7 @@ const LogoutModal: React.FunctionComponent<LogoutModalProps> = (props) => {
   const { t } = useTranslation()
   const { logout } = useAuth()
 
-  const handleLogout = async () => {
-    await logout()
-    props.toggleVisible(false)
-  }
+  const { isMobile } = useResponsive()
 
   const copyAddress = (e: any) => {
     e.stopPropagation()
@@ -92,11 +103,11 @@ const LogoutModal: React.FunctionComponent<LogoutModalProps> = (props) => {
   }
 
   return (
-    <Modal
+    <MyModal
       visible={props.visible}
       footer={null}
       centered
-      width="560px"
+      width={isMobile ? '100%' : '560px'}
       title={t('Your Wallet')}
       style={{ borderRadius: '8px' }}
       onCancel={hideSelf}
@@ -123,7 +134,7 @@ const LogoutModal: React.FunctionComponent<LogoutModalProps> = (props) => {
           </Button>
         </LogoutButton> */}
       </ModalWrap>
-    </Modal>
+    </MyModal>
   )
 }
 

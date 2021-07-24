@@ -194,5 +194,7 @@
   "KCC Bridge Launched": "KCC跨链桥上线",
   "Max": "最大",
   "Approved Success": "授权成功",
-  "Add assets to the wallet list": "添加资产到钱包列表"
+  "Add assets to the wallet list": "添加资产到钱包列表",
+  "Confirm": "确认",
+  "Airdrop Notice": "系统监测到你的目标地址没有kcs，稍后将赠送你 0.001 kcs作为手续费体验金。"
 }

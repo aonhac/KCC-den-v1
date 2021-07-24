@@ -16,14 +16,20 @@ const NetworkListWrap = styled.div`
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 1);
   padding: 5px 10px;
   border: 1px solid ${theme.colors.primary};
   border-radius: 4px;
+  @media (max-width: 768px) {
+    background: rgba(255, 255, 255, 1);
+  }
 `
 const Name = styled.div`
   font-size: 12px;
   color: ${theme.colors.primary};
+  @media (max-width: 768px) {
+    color: #000;
+  }
 `
 
 const NetworkListItem = styled.div`
