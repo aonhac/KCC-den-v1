@@ -1,6 +1,6 @@
 {
   "name": "kcc-official-website",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "private": true,
   "scripts": {
     "start": "cross-env NETWORK=test craco start",
