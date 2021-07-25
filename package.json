@@ -1,6 +1,6 @@
 {
   "name": "kcc-official-website",
-  "version": "1.0.3",
+  "version": "2.0.1",
   "private": true,
   "scripts": {
     "start": "cross-env NETWORK=test craco start",
@@ -8,8 +8,8 @@
     "build:testnetwork": "cross-env NETWORK=test craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "changelog:first": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "changelog:first": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "commit": "npx cz",
     "prepare": "husky install"
   },
