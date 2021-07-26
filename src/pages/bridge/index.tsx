@@ -56,7 +56,7 @@ const Content = styled.div`
   z-index: 2;
   padding-bottom: 80px;
   @media (max-width: 768px) {
-    padding-bottom: 0px;
+    padding-bottom: 0;
   }
 `
 
@@ -174,8 +174,8 @@ const BridgePage: React.FunctionComponent<BridgePageProps> = ({ children }) => {
           continue
         } else {
           chain.openStatus = true
-          chain.limitStatus = (chain.status & 2) === 2 ? true : false
-          chain.whiteListStatus = (chain.status & 4) === 4 ? true : false
+          chain.limitStatus = (chain.status & 2) === 2
+          chain.whiteListStatus = (chain.status & 4) === 4
           list.push({ ...chain })
         }
       }
