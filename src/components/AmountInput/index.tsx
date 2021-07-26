@@ -117,9 +117,14 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
         const gasLimit = await web3.eth.estimateGas({ to: receiveAddress, from: account as string, value: available })
         const gasPrice = await web3.eth.getGasPrice()
         const operateFee = new BN(gasPrice).multipliedBy(gasLimit).toString()
-        setMaxAvailableBalance(() =>
-          new BN(available).minus(operateFee).div(Math.pow(10, pairInfo.srcChainInfo.decimals)).toFixed(decimalsLimit)
-        )
+        let max = new BN(available)
+          .minus(operateFee)
+          .div(Math.pow(10, pairInfo.srcChainInfo.decimals))
+          .toFixed(decimalsLimit)
+        if (new BN(max).lt(0)) {
+          max = '0'
+        }
+        setMaxAvailableBalance(() => max)
       }
     }
     getAvailable()
