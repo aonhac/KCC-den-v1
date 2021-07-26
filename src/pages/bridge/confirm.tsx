@@ -1,31 +1,37 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
+import BN from 'bignumber.js'
+import web3 from 'web3'
+import { Button, notification, Tooltip } from 'antd'
+import { useWeb3React } from '@web3-react/core'
+import { useDispatch } from 'react-redux'
+import useLocalStorageState from 'react-use-localstorage'
+import i18next from 'i18next'
+
 import ChainBridge from '../../components/ChainBridge'
 import { BaseButton } from '../../components/TransferButton'
 import ConfirmItem from '../../components/ConfirmItem'
 import { NoFeeText, TransferOrder, TransferWrap } from './transfer'
-import { Button, notification, Tooltip } from 'antd'
 import BridgeTitlePanel from '../../components/BridgeTitlePanel/index'
 import { getPairInfo, getNetworkInfo } from '../../utils/index'
 import { getBridgeContract } from '../../utils/contract'
-import { useWeb3React } from '@web3-react/core'
 import { updateBridgeLoading } from '../../state/application/actions'
-import { useDispatch } from 'react-redux'
-import BN from 'bignumber.js'
-import useLocalStorageState from 'react-use-localstorage'
 import { UnconfirmOrderKey } from '../../utils/task'
 import { PairInfo } from '../../state/bridge/reducer'
 import { useHistory } from 'react-router-dom'
-import i18next from 'i18next'
 import { CenterRow } from '../../components/Row'
 import { switchNetwork, addTokenToWallet } from '../../utils/wallet'
+import AirdropNotice from '../../components/AirdropNotice'
+import { KCC_NETWORK_IDS } from '../../constants/networks'
+import { getNetWorkConnect } from '../../connectors/index'
 import store from '../../state'
 
 export enum ChainBridgeType {
   'DISPLAY',
   'OPERATE',
 }
+
 export interface BridgeTransferPageProps {}
 
 const BridgeConfirmWrap = styled.div`
@@ -93,6 +99,8 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
 
   const [unconfirmOrderList, setUnconfirmOrderList] = useLocalStorageState(UnconfirmOrderKey)
 
+  const [balance, setBalance] = React.useState<any>(Number.MAX_SAFE_INTEGER)
+
   let orderRaw: TransferOrder
 
   try {
@@ -110,12 +118,6 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
   const order: TransferOrder = orderRaw
   const selectedChainInfo = getPairInfo(order.pairId)
   const networkInfo = getNetworkInfo(selectedChainInfo?.srcChainInfo.chainId as any)
-
-  React.useEffect(() => {
-    if (!account) {
-      history.push('/bridge/transfer')
-    }
-  }, [])
 
   const dispatch = useDispatch()
 
@@ -255,8 +257,23 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
       }
   }
 
+  React.useEffect(() => {
+    async function callback() {
+      if (KCC_NETWORK_IDS.includes(selectedChainInfo?.dstChainInfo.chainId as any)) {
+        const network = getNetWorkConnect(selectedChainInfo?.dstChainInfo.chainId as any)
+        const libary = new web3(network.provider as any)
+        libary.eth.getBalance(order.receiver).then((res) => {
+          console.log('balance', res)
+          setBalance(() => res)
+        })
+      }
+    }
+    callback()
+  }, [selectedChainInfo])
+
   return (
     <BridgeConfirmWrap>
+      <AirdropNotice show={balance == 0} />
       <TransferWrap>
         <BridgeTitlePanel title={t('Transfer confirmation')} iconEvent={back2transfer} />
         <ChainBridge srcId={order?.srcId} distId={order?.distId} type={ChainBridgeType.DISPLAY} />

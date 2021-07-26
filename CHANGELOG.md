@@ -7,7 +7,7 @@
 
 
 
-# [2.0.0](https://github.com/kucoin-community-chain/kcc-homepage/compare/f3c997aa5ae869cecda929d06fbb77e33fefa27f...v2.0.0) (2021-07-24)
+## [2.0.0](https://github.com/kucoin-community-chain/kcc-homepage/compare/f3c997aa5ae869cecda929d06fbb77e33fefa27f...v2.0.0) (2021-07-24)
 
 
 ### Bug Fixes
