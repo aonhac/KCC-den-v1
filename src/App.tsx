@@ -1,6 +1,5 @@
 import React, { lazy, Suspense } from 'react'
 import { Route, Switch } from 'react-router-dom'
-
 import Web3ReactManager, { getLibrary } from './components/Web3ReactManager'
 import FullLoading from './components/FullLoading'
 import AppLayout from './layouts/AppLayout'
@@ -16,8 +15,9 @@ const Grants = lazy(() => import(/* webpackChunkName:'Grant' */ './pages/grants/
 const Activity = lazy(() => import(/* webpackChunkName:'Activity' */ './pages/activities/index'))
 const Bridge = lazy(() => import(/* webpackChunkName:'Bridge' */ './pages/bridge/index'))
 
-import './App.less'
 import { clearConfirmAndOutdateOrder } from './utils/task'
+
+import './App.less'
 
 function RouteWithSubRoutes(route: { path: string; component: any; routes: any }) {
   return (
