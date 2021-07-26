@@ -1,36 +1,37 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
+import BN from 'bignumber.js'
+import web3 from 'web3'
+import { Button, notification, Tooltip } from 'antd'
+import { useWeb3React } from '@web3-react/core'
+import { useDispatch } from 'react-redux'
+import useLocalStorageState from 'react-use-localstorage'
+import i18next from 'i18next'
+
 import ChainBridge from '../../components/ChainBridge'
 import { BaseButton } from '../../components/TransferButton'
 import ConfirmItem from '../../components/ConfirmItem'
 import { NoFeeText, TransferOrder, TransferWrap } from './transfer'
-import { Button, notification, Tooltip } from 'antd'
 import BridgeTitlePanel from '../../components/BridgeTitlePanel/index'
 import { getPairInfo, getNetworkInfo } from '../../utils/index'
 import { getBridgeContract } from '../../utils/contract'
-import { useWeb3React } from '@web3-react/core'
 import { updateBridgeLoading } from '../../state/application/actions'
-import { useDispatch } from 'react-redux'
-import BN from 'bignumber.js'
-import web3 from 'web3'
-import useLocalStorageState from 'react-use-localstorage'
 import { UnconfirmOrderKey } from '../../utils/task'
 import { PairInfo } from '../../state/bridge/reducer'
 import { useHistory } from 'react-router-dom'
-import i18next from 'i18next'
 import { CenterRow } from '../../components/Row'
 import { switchNetwork, addTokenToWallet } from '../../utils/wallet'
 import AirdropNotice from '../../components/AirdropNotice'
 import { KCC_NETWORK_IDS } from '../../constants/networks'
 import { getNetWorkConnect } from '../../connectors/index'
-import { callbackify } from 'util'
 import store from '../../state'
 
 export enum ChainBridgeType {
   'DISPLAY',
   'OPERATE',
 }
+
 export interface BridgeTransferPageProps {}
 
 const BridgeConfirmWrap = styled.div`

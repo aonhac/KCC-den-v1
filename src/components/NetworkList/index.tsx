@@ -24,7 +24,7 @@ const NetworkListWrap = styled.div`
   top: 10px;
   left: -30px;
   @media (max-width: 768px) {
-    background: rgba(255, 255, 255, 1);
+    box-shadow: 1px -1px 5px rgba(255, 255, 255, 0.5);
   }
 `
 
@@ -40,9 +40,6 @@ export const Triangle = styled.div`
 const Name = styled.div`
   font-size: 12px;
   color: ${theme.colors.primary};
-  @media (max-width: 768px) {
-    color: #000;
-  }
 `
 
 const NetworkListItem = styled.div`
