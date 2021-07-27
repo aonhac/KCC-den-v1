@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Badge } from 'antd'
-import { ChainId, ChainIds } from '../../connectors'
+import {ChainId, ChainIds, ChainKeys} from '../../connectors'
 import { getNetworkInfo } from '../../utils'
 import { theme } from '../../constants/theme'
 import { switchNetwork } from '../../utils/wallet'
+import {networks} from "../../constants/networks";
 
 export interface NetworkListProps {}
 
@@ -60,11 +61,12 @@ const NetworkList: React.FunctionComponent<NetworkListProps> = () => {
     await switchNetwork(selectedNetworkInfo.chain_id as any)
   }
 
-  const networkList = ChainIds.map((n, index) => {
-    const network = getNetworkInfo(n as ChainId)
-    if (n) {
+  const networkList = ChainKeys.map((key, index) => {
+    const network = getNetworkInfo(Number(key) as any)
+    const keys = Reflect.ownKeys(networks)
+    if (keys.includes(key) && key!=='0') {
       return (
-        <NetworkListItem key={index} onClick={switchSrcChain.bind(null, n)}>
+        <NetworkListItem key={index} onClick={switchSrcChain.bind(null, Number(key))}>
           <Badge status="success" />
           <Name>{network.fullName}</Name>
         </NetworkListItem>
