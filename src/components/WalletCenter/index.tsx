@@ -53,6 +53,9 @@ const WalletInfoWrap = styled.div`
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
+  @media (max-width: 768px){
+    width:96%;
+  }
 `
 const SpaceRow = styled.div`
   display: flex;
