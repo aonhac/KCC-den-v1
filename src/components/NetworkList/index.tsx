@@ -1,11 +1,9 @@
 import React from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import { Badge } from 'antd'
-import { ChainId, ChainIds } from '../../connectors/index'
-import { getNetworkInfo } from '../../utils/index'
+import { ChainId, ChainIds } from '../../connectors'
+import { getNetworkInfo } from '../../utils'
 import { theme } from '../../constants/theme'
-import { useTranslation } from 'react-i18next'
-import useAuth from '../../hooks/useAuth'
 import { switchNetwork } from '../../utils/wallet'
 
 export interface NetworkListProps {}
@@ -17,7 +15,6 @@ const NetworkListWrap = styled.div`
   justify-content: flex-start;
   align-items: center;
   padding: 5px 10px;
-  // border: 1px solid ${theme.colors.primary};
   background: #1e1e21;
   border-radius: 8px;
   position: relative;
@@ -30,8 +27,8 @@ const NetworkListWrap = styled.div`
 
 export const Triangle = styled.div`
   position: absolute;
-  width: 0px;
-  height: 0px;
+  width: 0;
+  height: 0;
   border: 8px solid transparent;
   border-bottom: 8px solid #1e1e21;
   top: -15px;
@@ -55,12 +52,7 @@ const NetworkListItem = styled.div`
   }
 `
 
-const AnimationBadge = styled(Badge)``
-
 const NetworkList: React.FunctionComponent<NetworkListProps> = () => {
-  const { t } = useTranslation()
-
-  const { login, logout } = useAuth()
 
   const switchSrcChain = async (id: number, e: any) => {
     e.stopPropagation()

@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom'
 import { CenterRow } from '../../components/Row'
 import { RightOutlined } from '@ant-design/icons'
 import { Pagination, Spin } from 'antd'
-import { getNetworkInfo, getPairInfo } from '../../utils/index'
+import { getNetworkInfo, getPairInfo } from '../../utils'
 import { PairInfo } from '../../state/bridge/reducer'
 import { useTranslation } from 'react-i18next'
 import BN from 'bignumber.js'
@@ -198,7 +198,7 @@ const Left = styled.div`
   align-items: center;
 `
 
-const OrderDetaiItem = styled.div`
+const OrderDetailItem = styled.div`
   display: flex;
   width: 100%;
   flex-flow: column nowrap;
@@ -211,7 +211,7 @@ const Right = styled.div`
   justify-self: flex-end;
   display: flex;
   flex-flow: column nowrap;
-  ${OrderDetaiItem} {
+  ${OrderDetailItem} {
     text-align: right;
     align-items: flex-end;
   }
@@ -223,13 +223,6 @@ const StatusRow = styled.div`
   align-items: center;
 `
 
-const ButtonText = styled.span`
-  font-size: 14px;
-  color: #ffffff;
-  line-height: 16px;
-  height: 16px;
-  letter-spacing: 1px;
-`
 export interface History {
   createTime: string
   updateTime: string
@@ -296,7 +289,7 @@ const BridgeListPage: React.FunctionComponent<BridgeListPageProps> = () => {
       const res = await BridgeService.transitionList(account, currentPage, pageSize)
       const data = res.data.data
       if (data) {
-        //  need merge local unconfirm list
+        //  need merge local un-confirm list
         data.list?.map((item: any) => {
           item.createTime = moment(item.createTime).format('YYYY-MM-DD HH:MM:SS')
         })
@@ -389,30 +382,30 @@ const BridgeListPage: React.FunctionComponent<BridgeListPageProps> = () => {
         </CenterRow>
         <OrderDetailWrap>
           <Left>
-            <OrderDetaiItem>
+            <OrderDetailItem>
               <Title>{t(`Asset`)}:</Title>
 
               <Fee>{transaction.srcCurrency.toUpperCase()}</Fee>
-            </OrderDetaiItem>
-            <OrderDetaiItem>
+            </OrderDetailItem>
+            <OrderDetailItem>
               <Title>{t(`Amount`)}:</Title>
               <Fee>{new BN(transaction.dstAmount).precision(6).toNumber()}</Fee>
-            </OrderDetaiItem>
-            <OrderDetaiItem>
+            </OrderDetailItem>
+            <OrderDetailItem>
               <Title>{t(`Transfer fee`)}:</Title>
               <Content style={{ color: '#999', fontWeight: 300 }}>
                 {new BN(transaction.srcFee).toNumber()} {srcNetworkInfo.symbol.toUpperCase()}
               </Content>
-            </OrderDetaiItem>
+            </OrderDetailItem>
           </Left>
           <Right>
-            <OrderDetaiItem>
+            <OrderDetailItem>
               <StatusRow>
                 <Title>{t(`${transaction.status}`)}</Title>
                 <RightOutlined style={{ color: 'rgba(0, 0, 58, 0.6)', fontSize: '10px', marginLeft: '5px' }} />
               </StatusRow>
               <Content>{transaction.createTime}</Content>
-            </OrderDetaiItem>
+            </OrderDetailItem>
           </Right>
         </OrderDetailWrap>
       </Order>

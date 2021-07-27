@@ -14,7 +14,7 @@ import { BaseButton } from '../../components/TransferButton'
 import ConfirmItem from '../../components/ConfirmItem'
 import { NoFeeText, TransferOrder, TransferWrap } from './transfer'
 import BridgeTitlePanel from '../../components/BridgeTitlePanel/index'
-import { getPairInfo, getNetworkInfo } from '../../utils/index'
+import { getPairInfo, getNetworkInfo } from '../../utils'
 import { getBridgeContract } from '../../utils/contract'
 import { updateBridgeLoading } from '../../state/application/actions'
 import { UnconfirmOrderKey } from '../../utils/task'
@@ -24,7 +24,7 @@ import { CenterRow } from '../../components/Row'
 import { switchNetwork, addTokenToWallet } from '../../utils/wallet'
 import AirdropNotice from '../../components/AirdropNotice'
 import { KCC_NETWORK_IDS } from '../../constants/networks'
-import { getNetWorkConnect } from '../../connectors/index'
+import { getNetWorkConnect } from '../../connectors'
 import store from '../../state'
 
 export enum ChainBridgeType {
@@ -183,7 +183,6 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
           dispatch(updateBridgeLoading({ visible: false, status: 0 }))
           notification.success({ message: i18next.t(`App Tips`), description: i18next.t(`Transaction Confirmed`) })
         }
-        debugger
       })
       .on('error', () => {
         dispatch(updateBridgeLoading({ visible: false, status: 0 }))
@@ -208,9 +207,6 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
       })
       .once('confirmation', (confirmations: number) => {
         console.log(confirmations)
-
-        debugger
-
         // add  token to  dist chain metamask
         const bridgeLoading = store.getState().application.bridgeLoadingVisible
         if (bridgeLoading) {
