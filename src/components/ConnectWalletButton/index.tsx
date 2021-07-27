@@ -6,7 +6,7 @@ import { useWeb3React } from '@web3-react/core'
 import { shortAddress } from '../../utils/format'
 import { useTranslation } from 'react-i18next'
 import { useWalletErrorInfo } from '../../state/wallet/hooks'
-import LogoutModal from '../LogoutModal'
+import LogoutModal from '../WalletCenter'
 import { useDispatch } from 'react-redux'
 import { toggleConnectWalletModalShow } from '../../state/wallet/actions'
 import { getNetworkInfo } from '../../utils/index'
@@ -38,6 +38,7 @@ const HighlightText = styled.span`
   border: 1px solid ${theme.colors.primary};
   user-select: none;
   height: 30px;
+  font-weight: bold;
 `
 
 const ErrorButton = styled(ConnectButton)`
@@ -129,7 +130,7 @@ const UnlockButton: React.FunctionComponent = () => {
           <Dropdown overlay={<NetworkList />} placement="bottomLeft">
             <NetworkWrap>
               <AnimationBadge status="success" />
-              <Text>{selectedNetworkInfo?.name}</Text>
+              <Text>{selectedNetworkInfo?.abbr}</Text>
             </NetworkWrap>
           </Dropdown>
           <HighlightText

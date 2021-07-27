@@ -2,6 +2,7 @@ export const MAIN_NETWORKS = {
   0: {
     name: 'No Available Network',
     fullName: 'No Available Network',
+    abbr:'',
     rpc: '',
     chain_id: 0,
     symbol: '0',
@@ -14,6 +15,7 @@ export const MAIN_NETWORKS = {
   1: {
     name: 'Ethereum',
     fullName: 'Ethereum Network',
+    abbr:'ETH',
     rpc: 'https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
     chain_id: 1,
     decimals: 18,
@@ -27,6 +29,7 @@ export const MAIN_NETWORKS = {
   321: {
     name: 'KCC-MAINNET',
     fullName: 'KCC Mainnet Network',
+    abbr:'KCC',
     rpc: 'https://rpc-mainnet.kcc.network',
     chain_id: 321,
     decimals: 18,
@@ -41,6 +44,7 @@ export const MAIN_NETWORKS = {
 const TEST_NETWORKS = {
   4: {
     name: 'Rinkeby',
+    abbr:'Rinkeby',
     fullName: 'Rinkeby Network',
     rpc: 'https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
     chain_id: 4,
@@ -55,6 +59,7 @@ const TEST_NETWORKS = {
   322: {
     name: 'KCC-TEST',
     fullName: 'KCC Test Network',
+    abbr:'KCC-TEST',
     rpc: 'https://rpc-testnet.kcc.network',
     chain_id: 322,
     decimals: 18,
@@ -82,6 +87,7 @@ export interface NetworkType {
   bridgeCoreAddress: string
   standard: string
   fee?: number
+  abbr:string
 }
 
 export interface AddEthereumChainParameter {
