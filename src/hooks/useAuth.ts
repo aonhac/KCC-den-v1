@@ -26,9 +26,10 @@ const useAuth = () => {
     const connector = connectorsByName[connectorID]
     if (connector) {
       dispatch(updateErrorInfo({ hasError: false, errorInfo: '' }))
+      window.localStorage.setItem(connectorLocalStorageKey,'true')
       activate(connector, async (error: Error) => {
-        window.localStorage.removeItem(connectorLocalStorageKey)
-        if (error instanceof UnsupportedChainIdError) {
+        debugger
+         if (error instanceof UnsupportedChainIdError) {
           // error modal
           dispatch(updateErrorInfo({ hasError: true, errorInfo: 'Unsupported Network' }))
         } else if (error instanceof NoEthereumProviderError) {
@@ -58,6 +59,7 @@ const useAuth = () => {
           dispatch(updateErrorInfo({ hasError: true, errorInfo: t(`Unkown Error`) }))
         }
       })
+
     } else {
       notification.error({
         message: i18next.t("Can't find connector"),

@@ -15,6 +15,18 @@ export function useConnectWalletModalShow(): boolean {
   })
 }
 
+export function useWalletId(): number {
+  return useSelector((state: AppState) => {
+    return state.wallet.walletId
+  })
+}
+
+export function useBalance(): string {
+  return useSelector((state: AppState) => {
+    return state.wallet.balance
+  })
+}
+
 // get the list of active popups
 /* export function useActivePopups(): AppState['application']['popupList'] {
   const list = useSelector((state: AppState) => state.application.popupList)

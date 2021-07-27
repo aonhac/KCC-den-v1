@@ -10,12 +10,12 @@ import { theme } from '../../constants/theme'
 import { ConnectorNames, WalletList } from '../../constants/wallet'
 import useAuth from '../../hooks/useAuth'
 import { useDispatch } from 'react-redux'
-import { useWalletErrorInfo } from '../../state/wallet/hooks'
-import { toggleConnectWalletModalShow } from '../../state/wallet/actions'
+import {useWalletErrorInfo} from '../../state/wallet/hooks'
+import {toggleConnectWalletModalShow, updateWalletId} from '../../state/wallet/actions'
 import { updateBridgeLoading } from '../../state/application/actions'
 import { useCurrentPairId } from '../../state/bridge/hooks'
 import { switchNetwork } from '../../utils/wallet'
-import { getNetworkInfo, getPairInfo } from '../../utils/index'
+import { getPairInfo} from '../../utils'
 
 export interface WalletListModalProps {
   visible: boolean
@@ -49,12 +49,12 @@ const WalletItem = styled.div<{ selectedId: number; walletId: number }>`
   display: flex;
   flex-flow: row nowrap;
   width: 100%;
-  jutify-content: space-between;
+  justify-content: space-between;
   align-items: center;
   cursor: pointer;
   padding: 13px 16px;
   &:hover {
-    box-shadow: 0px 1px 16px 0px rgba(0, 10, 30, 0.2), 0px 3px 4px 0px rgba(0, 10, 30, 0.16);
+    box-shadow: 0 1px 16px 0 rgba(0, 10, 30, 0.2), 0 3px 4px 0 rgba(0, 10, 30, 0.16);
     border: 1px solid ${theme.colors.bridgePrimay};
   }
 `
@@ -62,7 +62,7 @@ const WalletItem = styled.div<{ selectedId: number; walletId: number }>`
 const MoreWalletItem = styled.div`
   position: relative;
   margin-top: 16px;
-  background: '#ffffff';
+  background: #ffffff;
   border: 1px solid rgba(1, 8, 30, 0.1);
   box-shadow: none;
   border-radius: 8px;
@@ -70,7 +70,7 @@ const MoreWalletItem = styled.div`
   display: flex;
   flex-flow: row nowrap;
   width: 100%;
-  jutify-content: space-between;
+  justify-content: space-between;
   align-items: center;
   cursor: not-allowed;
   padding: 13px 16px;
@@ -106,7 +106,7 @@ const RightBottomWrap = styled.img`
   position: absolute;
   bottom: 0;
   right: 0;
-  heigth: 24px;
+  height: 24px;
   width: 24px;
 `
 
@@ -164,6 +164,7 @@ const WalletListModal: React.FunctionComponent<WalletListModalProps> = ({ visibl
           await login(ConnectorNames.Injected)
           dispatch(toggleConnectWalletModalShow({ show: false }))
           dispatch(updateBridgeLoading({ visible: false, status: 0 }))
+          dispatch(updateWalletId({ walletId: 0 }))
           break
         default:
           console.log('No wallet is valid')
@@ -171,7 +172,6 @@ const WalletListModal: React.FunctionComponent<WalletListModalProps> = ({ visibl
     } else {
       message.warn(t(`Please select one of the wallets in the list`))
     }
-
     clearTimeout(timer)
   }
 
@@ -184,7 +184,7 @@ const WalletListModal: React.FunctionComponent<WalletListModalProps> = ({ visibl
   }
 
   const walletList = WalletList.map((item, index) => {
-    const icon = index === 0 ? <Icon id="metamask"></Icon> : null
+    const icon = index === 0 ? <Icon id="metamask" /> : null
     return (
       <WalletItem key={index} walletId={item.id} selectedId={selectedId} onClick={changeSelected.bind(null, item.id)}>
         <Name>{item.name}</Name>
@@ -208,13 +208,6 @@ const WalletListModal: React.FunctionComponent<WalletListModalProps> = ({ visibl
     >
       <ModalTitle>{t(`Connect Wallet`)}</ModalTitle>
       <WalletListWrap>
-        <WalletItem key={0} walletId={0} selectedId={selectedId} onClick={changeSelected.bind(null, 0)}>
-          <Name>MetaMask</Name>
-          <Icon id="metamask"></Icon>
-          {selectedId === 0 ? (
-            <RightBottomWrap src={require('../../assets/images/bridge/selected-bg.png').default} />
-          ) : null}
-        </WalletItem>
         {walletList}
         <MoreWalletItem>
           <Name>{t(`Coming Soon...`)}</Name>
