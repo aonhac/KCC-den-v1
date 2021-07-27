@@ -273,7 +273,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
 
   return (
     <BridgeConfirmWrap>
-      {/*<AirdropNotice show={balance == 0} />*/}
+      <AirdropNotice show={balance == 0} />
       <TransferWrap>
         <BridgeTitlePanel title={t('Transfer confirmation')} iconEvent={back2transfer} />
         <ChainBridge srcId={order?.srcId} distId={order?.distId} type={ChainBridgeType.DISPLAY} />
