@@ -1,23 +1,23 @@
 import React from 'react'
-import { Route, Switch, useLocation } from 'react-router-dom'
+import {Route, Switch, useLocation} from 'react-router-dom'
 import styled from 'styled-components'
-import { CSSTransition, SwitchTransition } from 'react-transition-group'
-import { useWeb3React } from '@web3-react/core'
-import { useTranslation } from 'react-i18next'
-import { useDispatch } from 'react-redux'
+import {CSSTransition, SwitchTransition} from 'react-transition-group'
+import {useWeb3React} from '@web3-react/core'
+import {useTranslation} from 'react-i18next'
+import {useDispatch} from 'react-redux'
 
-import { useConnectWalletModalShow } from '../../state/wallet/hooks'
+import {useConnectWalletModalShow} from '../../state/wallet/hooks'
 import WalletListModal from '../../components/WalletListModal'
 import BridgeLoading from '../../components/BridgeLoading'
-import { useBridgeLoading } from '../../state/application/hooks'
-import { updateBridgeLoading } from '../../state/application/actions'
-import { BridgeService } from '../../api/bridge'
-import { updatePairList } from '../../state/bridge/actions'
-import { PairInfo } from '../../state/bridge/reducer'
-import { ConnectorNames } from '../../constants/wallet'
+import {useBridgeLoading} from '../../state/application/hooks'
+import {updateBridgeLoading} from '../../state/application/actions'
+import {BridgeService} from '../../api/bridge'
+import {updatePairList} from '../../state/bridge/actions'
+import {PairInfo} from '../../state/bridge/reducer'
+import {ConnectorNames} from '../../constants/wallet'
 import useAuth from '../../hooks/useAuth'
-import { ChainIds } from '../../connectors'
-import { updateErrorInfo } from '../../state/wallet/actions'
+import {ChainIds} from '../../connectors'
+import {updateErrorInfo} from '../../state/wallet/actions'
 
 import BridgeTransfer from './transfer'
 import BridgeHistoryList from './list'
@@ -26,7 +26,8 @@ import BridgeOrderConfirm from './confirm'
 
 import '../../styles/transition.css'
 
-export interface BridgePageProps {}
+export interface BridgePageProps {
+}
 
 const TopBg = require('../../assets/images/bridge/top-bg.svg').default
 const CenterBg = require('../../assets/images/bridge/center-bg@2x.png').default
@@ -126,136 +127,131 @@ const CloseIcon = styled.img`
   cursor: pointer;
 `
 
-const BridgePage: React.FunctionComponent<BridgePageProps> = ({ children }) => {
-  const { t } = useTranslation()
+const BridgePage: React.FunctionComponent<BridgePageProps> = ({children}) => {
+    const {t} = useTranslation()
 
-  const { status, visible } = useBridgeLoading()
+    const {status, visible} = useBridgeLoading()
 
-  const location = useLocation()
+    const location = useLocation()
 
-  const walletListModalShow = useConnectWalletModalShow()
+    const walletListModalShow = useConnectWalletModalShow()
 
-  const [loading, setLoading] = React.useState<boolean>(false)
+    const [loading, setLoading] = React.useState<boolean>(false)
 
-  const { active, account, chainId } = useWeb3React()
+    const {active, account, chainId, error, deactivate, library} = useWeb3React()
 
-  const { login, logout } = useAuth()
 
-  const dispatch = useDispatch()
+    const {login, logout} = useAuth()
 
-  const handleChainChanged = () => {
-    if (ChainIds.includes(chainId as any)) {
-      dispatch(updateErrorInfo({ hasError: false, errorInfo: '' }))
-    } else {
-      dispatch(updateErrorInfo({ hasError: false, errorInfo: 'Unsupported Network' }))
-    }
-  }
+    const dispatch = useDispatch()
 
-  React.useEffect(() => {
-    const { ethereum } = window
-    if (ethereum) {
-      ethereum.on('chainChanged', handleChainChanged)
-    }
-    return () => {
-      if (!window?.ethereum) return
-      window?.ethereum.removeListener('chainChanged', handleChainChanged)
-    }
-  }, [])
-
-  // important, logout for refresh wallet data
-
-  const getPairList = async () => {
-    try {
-      const res = await BridgeService.pairList()
-      const list: PairInfo[] = []
-      for (let i = 0; i < res.data.data.length; i++) {
-        const chain: PairInfo = res.data.data[i]
-        if ((chain?.status & 1) !== 1) {
-          continue
+    const handleChainChanged = () => {
+        if (ChainIds.includes(chainId as any)) {
+            dispatch(updateErrorInfo({hasError: false, errorInfo: ''}))
         } else {
-          chain.openStatus = true
-          chain.limitStatus = (chain.status & 2) === 2
-          chain.whiteListStatus = (chain.status & 4) === 4
-          list.push({ ...chain })
+            dispatch(updateErrorInfo({hasError: false, errorInfo: 'Unsupported Network'}))
         }
-      }
-      dispatch(updatePairList({ pairList: list }))
-    } catch {
-      console.log('get pairList error')
     }
-  }
 
-  const hideLoading = () => {
-    dispatch(updateBridgeLoading({ visible: false, status: 0 }))
-  }
+    React.useEffect(() => {
+        const {ethereum} = window
+        if (ethereum) {
+            ethereum.on('chainChanged', handleChainChanged)
+        }
+        return () => {
+            if (!window?.ethereum) return
+            window?.ethereum.removeListener('chainChanged', handleChainChanged)
+        }
+    }, [])
 
-  const autoLogin = () => {
-    const { ethereum } = window
-    if (ethereum && ethereum.on && active && !account) {
-      login(ConnectorNames.Injected)
+    // important, logout for refresh wallet data
+
+    const getPairList = async () => {
+        try {
+            const res = await BridgeService.pairList()
+            const list: PairInfo[] = []
+            for (let i = 0; i < res.data.data.length; i++) {
+                const chain: PairInfo = res.data.data[i]
+                if ((chain?.status & 1) !== 1) {
+                    continue
+                } else {
+                    chain.openStatus = true
+                    chain.limitStatus = (chain.status & 2) === 2
+                    chain.whiteListStatus = (chain.status & 4) === 4
+                    list.push({...chain})
+                }
+            }
+            dispatch(updatePairList({pairList: list}))
+        } catch {
+            console.log('get pairList error')
+        }
     }
-  }
 
-  React.useEffect(() => {
-    const init = async () => {
-      try {
-        setLoading(() => true)
-        await getPairList()
-      } finally {
-        setLoading(() => false)
-      }
+    const hideLoading = () => {
+        dispatch(updateBridgeLoading({visible: false, status: 0}))
     }
-    autoLogin()
-    init()
-  }, [])
 
-  React.useEffect(() => {
-    if (account) {
-      hideLoading()
-    }
-  }, [account])
 
-  React.useEffect(() => {
-    console.log('chainId', chainId)
-  }, [chainId])
+    React.useEffect(() => {
+        const init = async () => {
+            try {
+                setLoading(() => true)
+                await getPairList()
+            } finally {
+                setLoading(() => false)
+            }
+        }
+        init()
+    }, [])
 
-  return (
-    <BridgeWrap>
-      <WalletListModal visible={walletListModalShow} />
-      <NavBg />
-      <Content>
-        {visible || loading ? (
-          <LoadingBg>
-            <BridgeLoading status={status} />
-            <CloseIcon src={require('../../assets/images/bridge/close@2x.png').default} onClick={hideLoading} />
-            {loading ? (
-              <Success>{t('Loading')}...</Success>
-            ) : (
-              <Success>{status !== 0 ? t(`SUCCESS`) + '!' : t('Waiting for confirmation')}</Success>
-            )}
-          </LoadingBg>
-        ) : (
-          <SwitchTransition mode="out-in">
-            <CSSTransition
-              key={location.pathname}
-              classNames="fade"
-              addEndListener={(node, done) => node.addEventListener('transitionend', done, false)}
-            >
-              <Switch>
-                <Route path="/bridge/transfer" component={BridgeTransfer} />
-                <Route path="/bridge/list" component={BridgeHistoryList} />
-                <Route path="/bridge/detail" component={BridgeOrderDetail} />
-                <Route path="/bridge/confirm" component={BridgeOrderConfirm} />
-              </Switch>
-            </CSSTransition>
-          </SwitchTransition>
-        )}
-      </Content>
+    React.useEffect(() => {
+        if (account) {
+            hideLoading()
+        }
+    }, [account])
 
-      <CenterBgImg src={CenterBg} />
-      <ButtonBgImg src={require('../../assets/images/bridge/bottom-bg@2x.png').default} />
-    </BridgeWrap>
-  )
+    React.useEffect(() => {
+        console.log('chainId', chainId)
+    }, [chainId])
+
+    return (
+        <BridgeWrap>
+            <WalletListModal visible={walletListModalShow}/>
+            <NavBg/>
+            <Content>
+                {visible || loading ? (
+                    <LoadingBg>
+                        <BridgeLoading status={status}/>
+                        <CloseIcon src={require('../../assets/images/bridge/close@2x.png').default}
+                                   onClick={hideLoading}/>
+                        {loading ? (
+                            <Success>{t('Loading')}...</Success>
+                        ) : (
+                            <Success>{status !== 0 ? t(`SUCCESS`) + '!' : t('Waiting for confirmation')}</Success>
+                        )}
+                    </LoadingBg>
+                ) : (
+                    <SwitchTransition mode="out-in">
+                        <CSSTransition
+                            key={location.pathname}
+                            classNames="fade"
+                            addEndListener={(node, done) => node.addEventListener('transitionend', done, false)}
+                        >
+                            <Switch>
+                                <Route path="/bridge/transfer" component={BridgeTransfer}/>
+                                <Route path="/bridge/list" component={BridgeHistoryList}/>
+                                <Route path="/bridge/detail" component={BridgeOrderDetail}/>
+                                <Route path="/bridge/confirm" component={BridgeOrderConfirm}/>
+                            </Switch>
+                        </CSSTransition>
+                    </SwitchTransition>
+                )}
+            </Content>
+
+            <CenterBgImg src={CenterBg}/>
+            <ButtonBgImg src={require('../../assets/images/bridge/bottom-bg@2x.png').default}/>
+        </BridgeWrap>
+    )
 }
 
 export default BridgePage

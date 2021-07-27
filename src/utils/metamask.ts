@@ -12,4 +12,8 @@ export namespace Metamask {
         })
     }
 
+    export const lockWallet = async(library:any)=>{
+
+    }
+
 }

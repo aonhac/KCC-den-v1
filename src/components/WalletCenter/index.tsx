@@ -5,8 +5,9 @@ import {useWeb3React} from '@web3-react/core'
 import {useTranslation} from 'react-i18next'
 import copy from 'copy-to-clipboard'
 import BN from "bignumber.js"
+import i18next from "i18next"
 
-import {CopyOutlined, ChromeOutlined} from '@ant-design/icons'
+import {CopyOutlined, ChromeOutlined,PlusOutlined } from '@ant-design/icons'
 
 import {theme} from '../../constants/theme'
 import useAuth from '../../hooks/useAuth'
@@ -15,6 +16,7 @@ import {formatCurrency, shortAddress} from "../../utils/format"
 import {getNetworkInfo, getWalletInfo} from "../../utils"
 import {useBalance, useWalletId} from "../../state/wallet/hooks"
 import {updateBalance} from "../../utils/wallet"
+import {connectorLocalStorageKey} from "../../constants/wallet"
 
 
 export interface LogoutModalProps {
@@ -41,6 +43,7 @@ const WalletCenterWrap = styled.div<{ visible: boolean }>`
 `
 
 const WalletInfoWrap = styled.div`
+  position: relative;
   border-radius: 12px;
   background: #252528;
   width: 467px;
@@ -137,19 +140,26 @@ const CloseIconWrap = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  top:60px;
+  background:#252528;
+  border-radius: 50%;
+  top:340px;
   left:50%;
   transform: translateX(-50%);
+  cursor:pointer;
+  transition: all 0.6s ease-in-out;
+  &:hover{
+    transform: translateX(-50%) rotate(180deg);
+  }
 `
 
 const OperateList = [{
     key: '0',
     title: 'View',
-    icon: <CopyOutlined style={{fontSize:'20px'}}/>
+    icon:  <ChromeOutlined style={{fontSize:'20px'}}/>
 }, {
     key: '1',
     title: 'Copy',
-    icon: <ChromeOutlined style={{fontSize:'20px'}}/>
+    icon:<CopyOutlined style={{fontSize:'20px'}}/>
 }, {
     key: '2',
     title: 'Logout',
@@ -158,7 +168,7 @@ const OperateList = [{
 
 
 const LogoutModal: React.FunctionComponent<LogoutModalProps> = (props) => {
-    const {account, chainId, library} = useWeb3React()
+    const {account, chainId, library,deactivate} = useWeb3React()
 
     const {t} = useTranslation()
     const {logout} = useAuth()
@@ -167,6 +177,16 @@ const LogoutModal: React.FunctionComponent<LogoutModalProps> = (props) => {
     const walletId = useWalletId()
 
     const balance = useBalance()
+
+    React.useEffect(()=>{
+        const body = document.getElementsByTagName('body')[0]
+        body.style.height='100vh'
+        body.style.overflow = 'hidden'
+        return ()=>{
+            body.style.height="auto"
+            body.style.overflow = 'visible'
+        }
+    },[])
 
     const walletInfo = React.useMemo(() => {
         return getWalletInfo(walletId)
@@ -182,7 +202,7 @@ const LogoutModal: React.FunctionComponent<LogoutModalProps> = (props) => {
     const copyAddress = () => {
         if (account) {
             copy(account)
-            message.success(t('Copy Success'))
+            message.success(i18next.t('Copy Success'))
         }
     }
 
@@ -208,7 +228,9 @@ const LogoutModal: React.FunctionComponent<LogoutModalProps> = (props) => {
     }
 
     const logoutAndLock = ()=>{
-        console.log('hahah')
+        window.localStorage.removeItem(connectorLocalStorageKey)
+        logout()
+        hideSelf()
     }
 
     const operateClick = (index: number) => {
@@ -231,14 +253,14 @@ const LogoutModal: React.FunctionComponent<LogoutModalProps> = (props) => {
         return (
             <OperateItem key={index} onClick={operateClick.bind(null, index)}>
                 {operate.icon}
-                <OperateText>{operate.title}</OperateText>
+                <OperateText>{t(`${operate.title}`)}</OperateText>
             </OperateItem>
         )
     })
 
 
     return (
-        <WalletCenterWrap visible={props.visible}>
+        <WalletCenterWrap visible={props.visible} onScroll={(e)=>{e.preventDefault()}}>
             <WalletInfoWrap>
                 <SpaceRow>
                     <HighLightTitle>
@@ -254,53 +276,19 @@ const LogoutModal: React.FunctionComponent<LogoutModalProps> = (props) => {
                     <SpaceRow>
                         <NetworkNameWrap>
                             <NetworkIcon src={networkInfo?.logo}/>
-                            {networkInfo?.abbr}
+                            {networkInfo?.symbol.toUpperCase()}
                         </NetworkNameWrap>
-                        <BalanceText>{formatCurrency(new BN(balance).div(Math.pow(10, networkInfo.decimals)).toPrecision(6).toString())}</BalanceText>
+                        <BalanceText>{formatCurrency(new BN(balance).div(Math.pow(10, networkInfo.decimals)).toPrecision(6).toString())??'loading...'}</BalanceText>
                     </SpaceRow>
                 </BalanceWrap>
                 <OperateWrap>
                     {OperateListDom}
                 </OperateWrap>
+                <CloseIconWrap onClick={hideSelf}>
+                    <PlusOutlined  style={{transform:`rotate(45deg)`,fontSize:'20px',color:'#fff'}} />
+                </CloseIconWrap>
             </WalletInfoWrap>
-            <CloseIconWrap>
-
-            </CloseIconWrap>
         </WalletCenterWrap>
-
-
-        // <MyModal
-        //   visible={props.visible}
-        //   footer={null}
-        //   centered
-        //   width={isMobile ? '100%' : '560px'}
-        //   title={t('Your Wallet')}
-        //   style={{ borderRadius: '8px' }}
-        //   onCancel={hideSelf}
-        // >
-        //   <ModalWrap>
-        //     <Text>{account}</Text>
-        //     <LinkGroup>
-        //       <Link onClick={nav2Scan}>
-        //         {t(`View on Browser`)}
-        //         <ChromeOutlined style={{ fontSize: '16px', marginLeft: '5px' }} />
-        //       </Link>
-        //       <Link>
-        //         {t(`Copy Address`)} <CopyOutlined onClick={copyAddress} style={{ fontSize: '16px', marginLeft: '5px' }} />
-        //       </Link>
-        //     </LinkGroup>
-        //     {/*  <LogoutButton>
-        //       <Button
-        //         type="primary"
-        //         ghost
-        //         style={{ borderRadius: '12px', border: `2px solid ${theme.colors.second}` }}
-        //         onClick={handleLogout}
-        //       >
-        //         <ButtonText>{t(`Logout`)}</ButtonText>
-        //       </Button>
-        //     </LogoutButton> */}
-        //   </ModalWrap>
-        // </MyModal>
     )
 }
 

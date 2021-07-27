@@ -196,5 +196,9 @@
   "Approved Success": "授权成功",
   "Add assets to the wallet list": "添加资产到钱包列表",
   "Confirm": "确认",
-  "Airdrop Notice": "系统监测到你的目标地址没有kcs，稍后将赠送你 0.001 kcs作为手续费体验金。"
+  "Airdrop Notice": "系统监测到你的目标地址没有kcs，稍后将赠送你 0.001 kcs作为手续费体验金。",
+  "Copy Success":"复制成功",
+  "View": "查看",
+  "Copy": "复制",
+  "Logout": "退出"
 }

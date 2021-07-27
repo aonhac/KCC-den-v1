@@ -1,18 +1,18 @@
 import React from 'react'
-import styled, { keyframes } from 'styled-components'
-import { theme } from '../../constants/theme'
-import { LanguageButton } from '../ChangeLanguage/index'
-import { useWeb3React } from '@web3-react/core'
-import { shortAddress } from '../../utils/format'
-import { useTranslation } from 'react-i18next'
-import { useWalletErrorInfo } from '../../state/wallet/hooks'
+import styled, {keyframes} from 'styled-components'
+import {theme} from '../../constants/theme'
+import {LanguageButton} from '../ChangeLanguage'
+import {useWeb3React} from '@web3-react/core'
+import {shortAddress} from '../../utils/format'
+import {useTranslation} from 'react-i18next'
+import {useWalletErrorInfo} from '../../state/wallet/hooks'
 import LogoutModal from '../WalletCenter'
-import { useDispatch } from 'react-redux'
-import { toggleConnectWalletModalShow } from '../../state/wallet/actions'
-import { getNetworkInfo } from '../../utils/index'
-import { CenterRow } from '../Row/index'
-import { Badge, Dropdown } from 'antd'
-import { AlertOutlined } from '@ant-design/icons'
+import {useDispatch} from 'react-redux'
+import {toggleConnectWalletModalShow} from '../../state/wallet/actions'
+import {getNetworkInfo} from '../../utils'
+import {CenterRow} from '../Row'
+import {Badge, Dropdown} from 'antd'
+import {AlertOutlined} from '@ant-design/icons'
 import NetworkList from '../NetworkList'
 import i18next from 'i18next'
 
@@ -48,6 +48,7 @@ const ErrorButton = styled(ConnectButton)`
   padding-right: 15px;
   justify-content: center;
   align-items: center;
+
   ${Text} {
     color: #fff;
   }
@@ -73,91 +74,91 @@ const NetworkWrap = styled(CenterRow)`
 `
 
 const Shining = keyframes`
-    0% {
-      transform:scale(0.9);
-      opacity:0.8;
-    }
-    50% {
-      transform:scale(1);
-       opacity:1;
-    }
-    100% {
-      transform:scale(0.9);
-      opacity:0.8;
-    }
-  `
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+`
 
 const AnimationBadge = styled(Badge)`
   animation: ${Shining} 1s infinite ease-in-out;
 `
 
 const UnlockButton: React.FunctionComponent = () => {
-  const { t } = useTranslation()
+    const {t} = useTranslation()
 
-  const { account, chainId } = useWeb3React()
+    const {account, chainId} = useWeb3React()
 
-  const [logoutModalShow, setLogoutModalShow] = React.useState<boolean>(false)
+    const [logoutModalShow, setLogoutModalShow] = React.useState<boolean>(false)
 
-  const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
-  const { errorInfo, hasError } = useWalletErrorInfo()
+    const {errorInfo, hasError} = useWalletErrorInfo()
 
-  const hideLogout = (show: boolean) => {
-    setLogoutModalShow(() => show)
-  }
-
-  const selectedNetworkInfo = React.useMemo(() => {
-    return getNetworkInfo(chainId as any)
-  }, [chainId])
-
-  const connect = () => {
-    dispatch(toggleConnectWalletModalShow({ show: true }))
-  }
-
-  const btn = React.useMemo(() => {
-    if (hasError) {
-      return (
-        <Dropdown overlay={<NetworkList />}>
-          <ErrorButton>
-            <AlertOutlined style={{ fontSize: '16px', color: '#fff', margin: '-2px 5px 0px 5px' }} />
-            <Text>{i18next.t(`${errorInfo}`)}</Text>
-          </ErrorButton>
-        </Dropdown>
-      )
-    } else if (account) {
-      return (
-        <ConnectButton>
-          <Dropdown overlay={<NetworkList />} placement="bottomLeft">
-            <NetworkWrap>
-              <AnimationBadge status="success" />
-              <Text>{selectedNetworkInfo?.abbr}</Text>
-            </NetworkWrap>
-          </Dropdown>
-          <HighlightText
-            onClick={() => {
-              setLogoutModalShow(() => true)
-            }}
-          >
-            {shortAddress(account)}
-          </HighlightText>
-        </ConnectButton>
-      )
-    } else {
-      return (
-        <ConnectButton onClick={connect}>
-          <WalletIcon src={require('../../assets/images/bridge/wanllet@2x.png').default} />
-          <Text style={{ paddingRight: '15px' }}>{t(`Connect Wallet`)}</Text>
-        </ConnectButton>
-      )
+    const hideLogout = (show: boolean) => {
+        setLogoutModalShow(() => show)
     }
-  }, [hasError, account, selectedNetworkInfo])
 
-  return (
-    <>
-      {btn}
-      <LogoutModal visible={logoutModalShow} toggleVisible={hideLogout} />
-    </>
-  )
+    const selectedNetworkInfo = React.useMemo(() => {
+        return getNetworkInfo(chainId as any)
+    }, [chainId])
+
+    const connect = () => {
+        dispatch(toggleConnectWalletModalShow({show: true}))
+    }
+
+    const btn = React.useMemo(() => {
+        if (hasError) {
+            return (
+                <Dropdown overlay={<NetworkList/>}>
+                    <ErrorButton>
+                        <AlertOutlined style={{fontSize: '16px', color: '#fff', margin: '-2px 5px 0px 5px'}}/>
+                        <Text>{i18next.t(`${errorInfo}`)}</Text>
+                    </ErrorButton>
+                </Dropdown>
+            )
+        } else if (account) {
+            return (
+                <ConnectButton>
+                    <Dropdown overlay={<NetworkList/>} placement="bottomLeft">
+                        <NetworkWrap>
+                            <AnimationBadge status="success"/>
+                            <Text>{selectedNetworkInfo?.abbr}</Text>
+                        </NetworkWrap>
+                    </Dropdown>
+                    <HighlightText
+                        onClick={() => {
+                            setLogoutModalShow(() => true)
+                        }}
+                    >
+                        {shortAddress(account)}
+                    </HighlightText>
+                </ConnectButton>
+            )
+        } else {
+            return (
+                <ConnectButton onClick={connect}>
+                    <WalletIcon src={require('../../assets/images/bridge/wanllet@2x.png').default}/>
+                    <Text style={{paddingRight: '15px'}}>{t(`Connect Wallet`)}</Text>
+                </ConnectButton>
+            )
+        }
+    }, [hasError, account, selectedNetworkInfo])
+
+    return (
+        <>
+            {btn}
+            {logoutModalShow ? (<LogoutModal visible={logoutModalShow} toggleVisible={hideLogout}/>) : null}
+        </>
+    )
 }
 
 export default UnlockButton
