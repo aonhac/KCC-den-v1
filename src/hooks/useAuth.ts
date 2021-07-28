@@ -28,7 +28,7 @@ const useAuth = () => {
       dispatch(updateErrorInfo({ hasError: false, errorInfo: '' }))
       window.localStorage.setItem(connectorLocalStorageKey,'true')
       activate(connector, async (error: Error) => {
-        debugger
+        // debugger
          if (error instanceof UnsupportedChainIdError) {
           // error modal
           dispatch(updateErrorInfo({ hasError: true, errorInfo: 'Unsupported Network' }))

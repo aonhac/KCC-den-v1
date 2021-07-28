@@ -64,6 +64,7 @@ const NetworkList: React.FunctionComponent<NetworkListProps> = () => {
   const networkList = ChainKeys.map((key, index) => {
     const network = getNetworkInfo(Number(key) as any)
     const keys = Reflect.ownKeys(networks)
+    console.log(networks)
     if (keys.includes(key) && key!=='0') {
       return (
         <NetworkListItem key={index} onClick={switchSrcChain.bind(null, Number(key))}>

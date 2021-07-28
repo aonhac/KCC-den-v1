@@ -33,7 +33,7 @@ module.exports = {
               parse: {},
               compress: {
                 drop_console: process.env.NODE_ENV === 'production',
-                drop_debugger: false,
+                drop_debugger: true,
                 pure_funcs: process.env.NODE_ENV === 'production' ? ['console.log'] : '',
               },
             },
