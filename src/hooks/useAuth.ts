@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import i18next from 'i18next'
 
-/* 连接和断开钱包连接 */
+/*  */
 const useAuth = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -26,10 +26,10 @@ const useAuth = () => {
     const connector = connectorsByName[connectorID]
     if (connector) {
       dispatch(updateErrorInfo({ hasError: false, errorInfo: '' }))
-      window.localStorage.setItem(connectorLocalStorageKey,'true')
+      window.localStorage.setItem(connectorLocalStorageKey, 'true')
       activate(connector, async (error: Error) => {
         // debugger
-         if (error instanceof UnsupportedChainIdError) {
+        if (error instanceof UnsupportedChainIdError) {
           // error modal
           dispatch(updateErrorInfo({ hasError: true, errorInfo: 'Unsupported Network' }))
         } else if (error instanceof NoEthereumProviderError) {
@@ -59,7 +59,6 @@ const useAuth = () => {
           dispatch(updateErrorInfo({ hasError: true, errorInfo: t(`Unkown Error`) }))
         }
       })
-
     } else {
       notification.error({
         message: i18next.t("Can't find connector"),
