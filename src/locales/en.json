@@ -147,7 +147,7 @@
   "Unkown Error": "Unkown Error",
   "No Available Network": "No Available Network",
   "Switch Network": "Please Switch To",
-  "Approved": "Approved",
+  "Approved": "Approve",
   "Can not swap": "This currency does not currently support the exchange of the current two networks",
   "Input amount should bigger than transfer fee": "The input amount should exceed the transfer fee.",
   "Input amount is bigger than bridge available balance": "Input amount is bigger than the bridge's available balance.",
@@ -198,7 +198,7 @@
   "Add assets to the wallet list": "Add assets to the wallet list",
   "Confirm": "Confirm",
   "Airdrop Notice": "The system detects that your target address doesn‘t have any kcs, and will give you a 0.001 kcs fee for the next transfer.",
-  "Copy Success":"Copy Success",
+  "Copy Success": "Copy Success",
   "View": "View",
   "Copy": "Copy",
   "Logout": "Logout"
