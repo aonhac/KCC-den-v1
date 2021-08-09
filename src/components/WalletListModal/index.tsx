@@ -21,11 +21,7 @@ export interface WalletListModalProps {
   visible: boolean
 }
 
-const WalletListWrap = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-`
+const WalletListWrap = styled.div``
 
 const WalletItem = styled.div<{ selectedId: number; walletId: number }>`
   position: relative;
