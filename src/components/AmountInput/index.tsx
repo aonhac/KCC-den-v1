@@ -288,7 +288,8 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
   ])
 
   const keyPress = (e: any) => {
-    if (e.key === '-') {
+    const validKeys = '0,1,2,3,4,5,6,7,9,.'.split(',')
+    if (!validKeys.includes(e.key) || (e.key === '.' && amount.indexOf('.') !== -1)) {
       e.preventDefault()
     }
   }
