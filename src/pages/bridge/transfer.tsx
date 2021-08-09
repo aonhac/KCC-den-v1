@@ -34,7 +34,7 @@ import { useBridgeLoading } from '../../state/application/hooks'
 import i18next from 'i18next'
 import { Text } from './confirm'
 import { useInterval } from '../../hooks/useInterval'
-import { findPairBySrcChain } from '../../utils/index'
+import { findPairBySrcChain } from '../../utils'
 import { formatCurrency } from '../../utils/format'
 
 export enum ListType {
@@ -60,7 +60,7 @@ export const BridgeTransferWrap = styled.div`
   color: #fff;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: flex-subtract;
+  justify-content: flex-start;
   align-items: center;
   height: auto;
   min-height: calc(100vh - 400px);
@@ -70,11 +70,9 @@ export const TransferWrap = styled.div`
   margin-top: 156px;
   background: #fff;
   width: 516px;
-  backgroud: #fff;
   padding: 32px;
   border-radius: 8px;
   position: relative;
-  background: #f2fffd;
   @media (max-width: 768px) {
     width: 100%;
     margin-top: -5px;
@@ -152,7 +150,7 @@ const NoticeText = styled.div`
   font-size: 14px;
   font-family: URWDIN-Regular, URWDIN;
   font-weight: 400;
-  color: #000132;
+  color: rgba(0, 20, 42, 0.6);
   line-height: 20px;
 `
 
@@ -730,12 +728,12 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
               </Box>
             </>
           ) : (
-            <>
+            <Row style={{ width: '100%' }}>
               <ReceiveText>{t(`You will receive`)}</ReceiveText>
               <ReceiveAmountText>
                 {t(` ≈ ${Boolean(amount) ? amount : 0} ${selectedNetworkInfo?.symbol.toUpperCase()}`)}
               </ReceiveAmountText>
-            </>
+            </Row>
           )}
         </Row>
         <ReceiveAddressWrap>

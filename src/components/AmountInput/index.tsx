@@ -304,7 +304,6 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
       <Input
         value={amount}
         maxLength={8}
-        type="number"
         min={0}
         onInput={changeAmount}
         onKeyPress={keyPress}

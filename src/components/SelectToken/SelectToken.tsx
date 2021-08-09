@@ -1,11 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
 import { RightOutlined } from '@ant-design/icons'
-import { Input } from 'antd'
+import { Input, Modal } from 'antd'
 import { Currency } from '../../state/bridge/reducer'
 import { findPair } from '../../utils/index'
 import { updateCurrentPairId } from '../../state/bridge/actions'
 import { useDispatch } from 'react-redux'
+import { toggleConnectWalletModalShow } from '../../state/wallet/actions'
+import { useTranslation } from 'react-i18next'
+import { CenterRow, RowBetween } from '../Row'
+import { useResponsive } from '../../utils/responsive'
+
 export interface SelectTokenProps {
   list: any[]
   currency: Currency
@@ -20,35 +25,45 @@ const SelectTokenWrap = styled.div`
   background: rgba(1, 8, 30, 0.04);
   border-radius: 4px;
   display: flex;
-  flex-flow: row-nowrap;
+  flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  padding: 0 14px;
+  padding: 0 12px;
   cursor: pointer;
 `
 const TokenWrap = styled.div`
   display: flex;
-  flex-flow: row-nowrap;
+  flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: center;
   flex: 1;
+  height: 46px;
 `
 
 const TokenIcon = styled.img`
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   background: #d8d8d8;
   border-radius: 50%;
 `
 
 const TokenText = styled.div`
-  font-family: URWDIN-Regular, URWDIN;
+  font-family: URWDIN-Regular, URWDIN, serif;
   padding-top: 4px;
   font-size: 16px;
   font-weight: 400;
   color: #01081e;
   margin-left: 10px;
 `
+
+const ModalTitle = styled.div`
+  font-family: URWDIN-Regular, URWDIN, serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  color: #00142a;
+`
+
 const TokenName = styled.div`
   font-size: 14px;
   font-weight: 400;
@@ -59,18 +74,17 @@ const TokenName = styled.div`
 
 const TokenListModal = styled.div`
   z-index: 99;
-  position: absolute;
-  padding: 40px 32px;
+  position: relative;
   background: #fff;
   border-radius: 8px;
   width: 100%;
   height: 100%;
-  top: 0px;
+  top: 0;
   left: 0;
 `
 const Icon = styled.img`
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
 `
 
 const FullName = styled.div`
@@ -86,22 +100,33 @@ const TokenDescriptionWrap = styled.div`
   flex-flow: column nowrap;
   justify-content: center;
   align-items: flex-start;
-  text-align: flex;
+  text-align: left;
   height: 36px;
 `
 
 const ListWrap = styled.div`
-  height: 500px;
+  height: 450px;
   overflow-y: auto;
 `
 const SelectItem = styled(TokenWrap)`
-  padding: 0 14px;
+  padding: 0 5px 0 5px;
+  border-radius: 4px;
   &:hover {
-    background: #f1fcf8;
+    background: rgba(1, 8, 30, 0.04);
   }
 `
 
-const SelectToken: React.SFC<SelectTokenProps> = ({ list, currency, srcId, distId, setCurrency }) => {
+const CloseIcon = styled.img`
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+`
+
+const SelectToken: React.FunctionComponent<SelectTokenProps> = ({ list, currency, srcId, distId, setCurrency }) => {
+  const { t } = useTranslation()
+
+  const { isMobile } = useResponsive()
+
   const [show, setShow] = React.useState<boolean>(false)
   const [keyword, setKeyword] = React.useState<string>(' ')
   const dispatch = useDispatch()
@@ -157,31 +182,45 @@ const SelectToken: React.SFC<SelectTokenProps> = ({ list, currency, srcId, distI
   })
 
   return (
-    <SelectTokenWrap>
-      <TokenWrap
-        onClick={() => {
-          setShow(() => true)
+    <>
+      <SelectTokenWrap>
+        <TokenWrap
+          onClick={() => {
+            setShow(() => true)
+          }}
+        >
+          <TokenIcon src={currency?.logoUrl} />
+          <TokenText>{currency?.symbol.toUpperCase()}</TokenText>
+        </TokenWrap>
+        <RightOutlined style={{ fontSize: '10px', color: '#01081e' }} />
+      </SelectTokenWrap>
+      <Modal
+        visible={show}
+        footer={null}
+        width={isMobile ? '100%' : '600px'}
+        style={{ borderRadius: '8px', marginTop: isMobile ? '0px' : '160px' }}
+        destroyOnClose
+        closable={false}
+        onCancel={() => {
+          dispatch(toggleConnectWalletModalShow({ show: false }))
         }}
       >
-        <TokenIcon src={currency?.logoUrl} />
-        <TokenText>{currency?.symbol.toUpperCase()}</TokenText>
-      </TokenWrap>
-      <RightOutlined style={{ fontSize: '10px', color: '#01081e' }} />
-      {show ? (
         <TokenListModal>
-          <SelectTokenWrap>
-            <Input
-              value={keyword}
-              onChange={filterChange}
-              style={{ paddingTop: '4px' }}
-              prefix={<Icon src={require('../../assets/images/bridge/search@2x.png').default} />}
-              suffix={<Icon onClick={close} src={require('../../assets/images//bridge/close@2x.png').default} />}
-            />
-          </SelectTokenWrap>
+          <RowBetween>
+            <ModalTitle> {t(`Asset`)} </ModalTitle>
+            <CloseIcon src={require('../../assets/images/bridge/close@2x.png').default} onClick={close} />
+          </RowBetween>
+          <Input
+            value={keyword}
+            onChange={filterChange}
+            style={{ paddingTop: '4px', height: '48px', margin: '12px 0' }}
+            prefix={<Icon src={require('../../assets/images/bridge/search@2x.png').default} />}
+            suffix={null}
+          />
           <ListWrap>{tokenList}</ListWrap>
         </TokenListModal>
-      ) : null}
-    </SelectTokenWrap>
+      </Modal>
+    </>
   )
 }
 

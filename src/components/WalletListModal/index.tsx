@@ -10,18 +10,22 @@ import { theme } from '../../constants/theme'
 import { ConnectorNames, WalletList } from '../../constants/wallet'
 import useAuth from '../../hooks/useAuth'
 import { useDispatch } from 'react-redux'
-import {useWalletErrorInfo} from '../../state/wallet/hooks'
-import {toggleConnectWalletModalShow, updateWalletId} from '../../state/wallet/actions'
+import { useWalletErrorInfo } from '../../state/wallet/hooks'
+import { toggleConnectWalletModalShow, updateWalletId } from '../../state/wallet/actions'
 import { updateBridgeLoading } from '../../state/application/actions'
 import { useCurrentPairId } from '../../state/bridge/hooks'
 import { switchNetwork } from '../../utils/wallet'
-import { getPairInfo} from '../../utils'
+import { getPairInfo } from '../../utils'
 
 export interface WalletListModalProps {
   visible: boolean
 }
 
-const WalletListWrap = styled.div``
+const WalletListWrap = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+`
 
 const WalletItem = styled.div<{ selectedId: number; walletId: number }>`
   position: relative;
