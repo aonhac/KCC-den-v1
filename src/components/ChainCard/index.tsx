@@ -12,6 +12,9 @@ import { useDispatch } from 'react-redux'
 import { updateCurrentPairId } from '../../state/bridge/actions'
 
 interface ChainCardProps {
+  dropdownShow?: boolean
+  setDropdownShow?: any
+  setOppsiteDropdownShow?: any
   networkId: ChainId
   direction: ChainDirection
   type: ChainBridgeType
@@ -136,6 +139,9 @@ const ChainCard: React.FunctionComponent<ChainCardProps> = ({
   oppsiteId,
   direction,
   currency,
+  setDropdownShow,
+  dropdownShow,
+  setOppsiteDropdownShow,
 }) => {
   const network = React.useMemo(() => {
     return getNetworkInfo(networkId)
@@ -156,15 +162,13 @@ const ChainCard: React.FunctionComponent<ChainCardProps> = ({
     return false
   }
 
-  const [show, setShow] = React.useState<boolean>(false)
-
   const clickNetwork = (id: number) => {
     // changeNetwork(id)
     if (!currency) return
     const findId =
       direction === ChainDirection.From ? findPair(id, oppsiteId, currency) : findPair(oppsiteId, id, currency)
     dispatch(updateCurrentPairId(findId))
-    setShow(() => false)
+    setDropdownShow(() => false)
   }
 
   const menuList = ChainIds.map((id: any, index) => {
@@ -179,7 +183,7 @@ const ChainCard: React.FunctionComponent<ChainCardProps> = ({
     }
   })
 
-  const menu = <DropdownWrap onMouseLeave={() => setShow(() => false)}>{menuList}</DropdownWrap>
+  const menu = <DropdownWrap onMouseLeave={() => setDropdownShow(() => false)}>{menuList}</DropdownWrap>
 
   return (
     <ChainCardWrap>
@@ -193,13 +197,14 @@ const ChainCard: React.FunctionComponent<ChainCardProps> = ({
 
       <Name>{network?.fullName}</Name>
       {type === ChainBridgeType.OPERATE ? (
-        <SelectWrap onMouseLeave={() => setShow(() => false)}>
-          <Dropdown overlay={menu} placement={'bottomLeft'} visible={show} trigger={['click']}>
+        <SelectWrap>
+          <Dropdown overlay={menu} placement={'bottomLeft'} visible={dropdownShow} trigger={['click']}>
             <SelectIcon
-              show={show}
+              show={dropdownShow ?? false}
               src={require('../../assets/images/bridge/down.png').default}
               onClick={() => {
-                setShow(() => !show)
+                setOppsiteDropdownShow(false)
+                setDropdownShow(() => true)
               }}
             />
           </Dropdown>

@@ -169,6 +169,11 @@ export const ReceiveAddressWrap = styled.div`
     height: 48px;
   }
 `
+const GuideText = styled(CommonText)`
+  &:hover {
+    text-decoration: underline;
+  }
+`
 
 const NoticeText = styled.div`
   margin-top: 8px;
@@ -661,7 +666,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
       <FirstNoticeWrap>
         <CommonText style={{ fontFamily: 'URWDIN-Regular, URWDIN' }}>
           {t('If you are using KCC-Bridge for the first time, you can')}&nbsp;
-          <CommonText
+          <GuideText
             style={{ cursor: 'pointer', fontFamily: 'URWDIN-Regular, URWDIN', display: 'inline' }}
             color={theme.colors.bridgePrimay}
             onClick={() => {
@@ -669,7 +674,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
             }}
           >
             {t('Check the guide')}
-          </CommonText>
+          </GuideText>
         </CommonText>
       </FirstNoticeWrap>
       <TransferWrap>

@@ -84,6 +84,9 @@ const ChainBridge: React.FunctionComponent<ChainBridgeProps> = (props) => {
 
   const pairList = usePariList()
 
+  const [fromDropdownShow, setFromDropdownShow] = React.useState<boolean>(false)
+  const [toDropdownShow, setToDropdownShow] = React.useState<boolean>(false)
+
   const swapStatus = React.useMemo(() => {
     return srcChainIds.includes(props.distId) && distChainIds.includes(props.srcId)
   }, [props.distId, props.srcId, distChainIds, srcChainIds])
@@ -115,6 +118,9 @@ const ChainBridge: React.FunctionComponent<ChainBridgeProps> = (props) => {
       <Box>
         <BridgeTitle>{t('From')}</BridgeTitle>
         <ChainCard
+          dropdownShow={fromDropdownShow}
+          setDropdownShow={setFromDropdownShow}
+          setOppsiteDropdownShow={setToDropdownShow}
           direction={ChainDirection.From}
           availableChainIds={srcChainIds}
           networkId={props.srcId}
@@ -142,6 +148,9 @@ const ChainBridge: React.FunctionComponent<ChainBridgeProps> = (props) => {
       <Box>
         <BridgeTitle>{t('To')}</BridgeTitle>
         <ChainCard
+          dropdownShow={toDropdownShow}
+          setDropdownShow={setToDropdownShow}
+          setOppsiteDropdownShow={setFromDropdownShow}
           direction={ChainDirection.To}
           networkId={props.distId}
           availableChainIds={cuclDistChainIds}
