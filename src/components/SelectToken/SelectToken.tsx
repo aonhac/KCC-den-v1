@@ -48,7 +48,7 @@ const TokenIcon = styled.img`
 `
 
 const TokenText = styled.div`
-  font-family: URWDIN-Regular, URWDIN, serif;
+  font-family: URWDIN-Regular, URWDIN;
   padding-top: 4px;
   font-size: 16px;
   font-weight: 400;
@@ -57,7 +57,7 @@ const TokenText = styled.div`
 `
 
 const ModalTitle = styled.div`
-  font-family: URWDIN-Regular, URWDIN, serif;
+  font-family: URWDIN-Regular, URWDIN;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;

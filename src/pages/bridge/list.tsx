@@ -94,7 +94,7 @@ const Order = styled.div`
 
 const Number = styled.span`
   font-size: 20px;
-  font-family: URWDIN-Bold, URWDIN, serif;
+  font-family: URWDIN-Bold, URWDIN;
   font-style: italic;
   font-weight: normal;
   color: rgba(0, 6, 33, 0.87);

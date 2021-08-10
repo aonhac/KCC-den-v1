@@ -101,7 +101,7 @@ const ActivitiesPage: React.FunctionComponent<GrantsPageProps> = () => {
     },
     {
       thumbnail_ch: require('../../assets/images/activity/KCC-AMA-CN.png').default,
-      thumbnail_en: require('../../assets/images/activity/KCC-AMA-EN.jpg').default,
+      thumbnail_en: require('../../assets/images/activity/KCC-AMA-EN.png').default,
       deadline: '2021-08-09 10:57:33',
       url_ch: 'https://kccofficial.medium.com/kcc-ama-series-episode-1-whats-done-and-what-s-next-in-2021-4f50685a350c',
       url_en: 'https://kccofficial.medium.com/kcc-ama-series-episode-1-whats-done-and-what-s-next-in-2021-4f50685a350c',
