@@ -197,8 +197,10 @@
   "Add assets to the wallet list": "添加资产到钱包列表",
   "Confirm": "确认",
   "Airdrop Notice": "系统监测到你的目标地址没有kcs，稍后将赠送你 0.001 kcs作为手续费体验金。",
-  "Copy Success":"复制成功",
+  "Copy Success": "复制成功",
   "View": "查看",
   "Copy": "复制",
-  "Logout": "退出"
+  "Logout": "退出",
+  "If you are using KCC-Bridge for the first time, you can": "如果您是第一次使用KCC-Bridge，可以快速",
+  "Check the guide": "查看使用教程"
 }
