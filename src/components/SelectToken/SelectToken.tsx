@@ -57,7 +57,7 @@ const TokenText = styled.div`
 `
 
 const ModalTitle = styled.div`
-  font-family: URWDIN-Regular, URWDIN, serif;
+  font-family: URWDIN-Regular, URWDIN;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
