@@ -33,6 +33,10 @@ const OrderDetailWrap = styled(TransferWrap)`
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
+  margin-top: 150px;
+  @media (max-width: 768px) {
+    margin-top: 0px;
+  }
 `
 
 const StepIcon = styled.img`

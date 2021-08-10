@@ -125,7 +125,7 @@ const ChainName = styled.span`
 const DropdownWrap = styled.div`
   border-radius: 4px;
   background: #fff;
-  width: 300px;
+  width: 240px;
 `
 
 const ChainCard: React.FunctionComponent<ChainCardProps> = ({
@@ -193,7 +193,7 @@ const ChainCard: React.FunctionComponent<ChainCardProps> = ({
 
       <Name>{network?.fullName}</Name>
       {type === ChainBridgeType.OPERATE ? (
-        <SelectWrap>
+        <SelectWrap onMouseLeave={() => setShow(() => false)}>
           <Dropdown overlay={menu} placement={'bottomLeft'} visible={show} trigger={['click']}>
             <SelectIcon
               show={show}

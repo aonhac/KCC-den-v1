@@ -19,7 +19,7 @@ import { UnconfirmOrderListType } from './confirm'
 import { find } from 'lodash'
 import moment from 'moment'
 import { theme } from '../../constants/theme'
-import { ColumnCenter } from '../../components/Column/index'
+import { ColumnCenter } from '../../components/Column'
 import { useInterval } from '../../hooks/useInterval'
 import { useQuery } from '../../hooks/useQuery'
 
@@ -39,12 +39,16 @@ const BridgeListWrap = styled.div`
 `
 
 const HistoryWrap = styled(TransferWrap)`
+  margin-top: 156px;
   background: linear-gradient(180deg, #f5fffc 0%, #feffff 100%);
   height: 600px;
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
+  @media (max-width: 768px) {
+    margin-top: 0;
+  }
 `
 
 const HistoryListWrap = styled.div`
@@ -90,7 +94,7 @@ const Order = styled.div`
 
 const Number = styled.span`
   font-size: 20px;
-  font-family: URWDIN-Bold, URWDIN;
+  font-family: URWDIN-Bold, URWDIN, serif;
   font-style: italic;
   font-weight: normal;
   color: rgba(0, 6, 33, 0.87);

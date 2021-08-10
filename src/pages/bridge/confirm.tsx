@@ -12,7 +12,7 @@ import i18next from 'i18next'
 import ChainBridge from '../../components/ChainBridge'
 import { BaseButton } from '../../components/TransferButton'
 import ConfirmItem from '../../components/ConfirmItem'
-import { NoFeeText, TransferOrder, TransferWrap } from './transfer'
+import { NoFeeText, TransferOrder } from './transfer'
 import BridgeTitlePanel from '../../components/BridgeTitlePanel/index'
 import { getPairInfo, getNetworkInfo } from '../../utils'
 import { getBridgeContract } from '../../utils/contract'
@@ -44,6 +44,20 @@ const BridgeConfirmWrap = styled.div`
   min-height: calc(100vh - 400px);
   @media (max-width: 768px) {
     min-height: 100%;
+  }
+`
+
+const ConfirmTransferWrap = styled.div`
+  margin-top: 156px;
+  width: 516px;
+  padding: 32px;
+  border-radius: 8px;
+  position: relative;
+  background: #fff;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-top: 24px;
+    border-radius: 0;
   }
 `
 
@@ -270,7 +284,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
   return (
     <BridgeConfirmWrap>
       <AirdropNotice show={balance == 0} />
-      <TransferWrap>
+      <ConfirmTransferWrap>
         <BridgeTitlePanel title={t('Transfer confirmation')} iconEvent={back2transfer} />
         <ChainBridge srcId={order?.srcId} distId={order?.distId} type={ChainBridgeType.DISPLAY} />
         <Box>
@@ -306,7 +320,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
         <BaseButton onClick={transfer} style={{ marginTop: '32px' }}>
           <ButtonText>{t(`Transfer`)}</ButtonText>
         </BaseButton>
-      </TransferWrap>
+      </ConfirmTransferWrap>
     </BridgeConfirmWrap>
   )
 }

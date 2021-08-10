@@ -14,7 +14,6 @@ import { updateBridgeLoading } from '../../state/application/actions'
 import { BridgeService } from '../../api/bridge'
 import { updatePairList } from '../../state/bridge/actions'
 import { PairInfo } from '../../state/bridge/reducer'
-import { ConnectorNames } from '../../constants/wallet'
 import useAuth from '../../hooks/useAuth'
 import { ChainIds } from '../../connectors'
 import { updateErrorInfo } from '../../state/wallet/actions'
@@ -28,7 +27,7 @@ import '../../styles/transition.css'
 
 export interface BridgePageProps {}
 
-const TopBg = require('../../assets/images/bridge/top-bg.svg').default
+const TopBg = require('../../assets/images/bridge/pic.png').default
 const CenterBg = require('../../assets/images/bridge/center-bg@2x.png').default
 
 const BridgeWrap = styled.div`
@@ -37,9 +36,10 @@ const BridgeWrap = styled.div`
   color: #fff;
   min-height: calc(100vh - 200px);
   background: url(${TopBg}) center 80px no-repeat, #000;
+  background-size: 500px auto;
   @media (max-width: 768px) {
     width: 100%;
-    background: url(${TopBg}) center -300px no-repeat, #000;
+    background: #000;
     background-size: 100% 100%;
     min-height: 100%;
   }
@@ -68,7 +68,7 @@ const CenterBgImg = styled.img`
   z-index: 1;
   transform: translateX(-50%);
   @media (max-width: 768px) {
-    top: 0px;
+    top: 0;
   }
 `
 
