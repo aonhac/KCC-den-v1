@@ -37,6 +37,8 @@ import { useInterval } from '../../hooks/useInterval'
 import { findPairBySrcChain } from '../../utils'
 import { formatCurrency } from '../../utils/format'
 
+import CommonText from '../../components/Text'
+
 export enum ListType {
   'WHITE',
   'BLACK',
@@ -67,7 +69,7 @@ export const BridgeTransferWrap = styled.div`
 `
 
 export const TransferWrap = styled.div`
-  margin-top: 156px;
+  margin-top: 24px;
   background: #fff;
   width: 516px;
   padding: 32px;
@@ -75,10 +77,33 @@ export const TransferWrap = styled.div`
   position: relative;
   @media (max-width: 768px) {
     width: 100%;
-    margin-top: -5px;
-    border-radius: 0px;
+    margin-top: 0;
+    border-radius: 0;
   }
 `
+
+export const FirstNoticeWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 146px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  @media (max-width: 768px) {
+    flex-flow: column nowrap;
+    width: 100%;
+    border-radius: 0;
+    margin-top: 0;
+    padding: 0 12px;
+    background: #000;
+    margin-bottom: 10px;
+    ${CommonText} {
+      font-size: 14px;
+    }
+  }
+`
+
 export const BridgeTitle = styled.div`
   font-size: 14px;
   font-family: URWDIN-Regular, URWDIN;
@@ -633,6 +658,20 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
 
   return (
     <BridgeTransferWrap>
+      <FirstNoticeWrap>
+        <CommonText style={{ fontFamily: 'URWDIN-Regular, URWDIN' }}>
+          {t('If you are using KCC-Bridge for the first time, you can')}&nbsp;
+          <CommonText
+            style={{ cursor: 'pointer', fontFamily: 'URWDIN-Regular, URWDIN', display: 'inline' }}
+            color={theme.colors.bridgePrimay}
+            onClick={() => {
+              window.open('https://www.youtube.com/watch?v=kZdX1V2Tgnc', '_blank')
+            }}
+          >
+            {t('Check the guide')}
+          </CommonText>
+        </CommonText>
+      </FirstNoticeWrap>
       <TransferWrap>
         <TransferLimit pairId={currentPairId} available={totalSupply} loading={supplyLoading} />
         <BridgeTitle>{t(`Asset`)}</BridgeTitle>
@@ -670,7 +709,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
           {account ? (
             <>
               <Box>
-                <ReceiveText>{t(`Available`)}: </ReceiveText>
+                <ReceiveText>{t(`Available`)}:&nbsp;</ReceiveText>
                 {!availableLoading ? (
                   <ReceiveAmountText>
                     {formatCurrency(
@@ -679,6 +718,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
                         .toFixed(6)
                         .toString()
                     ) ?? 0}
+                    &nbsp;
                     {currency.symbol.toUpperCase()}
                   </ReceiveAmountText>
                 ) : (
@@ -700,6 +740,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
                     <ReceiveAmountText style={{ color: theme.colors.bridgePrimay }}>
                       {selectedNetworkInfo?.fee ? <NoFeeText>{selectedNetworkInfo?.fee}</NoFeeText> : null}
                       {new BN(swapFee).div(Math.pow(10, selectedNetworkInfo?.decimals)).toNumber().toString() ?? '0'}
+                      &nbsp;
                       {selectedNetworkInfo?.symbol.toUpperCase()}
                     </ReceiveAmountText>
                     {selectedNetworkInfo?.fee ? (
@@ -731,7 +772,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
             <Row style={{ width: '100%' }}>
               <ReceiveText>{t(`You will receive`)}</ReceiveText>
               <ReceiveAmountText>
-                {t(` ≈ ${Boolean(amount) ? amount : 0} ${selectedNetworkInfo?.symbol.toUpperCase()}`)}
+                {` ≈ ${Boolean(amount) ? amount : 0} ${selectedNetworkInfo?.symbol.toUpperCase()}`}
               </ReceiveAmountText>
             </Row>
           )}
