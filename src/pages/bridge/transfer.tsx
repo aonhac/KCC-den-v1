@@ -170,6 +170,7 @@ export const ReceiveAddressWrap = styled.div`
   }
 `
 const GuideText = styled(CommonText)`
+  font-size: 14px;
   &:hover {
     text-decoration: underline;
   }
