@@ -664,7 +664,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
   return (
     <BridgeTransferWrap>
       <FirstNoticeWrap>
-        <CommonText style={{ fontFamily: 'URWDIN-Regular, URWDIN' }}>
+        <CommonText style={{ fontFamily: 'URWDIN-Regular, URWDIN', fontSize: '14px', fontWeight: 'normal' }}>
           {t('If you are using KCC-Bridge for the first time, you can')}&nbsp;
           <GuideText
             style={{ cursor: 'pointer', fontFamily: 'URWDIN-Regular, URWDIN', display: 'inline' }}

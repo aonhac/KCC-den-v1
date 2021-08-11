@@ -216,6 +216,7 @@ const SelectToken: React.FunctionComponent<SelectTokenProps> = ({ list, currency
             style={{ paddingTop: '4px', height: '48px', margin: '12px 0' }}
             prefix={<Icon src={require('../../assets/images/bridge/search@2x.png').default} />}
             suffix={null}
+            placeholder={t('Search')}
           />
           <ListWrap>{tokenList}</ListWrap>
         </TokenListModal>
