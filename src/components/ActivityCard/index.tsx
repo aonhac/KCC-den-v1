@@ -75,7 +75,7 @@ const ActivityCard: React.FunctionComponent<ActivityCardProps> = (props) => {
       {props.valid ? (
         <Button onClick={nav2Activity}>{t('Participate now')}</Button>
       ) : (
-        <InvalidButton onClick={nav2Activity}>{t(`View Event`)}</InvalidButton>
+        <Button onClick={nav2Activity}>{t(`View Event`)}</Button>
       )}
     </ActivityCardWrap>
   )
