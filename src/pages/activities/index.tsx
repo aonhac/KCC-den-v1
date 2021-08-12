@@ -93,7 +93,7 @@ const ActivitiesPage: React.FunctionComponent<GrantsPageProps> = () => {
     {
       thumbnail_ch: require('../../assets/images/activity/activity-1-ch.png').default,
       thumbnail_en: require('../../assets/images/activity/activity-1-en.png').default,
-      deadline: '2023-07-07 10:57:33',
+      deadline: '2023/07/07 10:57:33',
       url_ch:
         'https://kucoincommunitychain.medium.com/kcc%E5%A4%A7%E4%BD%BF%E8%AE%A1%E5%88%92-%E6%AD%A3%E5%BC%8F%E5%90%AF%E5%8A%A8-%E5%9B%9E%E6%8A%A5%E4%B8%B0%E5%8E%9A-%E6%9C%9F%E5%BE%85%E4%B8%93%E4%B8%9A%E7%9A%84%E6%82%A8%E5%8A%A0%E5%85%A5-f75791ffc6b9',
       url_en:
@@ -102,7 +102,7 @@ const ActivitiesPage: React.FunctionComponent<GrantsPageProps> = () => {
     {
       thumbnail_ch: require('../../assets/images/activity/KCC-AMA-CN.png').default,
       thumbnail_en: require('../../assets/images/activity/KCC-AMA-EN.png').default,
-      deadline: '2021-08-09 10:57:33',
+      deadline: '2021/08/09 10:57:33',
       url_ch: 'https://kccofficial.medium.com/kcc-ama-series-episode-1-whats-done-and-what-s-next-in-2021-4f50685a350c',
       url_en: 'https://kccofficial.medium.com/kcc-ama-series-episode-1-whats-done-and-what-s-next-in-2021-4f50685a350c',
     },
