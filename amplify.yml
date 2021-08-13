@@ -6,7 +6,7 @@ frontend:
         - yarn install
     build:
       commands:
-        - yarn run build
+        - yarn run build:testnetwork
   artifacts:
     # IMPORTANT - Please verify your build output directory
     baseDirectory: build
