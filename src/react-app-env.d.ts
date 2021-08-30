@@ -10,5 +10,4 @@ interface Window {
     request: any
   }
   web3?: any
-  BinanceChain?: BinanceChain
 }
