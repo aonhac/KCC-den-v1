@@ -327,8 +327,8 @@ const MailWrap = styled(BaseWrap)`
 `
 const ProgressWrap = styled.div`
   position: absolute;
-  width:100%:
-  height:20px;
+  width: 100%;
+  height: 20px;
 `
 
 const TitleLeftLine = styled.div`
@@ -440,9 +440,8 @@ const HomePage: React.FunctionComponent<HomePageProps> = () => {
         message.success(t(`Thank you for subscribing`))
         setSubscribed(() => true)
       }
-
       setEmail('')
-    } catch (e) {
+    } catch (e: any) {
       message.error(t(`${e?.response?.data?.detail}`))
     } finally {
       setDisable(false)
