@@ -112,6 +112,12 @@ export const MENU_LIST = [
             icon: require('../assets/images/Icons/menu/imtoken@2x.png').default,
           },
           {
+            title: 'Shield Protocol',
+            subTitle: 'Visit and link to Shield Protocol',
+            route: 'https://shieldprotocol.org',
+            icon: require('../assets/images/Icons/menu/shield.png').default,
+          },
+          {
             title: 'More Wallet',
             subTitle: 'Coming Soon...',
             route: '',
