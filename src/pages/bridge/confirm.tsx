@@ -176,6 +176,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
       .send({
         from: `${account}`,
         value: amount,
+        type: [1, 4].includes(selectedChainInfo.srcChainInfo.chainId) ? '0x2' : '0x1',
       })
       .once('sending', () => {
         dispatch(updateBridgeLoading({ visible: true, status: 0 }))
@@ -210,6 +211,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
       .send({
         from: account,
         value: `${order.fee}`,
+        type: [1, 4].includes(selectedChainInfo.srcChainInfo.chainId) ? '0x2' : '0x1',
       })
       .once('sending', () => {
         dispatch(updateBridgeLoading({ visible: true, status: 0 }))
