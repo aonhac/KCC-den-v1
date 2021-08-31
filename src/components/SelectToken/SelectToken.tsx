@@ -140,11 +140,11 @@ const SelectToken: React.FunctionComponent<SelectTokenProps> = ({ list, currency
     if (key === '') {
       return list
     }
-    return list.filter((token) => token.name.toLowerCase().includes(key))
+    return list.filter((token) => token.name.toLowerCase().includes(key) || token.symbol.toLowerCase().includes(key))
   }, [keyword])
 
   const filterChange = (e: any) => {
-    setKeyword(() => e.target.value)
+    setKeyword(() => e.target.value?.trim())
   }
 
   const selectToken = (currency: Currency) => {
