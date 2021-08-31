@@ -169,15 +169,16 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
   /**
    * @description  transfer native token
    */
-  const nativeTransfer = (contract: any, selectedChainInfo: PairInfo) => {
+  const nativeTransfer = async (contract: any, selectedChainInfo: PairInfo) => {
     const amount = new BN(order.amount).toString(10)
+    /*     const gasPrice = await library.getGasPrice()
+    console.log('gasPrice', gasPrice) */
     contract.methods
       .depositNative(order.receiver, selectedChainInfo.dstChainInfo.chain.toLowerCase())
       .send({
         from: `${account}`,
         value: amount,
         //type: [1, 4].includes(selectedChainInfo.srcChainInfo.chainId) ? '0x2' : '0x0',
-        type: '0x0',
       })
       .once('sending', () => {
         dispatch(updateBridgeLoading({ visible: true, status: 0 }))
@@ -213,7 +214,6 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
         from: account,
         value: `${order.fee}`,
         //type: [1, 4].includes(selectedChainInfo.srcChainInfo.chainId) ? '0x2' : '0x0',
-        type: '0x0',
       })
       .once('sending', () => {
         dispatch(updateBridgeLoading({ visible: true, status: 0 }))
