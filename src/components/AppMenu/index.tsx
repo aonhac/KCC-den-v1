@@ -10,14 +10,14 @@ import Column from '../Column'
 import { RowBetween } from '../Row/index'
 import { Menu } from 'antd'
 
-import './index.less'
 import { theme } from '../../constants/theme'
 import { useResponsive } from '../../utils/responsive'
-import { useEffect } from 'react'
-import { isMobile } from 'react-device-detect'
 import { BrowserView, MobileView } from '../Common'
 import { useDispatch } from 'react-redux'
 import { changeMobileMenuShow } from '../../state/application/actions'
+import { KCC } from '../../constants/index'
+
+import './index.less'
 
 export interface AppMenuProps {
   style?: CSSProperties
@@ -85,8 +85,18 @@ const TitleWrap = styled(Column)`
 `
 
 const NavItem: React.FunctionComponent<NavItemChildrenType> = (props) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { isMobile } = useResponsive()
+
+  const getNavRoute = (route: string) => {
+    if (route === KCC.EXPLORER) {
+      if (i18n.language === 'zh-CN') {
+        return `${route}/cn`
+      }
+      return `${route}/en`
+    }
+    return route
+  }
 
   const dispatch = useDispatch()
 
@@ -98,7 +108,8 @@ const NavItem: React.FunctionComponent<NavItemChildrenType> = (props) => {
         router.push(route)
       }
       if (route.startsWith('http')) {
-        window.open(route, '_blank')
+        const route1 = getNavRoute(route)
+        window.open(route1, '_blank')
       }
       if (isMobile) {
         dispatch(changeMobileMenuShow({ show: false }))
@@ -118,7 +129,7 @@ const NavItem: React.FunctionComponent<NavItemChildrenType> = (props) => {
 }
 
 const AppMenu: React.FunctionComponent<AppMenuProps> = ({ style }) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const { isMobile } = useResponsive()
 
@@ -134,13 +145,23 @@ const AppMenu: React.FunctionComponent<AppMenuProps> = ({ style }) => {
     }
   }
 
+  const getNavRoute = (route: string) => {
+    if (route === KCC.EXPLORER) {
+      if (i18n.language === 'zh-CN') {
+        return `${route}/cn`
+      }
+      return `${route}/en`
+    }
+    return route
+  }
+
   const genNavList = (navItem: NavItemType) => {
     // no children
     if (!navItem.hasChildren && navItem?.route) {
       return (
         <Menu.Item key={navItem.name}>
           <NavLink
-            to={navItem.route}
+            to={getNavRoute(navItem.route)}
             onClick={() => {
               dispatch(changeMobileMenuShow({ show: false }))
             }}

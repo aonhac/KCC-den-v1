@@ -207,10 +207,6 @@ const BridgePage: React.FunctionComponent<BridgePageProps> = ({ children }) => {
     }
   }, [account])
 
-  React.useEffect(() => {
-    console.log('chainId', chainId)
-  }, [chainId])
-
   return (
     <BridgeWrap>
       <WalletListModal visible={walletListModalShow} />
