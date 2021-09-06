@@ -18,6 +18,7 @@ import { CenterRow } from '../../components/Row/index'
 import { theme } from '../../constants/theme'
 import DotComponent from '../../components/Dot/index'
 import { useResponsive } from '../../utils/responsive'
+import MilestoneEventList from './components/Milestone'
 
 export interface HomePageProps {}
 
@@ -653,6 +654,7 @@ const HomePage: React.FunctionComponent<HomePageProps> = () => {
             <ParagraphText>{t('Milestone Subtitlle')}</ParagraphText>
             <MileStoneWrap gap="8px">
               <BrowserView>
+                <MilestoneEventList />
                 {/* <Progress
                   style={{ width: '100%', position: 'absolute', zIndex: 3, left: '0px', top: '12px' }}
                   strokeColor={{
