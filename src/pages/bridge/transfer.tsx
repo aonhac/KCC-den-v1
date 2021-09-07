@@ -723,7 +723,7 @@ const BridgeTransferPage: React.FunctionComponent<BridgeTransferPageProps> = () 
                     {formatCurrency(
                       new BN(available)
                         .div(Math.pow(10, selectedPairInfo?.srcChainInfo.decimals as any))
-                        .toFixed(6)
+                        .toFixed(6, 1)
                         .toString()
                     ) ?? 0}
                     &nbsp;

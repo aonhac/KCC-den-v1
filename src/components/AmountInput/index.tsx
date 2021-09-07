@@ -109,7 +109,7 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
       if (!pairInfo) return
       if (pairInfo.srcChainInfo.tag !== 0) {
         setMaxAvailableBalance(() =>
-          new BN(available).div(Math.pow(10, pairInfo.srcChainInfo.decimals)).toFixed(decimalsLimit)
+          new BN(available).div(Math.pow(10, pairInfo.srcChainInfo.decimals)).toFixed(decimalsLimit, 1)
         )
       } else {
         const connector = getNetWorkConnect(pairInfo.srcChainInfo.chainId) as any
@@ -120,7 +120,7 @@ const AmountInput: React.FunctionComponent<AmountInputProps> = ({
         let max = new BN(available)
           .minus(operateFee)
           .div(Math.pow(10, pairInfo.srcChainInfo.decimals))
-          .toFixed(decimalsLimit)
+          .toFixed(decimalsLimit, 1)
         if (new BN(max).lt(0)) {
           max = '0'
         }
