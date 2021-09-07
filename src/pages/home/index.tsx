@@ -18,6 +18,7 @@ import { CenterRow } from '../../components/Row/index'
 import { theme } from '../../constants/theme'
 import DotComponent from '../../components/Dot/index'
 import { useResponsive } from '../../utils/responsive'
+import MilestoneEventList from './components/Milestone'
 
 export interface HomePageProps {}
 
@@ -276,7 +277,7 @@ const IntroduceCoverImageWrap = styled.img`
   position: absolute;
   top: 0;
   width: 100%;
-  heigth: 50px !important;
+  height: 50px !important;
 `
 
 const IntroduceCover1 = styled.img`
@@ -652,9 +653,9 @@ const HomePage: React.FunctionComponent<HomePageProps> = () => {
             <TitleText>{t('Our Milestones')}</TitleText>
             <ParagraphText>{t('Milestone Subtitlle')}</ParagraphText>
             <MileStoneWrap gap="8px">
-              {MilestoneList}
               <BrowserView>
-                <Progress
+                <MilestoneEventList />
+                {/* <Progress
                   style={{ width: '100%', position: 'absolute', zIndex: 3, left: '0px', top: '12px' }}
                   strokeColor={{
                     '0%': '#126748',
@@ -665,9 +666,10 @@ const HomePage: React.FunctionComponent<HomePageProps> = () => {
                   percent={95}
                   status="active"
                   trailColor="#09402A"
-                />
+                /> */}
               </BrowserView>
               <MobileView>
+                {MilestoneList}
                 <Row
                   style={{
                     position: 'absolute',

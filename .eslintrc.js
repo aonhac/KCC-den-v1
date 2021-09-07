@@ -3,6 +3,13 @@ module.exports = {
     ENV_CONFIG: 'readonly',
     web3: 'readonly',
   },
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: ['./src'],
+      },
+    },
+  },
   parser: '@typescript-eslint/parser',
   rules: {
     '@typescript-eslint/camelcase': 0,
@@ -30,4 +37,4 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 0,
     'no-console': 0,
   },
-};
+}
