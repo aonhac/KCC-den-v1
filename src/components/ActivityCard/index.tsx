@@ -65,9 +65,9 @@ const ActivityCard: React.FunctionComponent<ActivityCardProps> = (props) => {
 
   const nav2Activity = () => {
     if (i18n.language === 'zh-CN') {
-      window.open(props.url_ch, '_blank')
+      props.url_ch && window.open(props.url_ch, '_blank')
     } else {
-      window.open(props.url_en, '_blank')
+      props.url_en && window.open(props.url_en, '_blank')
     }
   }
   return (

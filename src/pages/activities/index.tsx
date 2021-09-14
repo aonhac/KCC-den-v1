@@ -106,6 +106,13 @@ const ActivitiesPage: React.FunctionComponent<GrantsPageProps> = () => {
       url_ch: 'https://kccofficial.medium.com/kcc-ama-series-episode-1-whats-done-and-what-s-next-in-2021-4f50685a350c',
       url_en: 'https://kccofficial.medium.com/kcc-ama-series-episode-1-whats-done-and-what-s-next-in-2021-4f50685a350c',
     },
+    {
+      thumbnail_ch: require('../../assets/images/activity/stable-coin-cn.jpg').default,
+      thumbnail_en: require('../../assets/images/activity/stable-coin-en.jpg').default,
+      deadline: '2021/09/20 10:57:33',
+      url_ch: '',
+      url_en: '',
+    },
   ]
 
   const [endedList, setEndedList] = React.useState([])
