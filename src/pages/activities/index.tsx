@@ -107,6 +107,13 @@ const ActivitiesPage: React.FunctionComponent<GrantsPageProps> = () => {
       url_en: 'https://kccofficial.medium.com/kcc-ama-series-episode-1-whats-done-and-what-s-next-in-2021-4f50685a350c',
     },
     {
+      thumbnail_ch: require('../../assets/images/activity/kuswap-cn.jpg').default,
+      thumbnail_en: require('../../assets/images/activity/kuswap-en.jpg').default,
+      deadline: '2021/08/09 10:57:33',
+      url_ch: 'https://kccofficial.medium.com/kcc-ama-series-episode2-kuswap-safety-and-security-c642a46015f8',
+      url_en: 'https://kccofficial.medium.com/kcc-ama-series-episode2-kuswap-safety-and-security-c642a46015f8',
+    },
+    {
       thumbnail_ch: require('../../assets/images/activity/nft-cn.png').default,
       thumbnail_en: require('../../assets/images/activity/nft-en.png').default,
       deadline: '2021/09/10 10:57:33',
