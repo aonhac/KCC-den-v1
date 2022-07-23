@@ -119,7 +119,7 @@ export const MENU_LIST = [
       {
         title: '',
         subTitle: 'support for community development and research',
-        route: '/community/grants',
+        route: '',
         icon: require('../assets/images/Icons/menu/grant@2x.png').default,
       },
     ],
