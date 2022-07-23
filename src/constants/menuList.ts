@@ -40,13 +40,13 @@ export const MENU_LIST = [
       },
       {
         title: 'Testnet Explorer',
-        subTitle: 'View information on the KCC public chain（testnet）',
+        subTitle: 'View information on the Binance Smart Chain（testnet）',
         route: KCC.TEST_EXPLORER,
         icon: require('../assets/images/Icons/menu/chrome@2x.png').default,
       },
       {
         title: 'Testnet faucet',
-        subTitle: 'Get KCC testnet tokens',
+        subTitle: 'Get BNB testnet tokens',
         route: KCC.FAUCET,
         icon: require('../assets/images/Icons/menu/faucet@2x.png').default,
       },
