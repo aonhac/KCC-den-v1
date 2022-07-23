@@ -10,7 +10,7 @@ export const FOOTER_LIST = [
         navRoute: KCC.MEDIA_URL,
       },
       {
-        navText: 'Risk Statement',
+        navText: '',
         navRoute: KCC.RISK_STATMENT,
       },
       /* {
@@ -27,11 +27,11 @@ export const FOOTER_LIST = [
     title: 'Development Tool',
     children: [
       {
-        navText: 'Docs',
+        navText: '',
         navRoute: KCC.DOCS_URL,
       },
       {
-        navText: 'Github',
+        navText: '',
         navRoute: KCC.GITHUB_URL,
       },
       {
@@ -45,14 +45,14 @@ export const FOOTER_LIST = [
     ],
   },
   {
-    title: 'Contact Us',
+    title: '',
     children: [
       {
-        navText: 'Technical Support',
+        navText: '',
         navRoute: KCC.DISCORD_URL,
       },
       {
-        navText: 'FAQ',
+        navText: '',
         navRoute: KCC.FAQ,
       },
       /* {
