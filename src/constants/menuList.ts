@@ -31,12 +31,7 @@ export const MENU_LIST = [
     name: 'Developers',
     hasChildren: true,
     childrens: [
-      {
-        title: 'Developer Docs',
-        subTitle: 'Start building on KuCoin Community Chain',
-        route: KCC.DOCS_URL,
-        icon: require('../assets/images/Icons/menu/docs@2x.png').default,
-      },
+
       {
         title: 'Github',
         subTitle: 'Visit our Github community',
@@ -67,7 +62,7 @@ export const MENU_LIST = [
         groupMember: [
           {
             title: 'Explorer',
-            subTitle: 'View information on the KCC public chain',
+            subTitle: 'View information on the Binance Smart Chain',
             route: KCC.EXPLORER,
             icon: require('../assets/images/Icons/menu/chrome@2x.png').default,
           },
@@ -76,18 +71,7 @@ export const MENU_LIST = [
       {
         groupName: 'Dapp',
         groupMember: [
-          {
-            title: 'KCC BRIDGE TITLE',
-            subTitle: 'KCC BRIDGE DESC',
-            route: '/bridge/transfer',
-            icon: require('../assets/images/Icons/menu/bridge.png').default,
-          },
-          {
-            title: 'Submit a Dapp',
-            subTitle: 'Submit your dapp to the community',
-            route: KCC.DAPP_URL,
-            icon: require('../assets/images/Icons/menu/submit@2x.png').default,
-          },
+
           {
             title: 'Defi Box',
             subTitle: 'Coming Soon...',
@@ -131,16 +115,9 @@ export const MENU_LIST = [
     name: 'Community',
     hasChildren: true,
     childrens: [
+
       {
-        title: 'Activites',
-        subTitle: 'View the exciting activites information, Includes hackathons,meetups,and more',
-        route: '/community/activity',
-        // route: '',
-        // subTitle: 'Coming Soon...',
-        icon: require('../assets/images/Icons/menu/activity@2x.png').default,
-      },
-      {
-        title: 'Grant Program',
+        title: '',
         subTitle: 'support for community development and research',
         route: '/community/grants',
         icon: require('../assets/images/Icons/menu/grant@2x.png').default,
