@@ -62,7 +62,7 @@ export const KCC = {
     },
     {
       date: '',
-      title: 'Milestone Last',
+      title: '',
     },
   ],
   PARTNER_LIST: [
