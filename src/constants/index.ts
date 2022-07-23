@@ -21,17 +21,17 @@ export const KCC = {
     {
       app: 'Twitter',
       icon: require('../assets/images/Icons/app/twitter-logo@2x.png').default,
-      route: 'https://twitter.com/KCCOfficialTW',
+      route: 'https://twitter.com/greendogeofficial',
     },
     {
       app: 'Telegram',
       icon: require('../assets/images/Icons/app/telegram-logo@2x.png').default,
-      route: 'https://t.me/KCCOfficialEnglishCommunity',
+      route: 'https://t.me/greendogeofficial',
     },
     {
       app: 'Github',
       icon: require('../assets/images/Icons/app/github-logo@2x.png').default,
-      route: 'https://github.com/kcc-community',
+      route: 'https://github.com/greendogeofficial',
     },
 
   ],
