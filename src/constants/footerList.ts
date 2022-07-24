@@ -7,11 +7,11 @@ export const FOOTER_LIST = [
     children: [
       {
         navText: 'Announcement',
-        navRoute: KCC.MEDIA_URL,
+        navRoute: 'https://t.me/greendogeinuANN',
       },
       {
-        navText: '',
-        navRoute: KCC.RISK_STATMENT,
+        navText: 'Telegram',
+        navRoute: 'https://t.me/greendogeinu',
       },
       /* {
         navText: 'Proof of Assets',
