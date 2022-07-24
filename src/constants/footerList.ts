@@ -44,21 +44,4 @@ export const FOOTER_LIST = [
       },
     ],
   },
-  {
-    title: '',
-    children: [
-      {
-        navText: '',
-        navRoute: KCC.DISCORD_URL,
-      },
-      {
-        navText: '',
-        navRoute: KCC.FAQ,
-      },
-      /* {
-        navText: 'Media kit',
-        navRoute: KCC.DOCS_URL,
-      }, */
-    ],
-  },
 ]
