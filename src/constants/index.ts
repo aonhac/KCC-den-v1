@@ -52,16 +52,16 @@ export const KCC = {
     },
     {
       date: 'Green Doge Ambassador Program',
-      title: '',
+      title: 'Milestone 4',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
       date: 'Green Doge Bridge Launched',
-      title: '',
+      title: 'Milestone 5',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
-      date: '',
+      date: 'Coming Soon',
       title: '',
     },
   ],
