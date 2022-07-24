@@ -9,14 +9,14 @@ export const KCC = {
   DAPP_URL: '/',
   DISCORD_URL: '/',
   MEDIA_URL: 'https://greendogeinu.medium.com',
-  MEDIA_API: 'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@kccofficial',
+  MEDIA_API: 'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@greendogeinu',
   MAIL_SUBSCRIBE_PROXY: 'https://mailsubscribe.kcc.io/mailchimp-subscribe',
   TWITTER: 'https://twitter.com/greendogeinu',
   TELEGRAM: 'https://t.me/greendogeinu',
   RISK_STATMENT: 'id=risk-statement',
   DISCLAIMER: 'id=disclaimers',
   FAQ: 'id=faq',
-  GRANTS: 'https://github.com/greendogeinu',
+  GRANTS: '/',
   CONTACT_LIST: [
     {
       app: 'Twitter',
