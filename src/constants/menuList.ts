@@ -38,18 +38,6 @@ export const MENU_LIST = [
         route: KCC.GITHUB_URL,
         icon: require('../assets/images/Icons/menu/github@2x.png').default,
       },
-      {
-        title: 'Testnet Explorer',
-        subTitle: 'View information on the Binance Smart Chain（testnet）',
-        route: KCC.TEST_EXPLORER,
-        icon: require('../assets/images/Icons/menu/chrome@2x.png').default,
-      },
-      {
-        title: 'Testnet faucet',
-        subTitle: 'Get BNB testnet tokens',
-        route: KCC.FAUCET,
-        icon: require('../assets/images/Icons/menu/faucet@2x.png').default,
-      },
     ],
   },
   {
