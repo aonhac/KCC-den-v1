@@ -23,25 +23,4 @@ export const FOOTER_LIST = [
       },
     ],
   },
-  {
-    title: 'Development Tool',
-    children: [
-      {
-        navText: '',
-        navRoute: KCC.DOCS_URL,
-      },
-      {
-        navText: '',
-        navRoute: KCC.GITHUB_URL,
-      },
-      {
-        navText: 'Testnet Explorer',
-        navRoute: KCC.TEST_EXPLORER,
-      },
-      {
-        navText: 'Testnet faucet',
-        navRoute: KCC.FAUCET,
-      },
-    ],
-  },
 ]
