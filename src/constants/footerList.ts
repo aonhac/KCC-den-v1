@@ -13,13 +13,13 @@ export const FOOTER_LIST = [
         navText: 'Telegram',
         navRoute: 'https://t.me/greendogeinu',
       },
-      /* {
-        navText: 'Proof of Assets',
-        navRoute: '',
-      }, */
+       {
+        navText: 'Twitter',
+        navRoute: 'https://twitter.com/greendogeinu',
+      }, 
       {
-        navText: 'Disclaimers',
-        navRoute: KCC.DISCLAIMER,
+        navText: 'Medium',
+        navRoute: 'https://medium.com/@greendogeinu',
       },
     ],
   },
