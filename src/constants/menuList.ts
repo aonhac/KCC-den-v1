@@ -112,14 +112,14 @@ export const MENU_LIST = [
     ],
   },
   {
-    name: 'Community',
+    name: 'Pinksale',
     hasChildren: true,
     childrens: [
 
       {
-        title: '',
+        title: 'GreenDogeInu Sale',
         subTitle: 'support for community development and research',
-        route: '',
+        route: 'https://www.pinksale.finance/launchpads?chain=BSC',
         icon: require('../assets/images/Icons/menu/grant@2x.png').default,
       },
     ],
