@@ -105,7 +105,7 @@ export const MENU_LIST = [
     childrens: [
 
       {
-        title: 'GreenDogeInu Sale',
+        title: 'Beagle Sale',
         subTitle: 'support for community development and research',
         route: 'https://www.pinksale.finance/launchpads?chain=BSC',
         icon: require('../assets/images/Icons/menu/grant@2x.png').default,
