@@ -7,19 +7,19 @@ export const FOOTER_LIST = [
     children: [
       {
         navText: 'Announcement',
-        navRoute: 'https://t.me/greendogeinuANN',
+        navRoute: 'https://t.me/BeagleInuChannel',
       },
       {
         navText: 'Telegram',
-        navRoute: 'https://t.me/greendogeinu',
+        navRoute: 'https://t.me/BeagleInuGlobal',
       },
        {
         navText: 'Twitter',
-        navRoute: 'https://twitter.com/greendogeinu',
+        navRoute: 'https://twitter.com/Beaglelnu_bsc',
       }, 
       {
         navText: 'Medium',
-        navRoute: 'https://medium.com/@greendogeinu',
+        navRoute: 'https://medium.com/@BeagleInu',
       },
     ],
   },
