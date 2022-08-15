@@ -1,7 +1,7 @@
 export const KCC = {
   FULLNAME: 'KuCoin Community Chain',
   ABBR: 'KCC',
-  EXPLORER: 'https://bscscan.com/address/0x1a9Ed85532201502679AD4964617CcCe629D9D76',
+  EXPLORER: 'https://bscscan.com/address/0x390b8f48a928408ce5f87fa129321a164fe68df2',
   TEST_EXPLORER: 'https://testnet.bscscan.com/',
   FAUCET: 'https://testnet.binance.org/faucet-smart',
   DOCS_URL: '/',
@@ -80,12 +80,12 @@ export const KCC = {
     {
       name: 'KuCoin',
       logo: require('../assets/images/home/kucoin.png').default,
-      route: 'https://pancakeswap.finance/swap?outputCurrency=0x1a9Ed85532201502679AD4964617CcCe629D9D76',
+      route: 'https://pancakeswap.finance/swap?outputCurrency=0x390B8F48A928408CE5f87fA129321a164Fe68Df2',
     },
     {
       name: 'TokenView',
       logo: require('../assets/images/home/tokenview.png').default,
-      route: 'https://poocoin.app/tokens/0x1a9ed85532201502679ad4964617ccce629d9d76',
+      route: 'https://poocoin.app/tokens/0x390B8F48A928408CE5f87fA129321a164Fe68Df2',
     },
   ],
 }
