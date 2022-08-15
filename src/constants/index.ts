@@ -74,6 +74,18 @@ export const KCC = {
     {
       date: 'Coming Soon...',
       title: '',
+   },
+  ],
+   PARTNER_LIST: [
+    {
+      name: 'KuCoin',
+      logo: require('../assets/images/home/kucoin.png').default,
+      route: 'https://www.kucoin.com/',
+    },
+    {
+      name: 'TokenView',
+      logo: require('../assets/images/home/tokenview.png').default,
+      route: 'https://tokenview.com/en',
     },
   ],
 }
