@@ -47,7 +47,7 @@ export const KCC = {
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
-      date: 'Create logos, socials, contracts for BIC tokens (done)',
+      date: 'Create logos, socials, contracts (done)',
       title: 'Audit - KYC & SAFU',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
