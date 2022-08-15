@@ -37,38 +37,38 @@ export const KCC = {
   ],
   MILESTONES: [
     {
-      date: 'Idea Formed (done)',
-      title: 'Team recruitment (done)',
+      date: 'Create logos, socials, contracts for BIC tokens',
+      title: '',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
-      date: 'Team recruitment (done)',
-      title: 'Marketing stage 1 (in process)',
+      date: 'Marketing stage 1 (in process)',
+      title: '',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
-      date: 'Create logos, socials, contracts (done)',
-      title: 'Audit - KYC & SAFU',
+      date: 'Audit - KYC & SAFU',
+      title: '',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
       date: 'Presale on Pinksale',
-      title: 'Listing $BIC on Pancakeswap',
+      title: '',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
-      date: 'Buyback & Burn',
-      title: 'Marketing stage 2',
+      date: 'Listing $BIC on Pancakeswap',
+      title: '',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
       date: 'Listing CEXs',
-      title: 'Banners ads',
+      title: '',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
-      date: 'Looking for Partners (expanding market)',
-      title: 'Staking with high APR',
+      date: 'Staking with high APR',
+      title: '',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
