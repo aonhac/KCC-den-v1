@@ -80,12 +80,12 @@ export const KCC = {
     {
       name: 'KuCoin',
       logo: require('../assets/images/home/kucoin.png').default,
-      route: 'https://www.kucoin.com/',
+      route: 'https://pancakeswap.finance/swap?outputCurrency=0x1a9Ed85532201502679AD4964617CcCe629D9D76',
     },
     {
       name: 'TokenView',
-      logo: require('../assets/images/home/tokenview.png').default,
-      route: 'https://tokenview.com/en',
+      logo: require('../assets/images/home/tokenview.jpg').default,
+      route: 'https://poocoin.app/tokens/0x1a9ed85532201502679ad4964617ccce629d9d76',
     },
   ],
 }
