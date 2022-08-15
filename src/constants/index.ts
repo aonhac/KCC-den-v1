@@ -1,7 +1,7 @@
 export const KCC = {
   FULLNAME: 'KuCoin Community Chain',
   ABBR: 'KCC',
-  EXPLORER: 'https://bscscan.com/',
+  EXPLORER: 'https://bscscan.com/address/0x1a9Ed85532201502679AD4964617CcCe629D9D76',
   TEST_EXPLORER: 'https://testnet.bscscan.com/',
   FAUCET: 'https://testnet.binance.org/faucet-smart',
   DOCS_URL: '/',
