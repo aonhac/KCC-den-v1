@@ -37,27 +37,73 @@ export const KCC = {
   ],
   MILESTONES: [
     {
-      date: 'Beagle Inu (testnet) launched',
+      date: '2021-04-28',
       title: 'Milestone 1',
+      icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
-      date: 'Beagle Inu launched',
+      date: '2021-06-16',
       title: 'Milestone 2',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
-      date: 'Grant Program launched',
+      date: '2021-06-18',
       title: 'Milestone 3',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
-      date: 'Beagle Inu Ambassador Program',
-      title: '',
+      date: '2021-06-25',
+      title: 'KCC Ambassador Program',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
-      date: 'Beagle Inu Bridge Launched',
-      title: '',
+      date: '2021-07-16',
+      title: 'KCC Bridge Launched',
+      icon: require('../assets/images/home/milestone-icon@2x.png').default,
+    },
+    {
+      date: '2021-09-24',
+      title: 'KCC GoDAO Foundation Registered',
+      icon: require('../assets/images/home/milestone-icon@2x.png').default,
+    },
+    {
+      date: '2021-09-27',
+      title: 'Discover Launched',
+      icon: require('../assets/images/home/milestone-icon@2x.png').default,
+    },
+    {
+      date: '2021-10-21',
+      title: 'GoDAO Launched',
+      icon: require('../assets/images/home/milestone-icon@2x.png').default,
+    },
+    {
+      date: '2021-11-19',
+      title: 'Safe.kcc.io Launched',
+      icon: require('../assets/images/home/milestone-icon@2x.png').default,
+    },
+    {
+      date: '2022-02-25',
+      title: 'Ecosystem Incentive Funds Announced',
+      icon: require('../assets/images/home/milestone-icon@2x.png').default,
+    },
+    {
+      date: '2022-03-15',
+      title: 'First Hackathon Kicked Off',
+      icon: require('../assets/images/home/milestone-icon@2x.png').default,
+    },
+     {
+      date: '2022-03-29',
+      title: 'Co-release KCS Whitepaper',
+      icon: require('../assets/images/home/milestone-icon@2x.png').default,
+    },
+    {
+      date: '2022-06-16',
+      title: 'KCC Validator Election Launched',
+      icon: require('../assets/images/home/milestone-icon@2x.png').default,
+    },
+    {
+      date: '2022-06-24',
+      title: 'KCC Mainnet Ishikari Hardfork Upgrade',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
@@ -104,8 +150,4 @@ export const KCC = {
       route: 'https://www.nestprotocol.org',
     },
   ],
-}
-
-export const APP = {
-  TOKEN_INFO_CDN: 'https://cdn.jsdelivr.net/gh/kucoin-community-chain/tokens-info@main/icons/',
 }
