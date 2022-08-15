@@ -84,7 +84,7 @@ export const KCC = {
     },
     {
       name: 'TokenView',
-      logo: require('../assets/images/home/tokenview.jpg').default,
+      logo: require('../assets/images/home/tokenview.png').default,
       route: 'https://poocoin.app/tokens/0x1a9ed85532201502679ad4964617ccce629d9d76',
     },
   ],
