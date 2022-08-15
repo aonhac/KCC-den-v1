@@ -37,73 +37,38 @@ export const KCC = {
   ],
   MILESTONES: [
     {
-      date: '2021-04-28',
-      title: 'Milestone 1',
+      date: 'Idea Formed (done)',
+      title: 'Team recruitment (done)',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
-      date: '2021-06-16',
-      title: 'Milestone 2',
+      date: 'Team recruitment (done)',
+      title: 'Marketing stage 1 (in process)',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
-      date: '2021-06-18',
-      title: 'Milestone 3',
+      date: 'Create logos, socials, contracts for BIC tokens (done)',
+      title: 'Audit - KYC & SAFU',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
-      date: '2021-06-25',
-      title: 'KCC Ambassador Program',
+      date: 'Presale on Pinksale',
+      title: 'Listing $BIC on Pancakeswap',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
-      date: '2021-07-16',
-      title: 'KCC Bridge Launched',
+      date: 'Buyback & Burn',
+      title: 'Marketing stage 2',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
-      date: '2021-09-24',
-      title: 'KCC GoDAO Foundation Registered',
+      date: 'Listing CEXs',
+      title: 'Banners ads',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
-      date: '2021-09-27',
-      title: 'Discover Launched',
-      icon: require('../assets/images/home/milestone-icon@2x.png').default,
-    },
-    {
-      date: '2021-10-21',
-      title: 'GoDAO Launched',
-      icon: require('../assets/images/home/milestone-icon@2x.png').default,
-    },
-    {
-      date: '2021-11-19',
-      title: 'Safe.kcc.io Launched',
-      icon: require('../assets/images/home/milestone-icon@2x.png').default,
-    },
-    {
-      date: '2022-02-25',
-      title: 'Ecosystem Incentive Funds Announced',
-      icon: require('../assets/images/home/milestone-icon@2x.png').default,
-    },
-    {
-      date: '2022-03-15',
-      title: 'First Hackathon Kicked Off',
-      icon: require('../assets/images/home/milestone-icon@2x.png').default,
-    },
-     {
-      date: '2022-03-29',
-      title: 'Co-release KCS Whitepaper',
-      icon: require('../assets/images/home/milestone-icon@2x.png').default,
-    },
-    {
-      date: '2022-06-16',
-      title: 'KCC Validator Election Launched',
-      icon: require('../assets/images/home/milestone-icon@2x.png').default,
-    },
-    {
-      date: '2022-06-24',
-      title: 'KCC Mainnet Ishikari Hardfork Upgrade',
+      date: 'Looking for Partners (expanding market)',
+      title: 'Staking with high APR',
       icon: require('../assets/images/home/milestone-icon@2x.png').default,
     },
     {
