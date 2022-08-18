@@ -31,7 +31,7 @@ export const KCC = {
     {
       app: 'Github',
       icon: require('../assets/images/Icons/app/github-logo@2x.png').default,
-      route: 'https://github.com/Beagleinu',
+      route: 'https://beagleinu.gitbook.io/untitled/',
     },
 
   ],
