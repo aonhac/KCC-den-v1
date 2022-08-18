@@ -29,7 +29,7 @@ export const KCC = {
       route: 'https://t.me/BeagleInuGlobal',
     },
     {
-      app: 'Github',
+      app: 'Gitbook',
       icon: require('../assets/images/Icons/app/github-logo@2x.png').default,
       route: 'https://beagleinu.gitbook.io/untitled/',
     },
