@@ -1,7 +1,7 @@
 export const KCC = {
   FULLNAME: 'KuCoin Community Chain',
   ABBR: 'KCC',
-  EXPLORER: 'https://bscscan.com/address/0x390b8f48a928408ce5f87fa129321a164fe68df2',
+  EXPLORER: 'https://bscscan.com/address/0x785700bc30de3c9a8f1dcd5cdb2652150f36ecd5',
   TEST_EXPLORER: 'https://testnet.bscscan.com/',
   FAUCET: 'https://testnet.binance.org/faucet-smart',
   DOCS_URL: '/',
@@ -80,12 +80,17 @@ export const KCC = {
     {
       name: 'KuCoin',
       logo: require('../assets/images/home/kucoin.png').default,
-      route: 'https://pancakeswap.finance/swap?outputCurrency=0x390B8F48A928408CE5f87fA129321a164Fe68Df2',
+      route: 'https://pancakeswap.finance/swap?outputCurrency=0x785700bc30de3c9a8f1dcd5cdb2652150f36ecd5',
     },
     {
       name: 'TokenView',
       logo: require('../assets/images/home/tokenview.png').default,
-      route: 'https://poocoin.app/tokens/0x390B8F48A928408CE5f87fA129321a164Fe68Df2',
+      route: 'https://poocoin.app/tokens/0x785700bc30de3c9a8f1dcd5cdb2652150f36ecd5',
+    },
+    {
+      name: 'Audit',
+      logo: require('../assets/images/home/audit.jpg').default,
+      route: 'https://github.com/ContractChecker/audits/blob/main/BeagleInu_0x785700BC30De3c9A8F1dCD5CDB2652150f36ECd5_Smart_Contract_Security_Audit_By_ContractChecker.pdf',
     },
   ],
 }
