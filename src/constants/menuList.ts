@@ -69,7 +69,37 @@ export const MENU_LIST = [
         ],
       },
       {
-
+        groupName: 'Wallet',
+        groupMember: [
+          {
+            title: 'Metamask',
+            subTitle: 'Visit and link to metamask',
+            route: 'https://metamask.io',
+            icon: require('../assets/images/Icons/menu/metamask@2x.png').default,
+          },
+          {
+            title: 'ImToken',
+            subTitle: 'Visit and link to ImToken',
+            route: 'https://token.im/',
+            icon: require('../assets/images/Icons/menu/imtoken@2x.png').default,
+          },
+          {
+            title: 'Shield Protocol',
+            subTitle: 'Visit and link to Shield Protocol',
+            route: 'https://shieldprotocol.org',
+            icon: require('../assets/images/Icons/menu/shield.png').default,
+          },
+          {
+            title: 'More Wallet',
+            subTitle: 'Coming Soon...',
+            route: '',
+            icon: require('../assets/images/Icons/menu/wallet@2x.png').default,
+          },
+        ],
+      },
+    ],
+  },
+  {
     name: 'Pinksale',
     hasChildren: true,
     childrens: [
