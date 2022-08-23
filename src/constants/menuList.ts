@@ -107,7 +107,7 @@ export const MENU_LIST = [
       {
         title: 'Beagle Sale',
         subTitle: 'support for community development and research',
-        route: 'https://www.pinksale.finance/launchpads?chain=BSC',
+        route: 'https://www.pinksale.finance/launchpad/0xb03B593C89AA23150E565F8f06e637b69CD75504?chain=BSC',
         icon: require('../assets/images/Icons/menu/grant@2x.png').default,
       },
     ],
