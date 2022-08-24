@@ -25,7 +25,7 @@ const Text = styled.span`
 const AppHeaderLogo: React.FunctionComponent<AppHeaderLogoProps> = () => {
   return (
     <AppHeaderLogoWrap>
-      <img src="/logo/Icon/KuCoinCommunityChain_Icon.png" width="35px" height="auto" />
+      <img src="/logo/Icon/beagleinu.png" width="35px" height="auto" />
       <Text className="kcc-name">{KCC.FULLNAME}</Text>
     </AppHeaderLogoWrap>
   )
