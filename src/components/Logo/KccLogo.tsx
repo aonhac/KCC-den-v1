@@ -42,7 +42,7 @@ const KccLogo: React.FunctionComponent<KccLogoProps> = ({
     } else {
       folder = 'EnglishLogo'
     }
-    return `/logo/${folder}/KuCoinCommunityChain_Green.${PictureType[sourceType]}`
+    return `/logo/${folder}/beagleinu.${PictureType[sourceType]}`
   }
 
   const logoSource = React.useMemo(() => {
