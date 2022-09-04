@@ -62,8 +62,8 @@ export const MENU_LIST = [
 
           {
             title: 'Defi Box',
-            subTitle: 'Coming Soon...',
-            route: '',
+            subTitle: 'Testnet',
+            route: 'https://testnet.beagleinu.com/',
             icon: require('../assets/images/Icons/menu/chrome@2x.png').default,
           },
         ],
