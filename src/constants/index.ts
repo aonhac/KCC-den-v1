@@ -92,5 +92,15 @@ export const KCC = {
       logo: require('../assets/images/home/audit.jpg').default,
       route: 'https://github.com/ContractChecker/audits/blob/main/BeagleInu_0x785700BC30De3c9A8F1dCD5CDB2652150f36ECd5_Smart_Contract_Security_Audit_By_ContractChecker.pdf',
     },
+    {
+      name: 'Coingecko',
+      logo: require('../assets/images/home/coingecko.png').default,
+      route: 'https://www.coingecko.com/en/coins/beagle-inu',
+    },
+    {
+      name: 'Coinmarketcap',
+      logo: require('../assets/images/home/coinmarket.png').default,
+      route: 'https://coinmarketcap.com/currencies/beagleinu/',
+    },
   ],
 }
